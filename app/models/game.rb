@@ -11,4 +11,16 @@ class Game < ActiveRecord::Base
   # losers
   has_many :losing_participations, -> {where :is_winner => false}, :class_name => "GameParticipation"
   has_many :losers, :through => :losing_participations, :class_name => "Player", :source => :player
+
+  # validation
+  validates :winners, length: {is: 2}
+  validates :losers, length: {is: 2}
+  validate :users_are_unique
+
+  def users_are_unique
+    temp_players = winners + losers
+    unless temp_players.count == temp_players.uniq.count
+      errors.add(:players, "can't contain duplicates")
+    end
+  end
 end
