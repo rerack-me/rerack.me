@@ -15,4 +15,6 @@ class Player < ActiveRecord::Base
   # all games a user has lost
   has_many :game_losses, -> {where :is_winner => false}, :class_name => "GameParticipation"
   has_many :games_lost, :through => :game_losses, :class_name => "Game", :source => :game
+
+  accepts_nested_attributes_for :game_participations, :game_wins, :game_losses
 end
