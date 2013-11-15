@@ -9,6 +9,9 @@ gem 'sqlite3'
 # manage authentication and authorization
 gem 'devise'
 
+# haml for layout
+gem 'haml'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
