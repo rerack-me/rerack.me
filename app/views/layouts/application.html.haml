@@ -20,6 +20,7 @@
         %ul.nav.navbar-nav.navbar-right
           %li
             = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
+            
     - flash.each do |key, value|
       - case key.to_s
       - when "notice"
