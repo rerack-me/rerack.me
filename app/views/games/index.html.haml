@@ -1,21 +1,4 @@
 %h1 Game Feed
 
 - @games.each do |game|
-  .game
-    .panel.panel-default
-      .panel-heading
-        = time_ago_in_words game.created_at
-        ago
-      .panel-body
-        .row
-          .col-sm-5
-            .well
-              - game.winners.each do |player|
-                = player.username
-          .col-sm-2.text-center
-            Beat
-          .col-sm-5
-            .well
-              - game.losers.each do |player|
-                = player.username
-
+  = render partial: "game", object: game
