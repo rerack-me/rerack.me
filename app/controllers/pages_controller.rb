@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   def home
-    # TODO: add logic with signing in and routing
+    unless current_player
+      redirect_to player_session_path
+    end
   end
 end
