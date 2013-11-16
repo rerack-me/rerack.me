@@ -18,6 +18,8 @@ class Player < ActiveRecord::Base
 
   accepts_nested_attributes_for :game_participations, :game_wins, :game_losses
 
+  validates :username, presence: true, uniqueness: true
+
 #return ranking of player based on algorithm
   def ranking
   end
