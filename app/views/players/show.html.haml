@@ -1,0 +1,9 @@
+.row
+  .col-md-3
+    %h1= @player.username
+    %h4 1234 Points, ranked 12/40 (placeholder)
+  .col-md-9
+    %h3 Games #{@player.username} has played in
+
+    - @player.games.each do |game|
+      = render partial: "games/game", object: game
