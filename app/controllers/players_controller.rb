@@ -6,6 +6,15 @@ class PlayersController < ApplicationController
   def show
   end
 
+  def index
+    @players = Player.all
+    respond_to do |format|
+      format.json {
+        render json: @players.map { |player| player.username }
+      }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player

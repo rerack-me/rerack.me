@@ -12,6 +12,9 @@ gem 'devise'
 # haml for layout
 gem 'haml'
 
+# for twitter typeahead
+gem 'twitter-typeahead-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

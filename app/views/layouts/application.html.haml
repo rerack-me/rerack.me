@@ -1,7 +1,7 @@
 !!! html
 %html
   %head
-    %title VpontisStubailoDsessomsSanthoshnarayanFinal
+    %title rerack.me
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
@@ -20,6 +20,7 @@
         %ul.nav.navbar-nav.navbar-right
           %li
             = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
+            
     - flash.each do |key, value|
       - case key.to_s
       - when "notice"
