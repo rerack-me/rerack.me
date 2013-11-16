@@ -2,6 +2,7 @@ VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
   devise_for :players
 
   resources :games
+  resources :players, :only => [:show]
 
   root 'pages#home'
   # The priority is based upon order of creation: first created -> highest priority.
