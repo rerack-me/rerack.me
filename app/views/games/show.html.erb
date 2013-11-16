@@ -5,6 +5,9 @@
   <%= player.username %>
 <% end %>
 <h2>Losers</h2>
+<% @game.losers.each do |player| %>
+  <%= player.username %>
+  <%end%>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

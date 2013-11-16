@@ -1,4 +1,4 @@
-<%= form_for(@game) do |f| %>
+ <%= form_for(@game) do |f| %>
   <% if @game.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
@@ -11,13 +11,21 @@
     </div>
   <% end %>
 
-  Winners:
-  <%= text_field_tag "game[winner_usernames][]", "alice" %>
-  <%= text_field_tag "game[winner_usernames][]", "bob" %>
-  
-  Losers:
-  <%= text_field_tag "game[loser_usernames][]", "calvin" %>
-  <%= text_field_tag "game[loser_usernames][]", "david" %>
+  <div id="winners_form" class="field">
+    <h3>Winners</h3>
+    <%= f.fields_for :winning_participations do |builder|%>
+    <%= render "winner_form", :f => builder %>
+    <%end%>
+  </div>
+
+  <div id="losers_form" class="field">
+    <h3>Losers</h3>
+    <%= f.fields_for :losing_participations do |builder|%>
+    <%= render "loser_form", :f => builder %>
+    <%end%>
+  </div>
+
+
 
   <div class="actions">
     <%= f.submit %>

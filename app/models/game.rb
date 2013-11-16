@@ -30,6 +30,20 @@ class Game < ActiveRecord::Base
   def loser_usernames=(usernames)
     self.losers = Player.where(:username => usernames)
   end
+
+  def addWinners(winners)
+    winners.values.each do |winner_params|
+      @winner=self.winning_participations.new(winner_params)
+      @winner.save
+    end
+  end
+
+  def addLosers(losers)
+    losers.values.each do |loser_params|
+      @loser=self.losing_participations.new(loser_params)
+      @loser.save
+    end
+  end
   
   <<-COMMENT
   # validation

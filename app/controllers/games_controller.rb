@@ -15,6 +15,8 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    2.times {@game.winning_participations.build()}
+    2.times {@game.losing_participations.build()}
   end
 
   # GET /games/1/edit
@@ -28,6 +30,8 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
+        @game.addWinners(params[:game][:winning_participations_attributes])
+        @game.addLosers(params[:game][:losing_participations_attributes])
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
         format.json { render action: 'show', status: :created, location: @game }
       else

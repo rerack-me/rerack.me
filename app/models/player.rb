@@ -17,4 +17,9 @@ class Player < ActiveRecord::Base
   has_many :games_lost, :through => :game_losses, :class_name => "Game", :source => :game
 
   accepts_nested_attributes_for :game_participations, :game_wins, :game_losses
+
+#return ranking of player based on algorithm
+  def ranking
+  end
+
 end
