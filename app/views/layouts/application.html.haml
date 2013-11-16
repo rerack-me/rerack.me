@@ -7,8 +7,28 @@
     = csrf_meta_tags
 %body
   .container
+    %nav.navbar.navbar-default
+      .navbar-header
+        %a.navbar-brand
+          rerack
+      - if current_player
+        %ul.nav.navbar-nav
+          %li
+            = link_to "Add Game", new_game_path
+          %li
+            = link_to "Game Feed", games_path
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
     - flash.each do |key, value|
-      .alert{:class => "alert-#{key}"}
+      - case key.to_s
+      - when "notice"
+        - alert_class = "success"
+      - when "error"
+        - alert_class = "danger"
+      - else
+        - alert_class = "info"
+      .alert{:class => "alert-#{alert_class}"}
         = value
 
     = yield
