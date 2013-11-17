@@ -33,13 +33,13 @@ ActiveRecord::Schema.define(version: 20131117035209) do
   end
 
   create_table "players", force: true do |t|
-    t.string   "username",               default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "username",               default: "",     null: false
+    t.string   "email",                  default: "",     null: false
+    t.string   "encrypted_password",     default: "",     null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -50,9 +50,11 @@ ActiveRecord::Schema.define(version: 20131117035209) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "points",                 default: 1000.0
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true
+  add_index "players", ["points"], name: "index_players_on_points"
   add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true
 
 end

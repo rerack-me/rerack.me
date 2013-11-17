@@ -28,6 +28,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
+        update_points(@game)
         format.html { redirect_to games_path, notice: 'Game was successfully created.' }
         format.json { render action: 'show', status: :created, location: @game }
       else
@@ -70,5 +71,31 @@ class GamesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
       params.require(:game).permit(:winner_usernames => [], :loser_usernames => [])
+    end
+
+    def update_points(game)
+      winners = game.winners
+      losers = game.losers
+
+      winners_rating = (winners[0].points + winners[1].points)/2
+      losers_rating = (losers[0].points + losers[1].points)/2
+
+      q_winners = 10**(winners_rating/400)
+      q_losers = 10**(losers_rating/400)
+
+      expected_winners = q_winners/(q_winners + q_losers)
+      expected_losers = q_losers/(q_winners + q_losers)
+
+      point_change = 32*(1 - expected_winners)
+
+      winners.each do |winner|
+        winner.points += point_change
+        winner.save
+      end
+
+      losers.each do |loser|
+        loser.points -= point_change
+        loser.save
+      end
     end
 end
