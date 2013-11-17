@@ -1,6 +1,8 @@
 VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
   devise_for :players
 
+  resources :games, :only => [:new, :create, :index]
+  resources :players, :only => [:show, :index]
 
   root 'pages#home'
   # The priority is based upon order of creation: first created -> highest priority.
