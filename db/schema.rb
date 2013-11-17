@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131114050637) do
+ActiveRecord::Schema.define(version: 20131117032102) do
 
   create_table "game_participations", force: true do |t|
     t.integer  "player_id"
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 20131114050637) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "points"
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true
+  add_index "players", ["points"], name: "index_players_on_points"
   add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true
 
 end
