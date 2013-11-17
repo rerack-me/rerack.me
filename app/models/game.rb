@@ -31,24 +31,30 @@ class Game < ActiveRecord::Base
     self.losers = Player.where(:username => usernames)
   end
 
-  def addWinners(winners)
-    winners.values.each do |winner_params|
-      @winner=self.winning_participations.new(winner_params)
-      @winner.save
+  def add_winners(usernames)
+    self.save
+    self.winner_usernames=(usernames)
+    if self.winners.count == 2
+      true
+    else
+      'You must have two different winners.'
     end
   end
 
-  def addLosers(losers)
-    losers.values.each do |loser_params|
-      @loser=self.losing_participations.new(loser_params)
-      @loser.save
+  def add_losers(usernames)
+    self.save
+    self.loser_usernames=(usernames)
+    if self.losers.count == 2
+      true
+    else
+      'You must have two different losers.'
     end
   end
   
-  <<-COMMENT
+  # <<-COMMENT
   # validation
-  validates :winners, length: {is: 2}
-  validates :losers, length: {is: 2}
+  # validates :winners, length: {is: 2}
+  # validates :losers, length: {is: 2}
   validate :users_are_unique
 
   def users_are_unique
@@ -57,5 +63,4 @@ class Game < ActiveRecord::Base
       errors.add(:players, "can't contain duplicates")
     end
   end
-  COMMENT
 end

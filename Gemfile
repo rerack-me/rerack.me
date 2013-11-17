@@ -11,6 +11,9 @@ gem 'devise'
 # haml for layout
 gem 'haml'
 
+# for twitter typeahead
+gem 'twitter-typeahead-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -39,6 +42,9 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+# use a better server
+gem 'thin'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
