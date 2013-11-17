@@ -5,14 +5,12 @@
       ago
     .panel-body
       .row
-        .col-sm-5
-          .well
-            - game.winners.each do |player|
-              = link_to player.username, player
+        .col-sm-5.text-right
+          - game.winners.each do |player|
+            = render :partial => "players/player", :object => player
         .col-sm-2.text-center
-          Beat
-        .col-sm-5
-          .well
-            - game.losers.each do |player|
-              = link_to player.username, player
+          won against
+        .col-sm-5.text-left
+          - game.losers.each do |player|
+            = render :partial => "players/player", :object => player
 

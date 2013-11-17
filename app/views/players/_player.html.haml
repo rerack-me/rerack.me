@@ -1,4 +1,5 @@
 .player
-  %span.username= player.username
-  %span.email= player.email
-  %span.points= number_with_precision(player.points, precision: 2)
+  %span.rank ##{player.ranking}
+  %span.username
+    %strong= link_to player.username, player
+  %span.points (#{number_with_precision(player.points, precision: 2)})
