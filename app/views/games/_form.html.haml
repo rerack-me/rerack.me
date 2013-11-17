@@ -8,14 +8,16 @@
           %li= msg
 
   %h4 Winners
-  = f.fields_for :winning_participations do |builder|
-    .form-group
-      = builder.text_field :username, :placeholder => "username", :class => "form-control player-input"
+  .form-group
+    = text_field_tag "game[winner_usernames][]", @game.winner_usernames[0], :placeholder => "username", :class => "form-control player-input"
+  .form-group
+    = text_field_tag "game[winner_usernames][]", @game.winner_usernames[1], :placeholder => "username", :class => "form-control player-input"
 
   %h4 Losers
-  = f.fields_for :losing_participations do |builder|
-    .form-group
-      = builder.text_field :username, :placeholder => "username", :class => "form-control player-input"
+  .form-group
+    = text_field_tag "game[loser_usernames][]", @game.loser_usernames[0], :placeholder => "username", :class => "form-control player-input"
+  .form-group
+    = text_field_tag "game[loser_usernames][]", @game.loser_usernames[1], :placeholder => "username", :class => "form-control player-input"
 
   .actions
     = f.submit :class => "btn btn-primary" 

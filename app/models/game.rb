@@ -1,18 +1,16 @@
 class Game < ActiveRecord::Base
 
-  # all players that participated in a game
-  has_many :game_participations
-  has_many :players, :through => :game_participations
-
   # winners
-  has_many :winning_participations, -> {where :is_winner => true}, :class_name => "GameParticipation"
-  has_many :winners, :through => :winning_participations, :class_name => "Player", :source => :player
+  has_many :game_winners
+  has_many :winners, :through => :game_winners, :source => "player"
 
   # losers
-  has_many :losing_participations, -> {where :is_winner => false}, :class_name => "GameParticipation"
-  has_many :losers, :through => :losing_participations, :class_name => "Player", :source => :player
+  has_many :game_losers
+  has_many :losers, :through => :game_losers, :source => "player"
   
-  accepts_nested_attributes_for :game_participations, :winning_participations, :losing_participations
+  def players
+    return winners.merge losers
+  end
 
   # getting and setting lists of usernames
   def winner_usernames
@@ -31,30 +29,9 @@ class Game < ActiveRecord::Base
     self.losers = Player.where(:username => usernames)
   end
 
-  def add_winners(usernames)
-    self.save
-    self.winner_usernames=(usernames)
-    if self.winners.count == 2
-      true
-    else
-      'You must have two different winners.'
-    end
-  end
-
-  def add_losers(usernames)
-    self.save
-    self.loser_usernames=(usernames)
-    if self.losers.count == 2
-      true
-    else
-      'You must have two different losers.'
-    end
-  end
-  
-  # <<-COMMENT
   # validation
-  # validates :winners, length: {is: 2}
-  # validates :losers, length: {is: 2}
+  validates :winners, length: {is: 2}
+  validates :losers, length: {is: 2}
   validate :users_are_unique
 
   def users_are_unique
