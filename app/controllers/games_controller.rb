@@ -27,8 +27,8 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     respond_to do |format|
-      update_points(@game)
       if @game.save
+        update_points(@game)
         format.html { redirect_to games_path, notice: 'Game was successfully created.' }
         format.json { render action: 'show', status: :created, location: @game }
       else

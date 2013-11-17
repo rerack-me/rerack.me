@@ -9,14 +9,6 @@ class PlayersController < ApplicationController
   def index
     # calculate_rankings
     @players = Player.all.order('points DESC')
-    respond_to do |format|
-      format.json {
-        render json: @players.map { |player| player.username }
-      }
-      format.html {
-        render 'index'
-      }
-    end
   end
 
   private
