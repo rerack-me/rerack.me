@@ -15,8 +15,6 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
-    2.times {@game.winning_participations.build()}
-    2.times {@game.losing_participations.build()}
   end
 
   # GET /games/1/edit
@@ -27,24 +25,6 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(game_params)
-
-    winning_usernames = params[:game][:winning_participations_attributes].values.map {|dict| dict[:username]}
-    losing_usernames = params[:game][:losing_participations_attributes].values.map {|dict| dict[:username]}
-
-    add_winners = @game.add_winners(winning_usernames)
-    add_losers = @game.add_losers(losing_usernames)
-
-    if add_winners != true
-      flash[:danger] = add_winners
-      redirect_to new_game_path
-      return
-    end
-
-    if add_losers != true
-      flash[:danger] = add_losers
-      redirect_to new_game_path
-      return
-    end
 
     respond_to do |format|
       if @game.save
@@ -89,6 +69,6 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:winning_participations_attributes => [], :losing_participations_attributes => [])
+      params.require(:game).permit(:winner_usernames => [], :loser_usernames => [])
     end
 end
