@@ -17,6 +17,12 @@ gem 'twitter-typeahead-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
+group :development do
+  # fake name generator
+  # does not play nice with Heroku
+  gem 'faker'
+end
+
 # Experimental Bootstrap 3.0 beta -- use at your own risk.
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
 
