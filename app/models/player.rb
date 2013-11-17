@@ -6,21 +6,26 @@ class Player < ActiveRecord::Base
 
 
   def games
-    return wins.merge losses
+    return wins + losses
+  end
+
+  def games_count
+    return wins.count + losses.count
   end
 
   # all games a user has won
   has_many :game_winners
-  has_many :wins, :through => :game_winners, :source => :player
+  has_many :wins, :through => :game_winners, :source => :game
   
   # all games a user has lost
   has_many :game_losers
-  has_many :losses, :through => :game_losers, :source => :player
+  has_many :losses, :through => :game_losers, :source => :game
 
   validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
   def ranking
+    Player.where("points > ?", points).count + 1
   end
 
 end

@@ -1,9 +1,16 @@
 .row
   .col-md-3
     %h1= @player.username
-    %h4 1234 Points, ranked 12/40 (placeholder)
+    %ul.player-stats
+      %li #{@player.points} Points
+      %li Ranked #{@player.ranking}/#{Player.count}
+      %li Played #{pluralize @player.games_count, "game"}
   .col-md-9
-    %h3 Games #{@player.username} has played in
+    - if @player.games
+      %h3 Games #{@player.username} has played in
 
-    - @player.games.each do |game|
-      = render partial: "games/game", object: game
+      - @player.games.each do |game|
+        - puts game
+        = render partial: "games/game", object: game
+    - else
+      .well #{@player.username} hasn't played any games yet!
