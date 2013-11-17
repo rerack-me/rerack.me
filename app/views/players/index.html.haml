@@ -1,3 +1,15 @@
 %h1 Player Rankings
 
-= render partial: 'player', collection: @players
+%table.table.table-striped
+  %tr
+    %th Rank
+    %th Username
+    %th Points
+    %th # Games
+  - @players.each do |player|
+    %tr
+      %td= player.ranking
+      %td
+        %strong= link_to player.username, player
+      %td= player.points
+      %td= player.games_count

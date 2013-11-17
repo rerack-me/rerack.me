@@ -1,5 +1,6 @@
 .player
-  %span.rank ##{player.ranking}
   %span.username
     %strong= link_to player.username, player
-  %span.points (#{number_with_precision(player.points, precision: 2)})
+  %span.mini_summary 
+    \##{player.ranking},
+    #{number_with_precision(player.points, precision: 0)} 

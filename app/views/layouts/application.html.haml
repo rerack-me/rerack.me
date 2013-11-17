@@ -7,23 +7,36 @@
     = csrf_meta_tags
 %body
   .container
-    %nav.navbar.navbar-default
-      .navbar-header
-        %a.navbar-brand
-          rerack
-      - if current_player
-        %ul.nav.navbar-nav
-          %li
-            = link_to "Add Game", new_game_path
-          %li
-            = link_to "Game Feed", games_path
-          %li
-            = link_to "Rankings", players_path
-        %ul.nav.navbar-nav.navbar-right
-          %li
-            .navbar-text= render :partial => "players/player", :object => current_player
-          %li
-            = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
+    - if current_player
+      %nav.navbar.navbar-default
+        .navbar-header
+          %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand
+            rerack
+          .visible-xs.pull-left{:style => "position: relative; top: 8px"}
+            = link_to "Add Game", new_game_path, :class => "btn btn-primary"
+
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li.hidden-xs
+              = link_to "Add Game", new_game_path
+            %li
+              = link_to "Game Feed", games_path
+            %li
+              = link_to "Rankings", players_path
+
+          %ul.nav.navbar-nav.navbar-right.hidden-xs
+            %li
+              = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
+          .navbar-text.navbar-right= render :partial => "players/player", :object => current_player
+          -# duplicated so that it appears at the bottom in the collapsed menu
+          %ul.nav.navbar-nav.navbar-right.visible-xs
+            %li
+              = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
             
     - flash.each do |key, value|
       - case key.to_s

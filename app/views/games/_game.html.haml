@@ -5,12 +5,12 @@
       ago
     .panel-body
       .row
-        .col-sm-5.text-right
+        .col-sm-5.text-right.winners
           - game.winners.each do |player|
             = render :partial => "players/player", :object => player
-        .col-sm-2.text-center
+        .col-sm-2.text-center.separator
           won against
-        .col-sm-5.text-left
+        .col-sm-5.text-left.losers
           - game.losers.each do |player|
             = render :partial => "players/player", :object => player
 

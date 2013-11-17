@@ -3,8 +3,8 @@
     %h1= @player.username
     %ul.player-stats
       %li #{@player.points} Points
-      %li Ranked #{@player.ranking}/#{Player.count}
-      %li Played #{pluralize @player.games_count, "game"}
+      %li Ranked ##{@player.ranking}/#{Player.count}
+      %li Has played #{pluralize @player.games_count, "game"}
   .col-md-9
     - if @player.games
       %h3 Games #{@player.username} has played in

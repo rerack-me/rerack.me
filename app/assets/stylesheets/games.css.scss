@@ -1,0 +1,13 @@
+@import "bootstrap/variables";
+
+@media (max-width: $screen-xs-max) {
+  .game {
+    .separator {
+      margin: 10px 0;
+    }
+
+    .text-center, .text-right {
+      text-align: left;
+    }
+  }
+}
