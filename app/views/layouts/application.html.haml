@@ -17,6 +17,8 @@
             = link_to "Add Game", new_game_path
           %li
             = link_to "Game Feed", games_path
+          %li
+            = link_to "Rankings", players_path
         %ul.nav.navbar-nav.navbar-right
           %li
             = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
