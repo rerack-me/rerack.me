@@ -4,23 +4,22 @@ class Player < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  # all games a user has participated in
-  has_many :game_participations
-  has_many :games, :through => :game_participations
+
+  def games
+    return wins.merge losses
+  end
 
   # all games a user has won
-  has_many :game_wins, -> {where :is_winner => true}, :class_name => "GameParticipation"
-  has_many :games_won, :through => :game_wins, :class_name => "Game", :source => :game
+  has_many :game_winners
+  has_many :wins, :through => :game_winners
   
   # all games a user has lost
-  has_many :game_losses, -> {where :is_winner => false}, :class_name => "GameParticipation"
-  has_many :games_lost, :through => :game_losses, :class_name => "Game", :source => :game
-
-  accepts_nested_attributes_for :game_participations, :game_wins, :game_losses
+  has_many :game_losers
+  has_many :losses, :through => :game_losers
 
   validates :username, presence: true, uniqueness: true
 
-#return ranking of player based on algorithm
+  #return ranking of player based on algorithm
   def ranking
   end
 

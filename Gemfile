@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 
 # manage authentication and authorization
 gem 'devise'
@@ -44,6 +43,9 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# use a better server
+gem 'thin'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -55,3 +57,13 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# heroku
+group :development do
+  gem 'sqlite3'
+end
+group :production do
+  gem 'pg'
+end
+
+

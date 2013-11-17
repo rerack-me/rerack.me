@@ -13,8 +13,8 @@ class GameTest < ActiveSupport::TestCase
   
   test "adding users from usernames" do
     g = Game.new
-    g.add_winners ["alice", "bob"]
-    g.add_losers ["calvin", "david"]
+    g.winner_usernames = ["alice", "bob"]
+    g.loser_usernames = ["calvin", "david"]
     assert g.save, "Game with users set from usernames didn't save."
 
     g_id = g.id
