@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20131114050637) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "points"                 default: "1000"
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true
