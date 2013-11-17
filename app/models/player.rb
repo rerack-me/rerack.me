@@ -11,11 +11,11 @@ class Player < ActiveRecord::Base
 
   # all games a user has won
   has_many :game_winners
-  has_many :wins, :through => :game_winners
+  has_many :wins, :through => :game_winners, :source => :player
   
   # all games a user has lost
   has_many :game_losers
-  has_many :losses, :through => :game_losers
+  has_many :losses, :through => :game_losers, :source => :player
 
   validates :username, presence: true, uniqueness: true
 
