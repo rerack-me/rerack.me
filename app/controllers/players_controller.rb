@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
   end
 
   def index
-    calculate_rankings
+    # calculate_rankings
     @players = Player.all.order('points DESC')
     respond_to do |format|
       format.json {
@@ -25,33 +25,33 @@ class PlayersController < ApplicationController
       @player = Player.find(params[:id])
     end
 
-    def calculate_rankings
-      Player.all.each { |player| player.points = 1000; player.save }
+    # def calculate_rankings
+    #   Player.all.each { |player| player.points = 1000; player.save }
 
-      Game.all.order('created_at asc').each do |game|
-        winners = game.winners
-        losers = game.losers
+    #   Game.all.order('created_at asc').each do |game|
+    #     winners = game.winners
+    #     losers = game.losers
 
-        winners_rating = (winners[0].points + winners[1].points)/2
-        losers_rating = (losers[0].points + losers[1].points)/2
+    #     winners_rating = (winners[0].points + winners[1].points)/2
+    #     losers_rating = (losers[0].points + losers[1].points)/2
 
-        q_winners = 10**(winners_rating/400)
-        q_losers = 10**(losers_rating/400)
+    #     q_winners = 10**(winners_rating/400)
+    #     q_losers = 10**(losers_rating/400)
 
-        expected_winners = q_winners/(q_winners + q_losers)
-        expected_losers = q_losers/(q_winners + q_losers)
+    #     expected_winners = q_winners/(q_winners + q_losers)
+    #     expected_losers = q_losers/(q_winners + q_losers)
 
-        point_change = 32*(1 - expected_winners)
+    #     point_change = 32*(1 - expected_winners)
 
-        winners.each do |winner|
-          winner.points += point_change
-          winner.save
-        end
+    #     winners.each do |winner|
+    #       winner.points += point_change
+    #       winner.save
+    #     end
 
-        losers.each do |loser|
-          loser.points -= point_change
-          loser.save
-        end
-      end
-    end
+    #     losers.each do |loser|
+    #       loser.points -= point_change
+    #       loser.save
+    #     end
+    #   end
+    # end
 end
