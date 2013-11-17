@@ -4,8 +4,8 @@ namespace :db do
 
     10.times do |n|    
       p = Player.new
-      p.username = "#{n}_player"
-      p.email = "#{n}_player@example.com"
+      p.username = "Player #{n}"
+      p.email = "#player_#{n}@gmail.com"
       p.password = 'passpass'
       p.password_confirmation = 'passpass'
       p.skip_confirmation!
