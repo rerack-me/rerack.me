@@ -1,5 +1,9 @@
 @import "bootstrap/variables";
 
+.separator {
+  margin: 0.5em 0;
+}
+
 @media (max-width: $screen-xs-max) {
   .game {
     .separator {
