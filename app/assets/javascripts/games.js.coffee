@@ -1,4 +1,4 @@
-$(document).ready () ->
+$ ->
   $(".player-input").typeahead
     prefetch: "/players.json"
     valueKey: "username"
