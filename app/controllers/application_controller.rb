@@ -4,8 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
+  before_filter :ensure_login 
 
 protected
+  def ensure_login
+    unless current_player or params[:controller].start_with? "devise"
+      redirect_to new_player_registration_path
+    end
+  end
+
   def configure_devise_permitted_parameters
     registration_params = [:username, :email, :password, :password_confirmation]
 

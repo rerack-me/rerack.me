@@ -4,6 +4,7 @@
     %title rerack.me
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    %meta{:name => "viewport", :content => "width=device-width, user-scalable=no"}
     = csrf_meta_tags
 %body
   .container
@@ -15,8 +16,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand
-            rerack
+          = link_to "rerack.me", root_path, :class => "navbar-brand"
           .visible-xs.pull-left{:style => "position: relative; top: 8px"}
             = link_to "Add Game", new_game_path, :class => "btn btn-primary"
 
@@ -37,6 +37,9 @@
           %ul.nav.navbar-nav.navbar-right.visible-xs
             %li
               = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
+    - else # not logged in
+      %h1.text-center rerack.me
+      %p.text-center The best pong player ranking system.
             
     - flash.each do |key, value|
       - case key.to_s
