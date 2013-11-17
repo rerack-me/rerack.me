@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+  after_create :transfer_points
 
   # winners
   has_many :game_winners
@@ -39,14 +40,14 @@ class Game < ActiveRecord::Base
   validates :losers, length: {is: 2, message: "should have 2 players."}
 
   def all_users_found
+    total_not_found = []
+
     if @winner_usernames
-      winner_not_found = @winner_usernames - winner_usernames
+      total_not_found += @winner_usernames - winner_usernames
     end
     if @loser_usernames
-      loser_not_found = @loser_usernames - loser_usernames
+      total_not_found += @loser_usernames - loser_usernames
     end
-
-    total_not_found = winner_not_found + loser_not_found
 
     if total_not_found.any?
       errors.add(:players, total_not_found.join(", ") + " not found.")
@@ -57,6 +58,29 @@ class Game < ActiveRecord::Base
     temp_players = winners + losers
     unless temp_players.count == temp_players.uniq.count
       errors.add(:players, "can't contain duplicates")
+    end
+  end
+
+  def transfer_points
+    winners_rating = (self.winners[0].points + self.winners[1].points)/2
+    losers_rating = (self.losers[0].points + self.losers[1].points)/2
+
+    q_winners = 10**(winners_rating/400)
+    q_losers = 10**(losers_rating/400)
+
+    expected_winners = q_winners/(q_winners + q_losers)
+    expected_losers = q_losers/(q_winners + q_losers)
+
+    point_change = 32*(1 - expected_winners)
+
+    self.winners.each do |winner|
+      winner.points += point_change
+      winner.save
+    end
+
+    self.losers.each do |loser|
+      loser.points -= point_change
+      loser.save
     end
   end
 end
