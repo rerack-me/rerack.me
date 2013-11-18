@@ -2,7 +2,7 @@
   .col-md-3
     %h1= @player.username
     %ul.player-stats
-      %li #{@player.points} Points
+      %li #{number_with_precision(@player.points, precision: 0)} Points
       %li Ranked ##{@player.ranking}/#{Player.count}
       %li Has played #{pluralize @player.games_count, "game"}
   .col-md-9
