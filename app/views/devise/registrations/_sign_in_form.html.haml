@@ -1,6 +1,6 @@
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
   .form-group
-    = f.label :login
+    = f.label "Username or Email"
     = f.text_field :login, :autofocus => true, class: 'form-control'
 
   .form-group
