@@ -5,5 +5,4 @@ init_typeahead = ->
     valueKey: "username"
     ttl: 0
 
-$ init_typeahead
-$(document).on("ready", init_typeahead)
+$(document).on("ready page:load", init_typeahead)
