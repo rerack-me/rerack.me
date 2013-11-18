@@ -26,7 +26,7 @@ class Player < ActiveRecord::Base
 
   #return ranking of player based on algorithm
   def ranking
-    Player.where("points > ?", points).count + 1
+    Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
   #override will allow for loggin in with email
