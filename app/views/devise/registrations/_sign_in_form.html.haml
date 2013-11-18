@@ -1,9 +1,7 @@
-%h2 Sign in
-
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
   .form-group
-    = f.label :email
-    = f.email_field :email, :autofocus => true, class: 'form-control'
+    = f.label :login
+    = f.text_field :login, :autofocus => true, class: 'form-control'
 
   .form-group
     = f.label :password 
@@ -16,4 +14,3 @@
   .actions
     = f.submit "Sign in", class: 'btn btn-primary' 
 
-= render "devise/shared/links"
