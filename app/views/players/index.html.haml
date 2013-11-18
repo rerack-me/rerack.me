@@ -11,5 +11,5 @@
       %td= player.ranking
       %td
         %strong= link_to player.username, player
-      %td= player.points
+      %td= number_with_precision(player.points, precision: 0)
       %td= player.games_count

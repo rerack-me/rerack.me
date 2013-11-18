@@ -1,26 +1,29 @@
-%h2 Sign up
+.visible-xs
+  %ul.nav.nav-tabs
+    %li.active
+      %a{:href => "#sign_in", :"data-toggle" => "tab"} Sign In
+    %li
+      %a{:href => "#sign_up", :"data-toggle" => "tab"} Sign Up
 
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-  = devise_error_messages!
+  .tab-content
+    .tab-pane.active#sign_in
+      %br
+      = render "sign_in_form"
 
-  .form-group
-    = f.label :username
-    = f.text_field :username, :autofocus => true, class: "form-control"
+    .tab-pane#sign_up
+      %br
+      = render "registration_form"
 
-  .form-group
-    = f.label :email
-    = f.email_field :email, :autofocus => true, class: 'form-control'
+  = render "devise/shared/links"
 
-  .form-group
-    = f.label :password 
-    = f.password_field :password, class: 'form-control'
+.hidden-xs
+  .row
+    .col-sm-6
+      %h2 Sign in
+      = render "sign_in_form"
 
-  .form-group
-    = f.label :password_confirmation 
-    = f.password_field :password_confirmation, class: 'form-control'
+    .col-sm-6
+      %h2 Sign up
+      = render "registration_form"
 
-  .actions
-    = f.submit "Sign up", class: 'btn btn-primary' 
-
-= render "devise/shared/links"
-
+  = render "devise/shared/links"

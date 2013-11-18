@@ -3,8 +3,15 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use sqlite3 as the database for Active Record
-gem 'rails_12factor', group: :production
+group :development, :test do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 # manage authentication and authorization
 gem 'devise'
@@ -17,6 +24,12 @@ gem 'twitter-typeahead-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
+
+group :development do
+  # fake name generator
+  # does not play nice with Heroku
+  gem 'faker'
+end
 
 # Experimental Bootstrap 3.0 beta -- use at your own risk.
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
@@ -58,13 +71,3 @@ gem 'thin'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-# heroku
-group :development do
-  gem 'sqlite3'
-end
-group :production do
-  gem 'pg'
-end
-
-

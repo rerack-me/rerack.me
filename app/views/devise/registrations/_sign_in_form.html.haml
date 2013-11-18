@@ -1,0 +1,15 @@
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  .form-group
+    = f.label "Username or Email"
+    = f.text_field :login, :autofocus => true, class: 'form-control'
+
+  .form-group
+    = f.label :password 
+    = f.password_field :password, class: 'form-control'
+
+  - if devise_mapping.rememberable?
+    = f.check_box :remember_me 
+    = f.label :remember_me 
+
+  .actions
+    = f.submit "Sign in", class: 'btn btn-primary' 

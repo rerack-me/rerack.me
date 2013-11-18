@@ -8,23 +8,27 @@
     = f.text_field :username, :autofocus => true, class: 'form-control' 
 
   .form-group
-    = f.label :email <br />
-    = f.email_field :email 
+    = f.label :email 
+    = f.email_field :email, class: 'form-control' 
 
   - if devise_mapping.confirmable? && resource.pending_reconfirmation? 
     %p= "Currently waiting confirmation for: #{resource.unconfirmed_email}" 
 
-  = f.label :password, "(leave blank if you don't want to change it)"
-  = f.password_field :password, :autocomplete => "off" 
+  .form-group
+    = f.label :password, "Password (leave blank if you don't want to change it)"
+    = f.password_field :password, :autocomplete => "off", class: 'form-control'
 
-  = f.label :password_confirmation 
-  = f.password_field :password_confirmation 
+  .form-group
+    = f.label :password_confirmation 
+    = f.password_field :password_confirmation, class: 'form-control' 
 
-  = f.label :current_password, "(we need your current password to confirm your changes)"
-  = f.password_field :current_password 
+  .form-group
+    = f.label :current_password, "Current Password (we need your current password to confirm your changes)"
+    = f.password_field :current_password, class: 'form-control' 
 
-  = f.submit "Update" 
- end 
+  .actions
+    = f.submit "Update", class: 'btn btn-primary'
+ 
 
 %h3 Cancel my account
 
