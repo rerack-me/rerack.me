@@ -8,7 +8,7 @@ $brand-primary: #a60400;
 @import "bootstrap";
 
 body {
-  background: url("/assets/white_wall_hash.png");
+  background: image-url("white_wall_hash.png");
 }
 
 .body {
@@ -16,7 +16,7 @@ body {
 }
 
 .navbar {
-  background: url("/assets/tweed.png");
+  background: image-url("tweed.png");
 
   .navbar-logo {
     position: relative;
