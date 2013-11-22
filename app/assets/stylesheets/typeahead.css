@@ -1,5 +1,9 @@
 /* from here http://stackoverflow.com/questions/18059161/css-issue-on-twitter-typeahead-with-bootstrap-3 */
 
+.twitter-typeahead {
+  background: white;
+}
+
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
   margin-bottom: 0;
