@@ -6,10 +6,10 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     %meta{:name => "viewport", :content => "width=device-width, user-scalable=no"}
     = csrf_meta_tags
-%body
-  .container.body
-    - if current_player
-      %nav.navbar.navbar-inverse.navbar-fixed-top
+%body{:class => current_player ? "logged-in" : "logged-out"}
+  - if current_player
+    .container.body
+      %nav.navbar.navbar-default.navbar-fixed-top
         .container
           .navbar-header
             %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}
@@ -50,10 +50,25 @@
                 = link_to destroy_player_session_path, :method => "DELETE" do
                   %span.glyphicon.glyphicon-log-out
                   Sign Out
-    - else # not logged in
-      %h1.text-center rerack.me
-      %p.text-center The best pong player ranking system.
-            
+  - else # not logged in
+    .hero
+      .container
+        .row
+          .col-sm-4.text-center
+            = image_tag "logo.svg"
+            %h1
+              rerack.me
+            %p The best pong player ranking system.
+          .col-sm-2
+            %h3 1. sign up and see your friends' results
+          .col-sm-2
+            %h3 2. record your own games for posterity
+          .col-sm-2
+            %h3 3. get ranked
+          .col-sm-2
+            %h3 4. experience eternal glory
+          
+  .container
     - flash.each do |key, value|
       - case key.to_s
       - when "notice"
@@ -62,7 +77,7 @@
         - alert_class = "danger"
       - else
         - alert_class = "info"
-      .alert{:class => "alert-#{alert_class}"}
+      .alert{:class => "alert-#{alert_class} alert-flash"}
         = value
 
     = yield

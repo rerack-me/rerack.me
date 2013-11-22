@@ -1,14 +1,19 @@
-%h2 Resend confirmation instructions
+.row
+  .col-md-6.col-md-offset-3
+    .panel.panel-default
+      .panel-heading
+        Resend Password Confirmation
 
-= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| 
-  = devise_error_messages! 
+      .panel-body
+        = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| 
+          = devise_error_messages! 
 
-  .form-group
-    = f.label :email 
-    = f.email_field :email, :autofocus => true, class: 'form-control'
+          .form-group
+            = f.label :email 
+            = f.email_field :email, :autofocus => true, class: 'form-control'
 
-  .actions 
-    = f.submit "Resend confirmation instructions", class: 'btn btn-primary'
+          .actions 
+            = f.submit "Resend Email", class: 'btn btn-primary'
 
-
-= render "devise/shared/links" 
+        %br
+        = render "devise/shared/links" 

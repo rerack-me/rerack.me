@@ -11,17 +11,42 @@ body {
   background: image-url("white_wall_hash.png");
 }
 
+.alert-flash {
+  margin-top: 10px;
+}
+
+.hero {
+  background: $navbar-default-bg;
+  border-bottom: $navbar-default-border 1px solid;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 4em;
+  }
+
+  img {
+    width: 100%;
+    margin-right: -10px;
+    margin-left: -10px;
+  }
+}
+
 .body {
   padding-top: 50px;
 }
 
-.navbar {
+.navbar-inverse {
   background: image-url("tweed.png");
+}
 
+.navbar {
   .navbar-logo {
     position: relative;
     height: 30px;
-    margin: -5px -10px;
+    margin: -5px -5px;
   }
 }
 
@@ -41,8 +66,23 @@ body {
   }
 }
 
-.btn-navbar {
-  @include button-variant(#ddd, #666, #444);
+@media (max-width: $container-lg) {
+  .hero {
+    padding-top: 25px;
+    padding-bottom: 10px;
+  }
+}
+
+.navbar-inverse {
+  .btn-navbar {
+    @include button-variant(#ddd, #666, #444);
+  }
+}
+
+.navbar-default {
+  .btn-navbar {
+    @include button-variant(#444, #eee, #ccc);
+  }
 }
 
 .collapsed-navbar-new-game {
