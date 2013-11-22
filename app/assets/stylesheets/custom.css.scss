@@ -1,4 +1,29 @@
+$navbar-inverse-color: #ddd;
+$navbar-inverse-link-color: #ddd;
+
+$navbar-inverse-toggle-border-color: #444;
+
+$brand-primary: #a60400;
+
 @import "bootstrap";
+
+body {
+  background: url("/assets/white_wall_hash.png");
+}
+
+.body {
+  padding-top: 50px;
+}
+
+.navbar {
+  background: url("/assets/tweed.png");
+
+  .navbar-logo {
+    position: relative;
+    height: 30px;
+    margin: -5px -10px;
+  }
+}
 
 .navbar-text {
   float: none;
@@ -8,4 +33,20 @@
   .navbar-text {
     float: left;
   }
+}
+
+@media (max-width: $grid-float-breakpoint) {
+  .navbar-brand-text {
+    display: none;
+  }
+}
+
+.btn-navbar {
+  @include button-variant(#ddd, #666, #444);
+}
+
+.collapsed-navbar-new-game {
+  right: 5px;
+  top: 8px;
+  position: relative;
 }
