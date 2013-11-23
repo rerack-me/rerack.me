@@ -22,6 +22,10 @@ class Player < ActiveRecord::Base
   has_many :game_losers
   has_many :losses, :through => :game_losers, :source => :game
 
+  # groups
+  has_many :group_players
+  has_many :groups, through: :group_players, source: :group
+
   validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
