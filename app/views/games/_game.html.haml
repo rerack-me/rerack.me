@@ -11,7 +11,8 @@
         = render :partial => "players/player", :object => player
   .footer
     %span.time
-      = time_ago_in_words game.created_at
-      ago
+      %span.local-time
+        -# this time is parsed with javascript, look at localizeTime.js.coffee 
+        = game.created_at.to_i
     = link_to "details", "#"
 
