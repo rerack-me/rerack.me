@@ -6,6 +6,10 @@ class Player < ActiveRecord::Base
 
   attr_accessor :login
 
+  def to_param
+    return username
+  end
+
   def games
     return wins + losses
   end
