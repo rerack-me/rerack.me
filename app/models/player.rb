@@ -33,6 +33,16 @@ class Player < ActiveRecord::Base
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
+  def group_games(group)
+    group_wins = wins.filter {|win| all_players_in_group(win, group)}
+    group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
+    return group_wins + group_losses
+  end
+
+  def group_ranking(group)
+    # TODO: implement
+  end
+
   #override will allow for loggin in with email
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -43,4 +53,14 @@ class Player < ActiveRecord::Base
     end
   end
 
+private
+  def all_players_in_group(game, group)
+    group_winners = winners & group.players
+    group_losers = losers & group.players
+    if group_winners.count != 2 or group_losers.count != 2
+      false
+    else
+      true
+    end
+  end
 end

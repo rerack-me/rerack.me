@@ -1,0 +1,22 @@
+= form_for(@group) do |f| 
+  - if @group.errors.any? 
+    #error_explanation
+      %h2 #{pluralize(@group.errors.count, "error")} prohibited this group from being saved:
+
+      %ul
+        - @group.errors.full_messages.each do |msg| 
+          %li= msg
+
+  .row
+    .col-md-6
+      %h4 Name
+      .form-group
+      = text_field_tag "group[name]", @group.name, placeholder: 'name', class: 'form-control player-input'
+
+    .col-md-6
+      %h4 Players
+      .form-group
+        = text_field_tag "group[player_usernames][]", @group.player_usernames[0], placeholder: 'username', class: 'form-control player-input'
+
+  .actions
+    = f.submit :class => "btn btn-primary", :value => "Save Game" 
