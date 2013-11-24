@@ -9,6 +9,8 @@ class PlayersController < ApplicationController
   def index
     # calculate_rankings
     @players = Player.all.order('points DESC')
+    
+    @players = @players.reject {|player| player.games_count < 2}
   end
 
   private
