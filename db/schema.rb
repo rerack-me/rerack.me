@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20131117035209) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "games_count"
     t.float    "points",                 default: 1000.0
   end
 
