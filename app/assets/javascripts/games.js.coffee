@@ -1,4 +1,3 @@
-
 init_typeahead = ->
   $(".player-input").typeahead
     prefetch: "/players.json"

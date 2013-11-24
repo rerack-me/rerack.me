@@ -1,4 +1,4 @@
-$(document).on 'ready page:change', ->
+$(document).on 'ready page:load', ->
   if window._gaq?
     _gaq.push ['_trackPageview']
   else if window.pageTracker?
