@@ -1,16 +1,15 @@
 .game
-  .panel.panel-default
-    .panel-heading
-      = time_ago_in_words game.created_at
-      ago
-    .panel-body
-      .row
-        .col-sm-5.text-right.winners
-          - game.winners.each do |player|
-            = render :partial => "players/player", :object => player
-        .col-sm-2.text-center.separator
-          won against
-        .col-sm-5.text-left.losers
-          - game.losers.each do |player|
-            = render :partial => "players/player", :object => player
+  .time
+    = time_ago_in_words game.created_at
+    ago
+  .winners
+    - game.winners.each do |player|
+      = render :partial => "players/player", :object => player
+  .separator
+    won against
+  .losers
+    - game.losers.each do |player|
+      = render :partial => "players/player", :object => player
+  .links
+    = link_to "details", "#"
 

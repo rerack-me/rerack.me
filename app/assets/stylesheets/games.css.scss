@@ -1,17 +1,87 @@
 @import "bootstrap/variables";
+@import "bootstrap/mixins";
 
-.separator {
-  margin: 0.5em 0;
+// size and padding properties
+
+// xs (mobile)
+.game {
+  margin: 20px 0;
+  padding: 10px;
 }
 
-@media (max-width: $screen-xs-max) {
+@media (min-width: $container-sm) and (max-width: $container-md) {
   .game {
-    .separator {
-      margin: 10px 0;
-    }
+    width: ((720px - 20px*2)/3);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
 
-    .text-center, .text-right {
-      text-align: left;
-    }
+  .game:nth-child(3n) {
+    margin-right: 0;
   }
 }
+
+@media (min-width: $container-md) and (max-width: $container-lg) {
+  .game {
+    width: ((940px - 20px*3)/4);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  .game:nth-child(4n) {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: $container-lg) {
+  .game {
+    width: ((1140px - 20px*4)/5);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  .game:nth-child(5n) {
+    margin-right: 0;
+  }
+}
+
+// stuff below here is just colors and appearance
+.game:before {
+  // this is the shadow
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  margin: 9px 9px 4px 9px;
+  
+  z-index: -1;
+
+  @include box-shadow(0 0 5px 4px rgba(0, 0, 0, 0.3));
+}
+
+.game {
+  position: relative;
+  background: #ffc;
+
+  border-bottom-right-radius: 40px 10px;
+
+  // auto-generated below
+  background: #fcf7c9; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #fcf7c9 84%, #f9f7de 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(84%,#fcf7c9), color-stop(100%,#f9f7de)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(-45deg, #fcf7c9 84%,#f9f7de 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg, #fcf7c9 84%,#f9f7de 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg, #fcf7c9 84%,#f9f7de 100%); /* IE10+ */
+  background: linear-gradient(135deg, #fcf7c9 84%,#f9f7de 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcf7c9', endColorstr='#f9f7de',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
