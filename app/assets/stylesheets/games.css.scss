@@ -2,6 +2,16 @@
 @import "bootstrap/mixins";
 @import "mixins";
 
+.game-page-table > tbody > tr > th {
+  border: none;
+}
+
+.game-page-table > tbody > tr {
+  th:last-child, td:last-child {
+    text-align: right;
+  }
+}
+
 .game-form {
   padding: 20px;
   @include postit();
