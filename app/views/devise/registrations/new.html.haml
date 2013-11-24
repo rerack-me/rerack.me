@@ -17,13 +17,21 @@
   = render "devise/shared/links"
 
 .hidden-xs
+  %br
   .row
     .col-sm-6
-      %h2 Sign in
-      = render "sign_in_form"
+      .panel.panel-default
+        .panel-heading
+          Sign In
+        .panel-body
+          = render "sign_in_form"
+          %br
+          = render "devise/shared/links"
 
     .col-sm-6
-      %h2 Sign up
-      = render "registration_form"
+      .panel.panel-default
+        .panel-heading
+          Sign Up
+        .panel-body
+          = render "registration_form"
 
-  = render "devise/shared/links"

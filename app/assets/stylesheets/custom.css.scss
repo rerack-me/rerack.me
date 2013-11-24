@@ -1,4 +1,57 @@
+$font-family-sans-serif: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-weight: 700;
+
+$navbar-inverse-color: #ddd;
+$navbar-inverse-link-color: #ddd;
+
+$navbar-inverse-toggle-border-color: #444;
+
+$brand-primary: #730300;
+
 @import "bootstrap";
+
+body {
+  background: white;
+}
+
+.alert-flash {
+  margin-top: 10px;
+}
+
+.hero {
+  background: $navbar-default-bg;
+  border-bottom: $navbar-default-border 1px solid;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 4em;
+  }
+
+  img {
+    width: 100%;
+    margin-right: -10px;
+    margin-left: -10px;
+  }
+}
+
+.body {
+  padding-top: 50px;
+}
+
+.navbar-inverse {
+  background: image-url("tweed.png");
+}
+
+.navbar {
+  .navbar-logo {
+    position: relative;
+    height: 30px;
+    margin: -5px -5px;
+  }
+}
 
 .navbar-text {
   float: none;
@@ -8,4 +61,35 @@
   .navbar-text {
     float: left;
   }
+}
+
+@media (max-width: $grid-float-breakpoint) {
+  .navbar-brand-text {
+    display: none;
+  }
+}
+
+@media (max-width: $container-lg) {
+  .hero {
+    padding-top: 25px;
+    padding-bottom: 10px;
+  }
+}
+
+.navbar-inverse {
+  .btn-navbar {
+    @include button-variant(#ddd, #666, #444);
+  }
+}
+
+.navbar-default {
+  .btn-navbar {
+    @include button-variant(#444, #eee, #ccc);
+  }
+}
+
+.collapsed-navbar-new-game {
+  right: 5px;
+  top: 8px;
+  position: relative;
 }

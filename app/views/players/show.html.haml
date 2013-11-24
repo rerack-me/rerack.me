@@ -1,16 +1,13 @@
-.row
-  .col-md-3
-    %h1= @player.username
-    %ul.player-stats
-      %li #{@player.points} Points
-      %li Ranked ##{@player.ranking}/#{Player.count}
-      %li Has played #{pluralize @player.games_count, "game"}
-  .col-md-9
-    - if @player.games
-      %h3 Games #{@player.username} has played in
+%h1= @player.username
+%ul.player-stats
+  %li #{number_with_precision(@player.points, precision: 0)} Points
+  %li Ranked ##{@player.ranking}/#{Player.count}
+  %li Has played #{pluralize @player.games_count, "game"}
+- if @player.games
+  %h3 Games #{@player.username} has played in
 
-      - @player.games.each do |game|
-        - puts game
-        = render partial: "games/game", object: game
-    - else
-      .well #{@player.username} hasn't played any games yet!
+  .games
+    - @player.games.each do |game|
+      = render partial: "games/game", object: game
+- else
+  .well #{@player.username} hasn't played any games yet!

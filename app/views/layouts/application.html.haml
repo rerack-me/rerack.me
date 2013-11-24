@@ -2,45 +2,74 @@
 %html
   %head
     %title rerack.me
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic'
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     %meta{:name => "viewport", :content => "width=device-width, user-scalable=no"}
     = csrf_meta_tags
-%body
+%body{:class => current_player ? "logged-in" : "logged-out"}
+  - if current_player
+    .container.body
+      %nav.navbar.navbar-default.navbar-fixed-top
+        .container
+          .navbar-header
+            %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            = link_to root_path, :class => "navbar-brand" do
+              = image_tag "logo.svg", :class => "navbar-logo"
+              %span.navbar-brand-text
+                rerack.me
+            .visible-xs.pull-right
+              = link_to new_game_path, :class => "collapsed-navbar-new-game btn-navbar btn" do
+                %span.glyphicon.glyphicon-plus
+                Add Game
+
+          .collapse.navbar-collapse
+            %ul.nav.navbar-nav
+              %li.hidden-xs
+                = link_to new_game_path do
+                  %span.glyphicon.glyphicon-plus
+                  Add Game
+              %li
+                = link_to games_path do
+                  %span.glyphicon.glyphicon-list
+                  Game Feed
+              %li
+                = link_to players_path do
+                  %span.glyphicon.glyphicon-fire
+                  Rankings
+
+            %ul.nav.navbar-nav.navbar-right
+              %li
+                = link_to current_player do
+                  %span.glyphicon.glyphicon-user
+                  #{current_player.username}
+              %li
+                = link_to destroy_player_session_path, :method => "DELETE" do
+                  %span.glyphicon.glyphicon-log-out
+                  Sign Out
+  - else # not logged in
+    .hero
+      .container
+        .row
+          .col-sm-4.text-center
+            = image_tag "logo.svg"
+            %h1
+              rerack.me
+            %p The best pong player ranking system.
+          .col-sm-2
+            %h3 1. sign up and see your friends' results
+          .col-sm-2
+            %h3 2. record your own games for posterity
+          .col-sm-2
+            %h3 3. get ranked
+          .col-sm-2
+            %h3 4. experience eternal glory
+          
   .container
-    - if current_player
-      %nav.navbar.navbar-default
-        .navbar-header
-          %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to "rerack.me", root_path, :class => "navbar-brand"
-          .visible-xs.pull-left{:style => "position: relative; top: 8px"}
-            = link_to "Add Game", new_game_path, :class => "btn btn-primary"
-
-        .collapse.navbar-collapse
-          %ul.nav.navbar-nav
-            %li.hidden-xs
-              = link_to "Add Game", new_game_path
-            %li
-              = link_to "Game Feed", games_path
-            %li
-              = link_to "Rankings", players_path
-
-          %ul.nav.navbar-nav.navbar-right.hidden-xs
-            %li
-              = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
-          .navbar-text.navbar-right= render :partial => "players/player", :object => current_player
-          -# duplicated so that it appears at the bottom in the collapsed menu
-          %ul.nav.navbar-nav.navbar-right.visible-xs
-            %li
-              = link_to "Sign out", destroy_player_session_path, :method => "DELETE"
-    - else # not logged in
-      %h1.text-center rerack.me
-      %p.text-center The best pong player ranking system.
-            
     - flash.each do |key, value|
       - case key.to_s
       - when "notice"
@@ -49,7 +78,8 @@
         - alert_class = "danger"
       - else
         - alert_class = "info"
-      .alert{:class => "alert-#{alert_class}"}
+      .alert{:class => "alert-#{alert_class} alert-flash"}
         = value
 
     = yield
+    = render 'layouts/footer'

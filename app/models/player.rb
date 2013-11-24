@@ -26,17 +26,17 @@ class Player < ActiveRecord::Base
 
   #return ranking of player based on algorithm
   def ranking
-    Player.where("points > ?", points).count + 1
+    Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
   #override will allow for loggin in with email
   def self.find_first_by_auth_conditions(warden_conditions)
-      conditions = warden_conditions.dup
-      if login = conditions.delete(:login)
-        where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-      else
-        where(conditions).first
-      end
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
     end
+  end
 
 end

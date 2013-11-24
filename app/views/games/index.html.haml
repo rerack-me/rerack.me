@@ -1,4 +1,5 @@
 %h1 Game Feed
 
-- @games.each do |game|
-  = render partial: "game", object: game
+.games
+  - @games.each do |game|
+    = render partial: "game", object: game

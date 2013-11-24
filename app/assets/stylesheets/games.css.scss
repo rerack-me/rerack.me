@@ -1,17 +1,82 @@
 @import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "mixins";
 
-.separator {
-  margin: 0.5em 0;
+.game-form {
+  padding: 20px;
+  @include postit();
 }
 
-@media (max-width: $screen-xs-max) {
-  .game {
-    .separator {
-      margin: 10px 0;
-    }
+// alignment
+.game {
+  padding: 10px 10px 4px 10px;
+  .footer {
+    font-style: italic;
+    margin-top: 14px;
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+  .winners {
+    text-align: center;
+  }
+  .separator {
+    text-align: center;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 4px 0;
+    font-style: italic;
+  }
+  .losers {
+    text-align: center;
+  }
 
-    .text-center, .text-right {
-      text-align: left;
-    }
+  @include postit();
+}
+
+// size and padding properties
+
+// xs (mobile)
+.game {
+  margin-bottom: 20px;
+}
+
+@media (min-width: $container-sm) and (max-width: $container-md) {
+  .game {
+    width: ((720px - 20px*2)/3);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .game:nth-child(3n) {
+    margin-right: 0;
   }
 }
+
+@media (min-width: $container-md) and (max-width: $container-lg) {
+  .game {
+    width: ((940px - 20px*3)/4);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .game:nth-child(4n) {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: $container-lg) {
+  .game {
+    width: ((1140px - 20px*4)/5);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .game:nth-child(5n) {
+    margin-right: 0;
+  }
+}
+
+
