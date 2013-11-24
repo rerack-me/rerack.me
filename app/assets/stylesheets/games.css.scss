@@ -1,12 +1,43 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "mixins";
+
+.game-form {
+  padding: 20px;
+  @include postit();
+}
+
+// alignment
+.game {
+  padding: 10px 10px 4px 10px;
+  .footer {
+    font-style: italic;
+    margin-top: 14px;
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+  .winners {
+    text-align: center;
+  }
+  .separator {
+    text-align: center;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 4px 0;
+    font-style: italic;
+  }
+  .losers {
+    text-align: center;
+  }
+
+  @include postit();
+}
 
 // size and padding properties
 
 // xs (mobile)
 .game {
-  margin: 20px 0;
-  padding: 10px;
+  margin-bottom: 20px;
 }
 
 @media (min-width: $container-sm) and (max-width: $container-md) {
@@ -15,7 +46,6 @@
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
-    padding: 10px;
   }
 
   .game:nth-child(3n) {
@@ -29,7 +59,6 @@
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
-    padding: 10px;
   }
 
   .game:nth-child(4n) {
@@ -43,7 +72,6 @@
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
-    padding: 10px;
   }
 
   .game:nth-child(5n) {
@@ -51,37 +79,4 @@
   }
 }
 
-// stuff below here is just colors and appearance
-.game:before {
-  // this is the shadow
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  margin: 9px 9px 4px 9px;
-  
-  z-index: -1;
-
-  @include box-shadow(0 0 5px 4px rgba(0, 0, 0, 0.3));
-}
-
-.game {
-  position: relative;
-  background: #ffc;
-
-  border-bottom-right-radius: 40px 10px;
-
-  // auto-generated below
-  background: #fcf7c9; /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #fcf7c9 84%, #f9f7de 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(84%,#fcf7c9), color-stop(100%,#f9f7de)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(-45deg, #fcf7c9 84%,#f9f7de 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(-45deg, #fcf7c9 84%,#f9f7de 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(-45deg, #fcf7c9 84%,#f9f7de 100%); /* IE10+ */
-  background: linear-gradient(135deg, #fcf7c9 84%,#f9f7de 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcf7c9', endColorstr='#f9f7de',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
 

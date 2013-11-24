@@ -2,6 +2,7 @@
 %html
   %head
     %title rerack.me
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic'
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     %meta{:name => "viewport", :content => "width=device-width, user-scalable=no"}
@@ -9,7 +10,7 @@
 %body{:class => current_player ? "logged-in" : "logged-out"}
   - if current_player
     .container.body
-      %nav.navbar.navbar-inverse.navbar-fixed-top
+      %nav.navbar.navbar-default.navbar-fixed-top
         .container
           .navbar-header
             %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}

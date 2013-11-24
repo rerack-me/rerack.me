@@ -1,3 +1,6 @@
+$font-family-sans-serif: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-weight: 700;
+
 $navbar-inverse-color: #ddd;
 $navbar-inverse-link-color: #ddd;
 
@@ -8,7 +11,7 @@ $brand-primary: #730300;
 @import "bootstrap";
 
 body {
-  background: image-url("wood_pattern.png");
+  background: white;
 }
 
 .alert-flash {

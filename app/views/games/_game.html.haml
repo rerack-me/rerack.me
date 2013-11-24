@@ -1,15 +1,17 @@
 .game
-  .time
-    = time_ago_in_words game.created_at
-    ago
   .winners
     - game.winners.each do |player|
-      = render :partial => "players/player", :object => player
+      .player
+        = render :partial => "players/player", :object => player
   .separator
     won against
   .losers
     - game.losers.each do |player|
-      = render :partial => "players/player", :object => player
-  .links
+      .player
+        = render :partial => "players/player", :object => player
+  .footer
+    %span.time
+      = time_ago_in_words game.created_at
+      ago
     = link_to "details", "#"
 
