@@ -7,6 +7,10 @@
 }
 
 .game-page-table > tbody > tr {
+  th, td {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
   th:last-child, td:last-child {
     text-align: right;
   }
@@ -17,8 +21,23 @@
   @include postit();
 }
 
+.show-game-page {
+  margin-top: 20px;
+
+  padding: 5px 20px;
+  @include postit();
+}
+
 // alignment
 .game {
+  .player {
+    font-weight: bold;
+  }
+
+  .player.highlight {
+    font-weight: bold;
+  }
+
   padding: 10px 10px 4px 10px;
   .footer {
     font-style: italic;
@@ -28,6 +47,13 @@
   }
   .winners {
     text-align: center;
+
+    .player.highlight {
+      background: $state-success-bg;
+      a {
+        color: $state-success-text;
+      }
+    }
   }
   .separator {
     text-align: center;
@@ -38,6 +64,13 @@
   }
   .losers {
     text-align: center;
+    
+    .player.highlight {
+      background: $state-danger-bg;
+      a {
+        color: $state-danger-text;
+      }
+    }
   }
 
   @include postit();

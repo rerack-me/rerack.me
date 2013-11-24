@@ -1,14 +1,15 @@
 .game
+  - highlight = @player
   .winners
     - game.winners.each do |player|
-      .player
-        = render :partial => "players/player", :object => player
+      .player{:class => (highlight == player) ? "highlight" : ""}
+        = link_to player.username, player
   .separator
     won against
   .losers
     - game.losers.each do |player|
-      .player
-        = render :partial => "players/player", :object => player
+      .player{:class => (highlight == player) ? "highlight" : ""}
+        = link_to player.username, player 
   .footer
     %span.time
       %span.local-time

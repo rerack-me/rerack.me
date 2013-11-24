@@ -1,54 +1,55 @@
-%h2
-  Game From
-  %span.local-time= @game.created_at.to_i
-%p
-  Not all of the players involved have confirmed this game yet, so it is not currently reflected in the rankings.
+.show-game-page
+  %h2
+    Game From
+    %span.local-time= @game.created_at.to_i
+  %p
+    Not all of the players involved have confirmed this game yet, so it is not currently reflected in the rankings.
 
-%table.table.game-page-table
-  %tr
-    %th
-      Player
-    %th
-      -# TODO: make changes separate for each group
-      Points
-    %th
-      Confirmed?
-  %tr
-    -# winner 1
-    - player = @game.winners[0]
-    %td
-      %strong= link_to player.username, player
-    %td
-      %span.text-success points
-    %td
-      %span.text-success.glyphicon.glyphicon-ok
-  %tr
-    -# winner 2
-    - player = @game.winners[1]
-    %td
-      %strong= link_to player.username, player
-    %td
-      %span.text-success points
-    %td
-      %span.text-success.glyphicon.glyphicon-ok
-  %tr
-    -# loser 1
-    - player = @game.losers[0]
-    %td
-      %strong= link_to player.username, player
-    %td
-      %span.text-danger points
-    %td
-      %span.text-success.glyphicon.glyphicon-ok
-  %tr
-    -# winner 2
-    - player = @game.losers[1]
-    %td
-      %strong= link_to player.username, player
-    %td
-      %span.text-danger points
-    %td
-      %span.text-danger.glyphicon.glyphicon-remove
+  %table.table.game-page-table
+    %tr
+      %th
+        Player
+      %th
+        -# TODO: make changes separate for each group
+        Points
+      %th
+        Confirmed?
+    %tr
+      -# winner 1
+      - player = @game.winners[0]
+      %td
+        %strong= link_to player.username, player
+      %td
+        %span.text-success points
+      %td
+        %span.text-success.glyphicon.glyphicon-ok
+    %tr
+      -# winner 2
+      - player = @game.winners[1]
+      %td
+        %strong= link_to player.username, player
+      %td
+        %span.text-success points
+      %td
+        %span.text-success.glyphicon.glyphicon-ok
+    %tr
+      -# loser 1
+      - player = @game.losers[0]
+      %td
+        %strong= link_to player.username, player
+      %td
+        %span.text-danger points
+      %td
+        %span.text-success.glyphicon.glyphicon-ok
+    %tr
+      -# winner 2
+      - player = @game.losers[1]
+      %td
+        %strong= link_to player.username, player
+      %td
+        %span.text-danger points
+      %td
+        %span.text-danger.glyphicon.glyphicon-remove
 
 
 
