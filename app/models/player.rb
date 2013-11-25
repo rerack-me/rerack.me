@@ -26,12 +26,28 @@ class Player < ActiveRecord::Base
   has_many :game_losers
   has_many :losses, :through => :game_losers, :source => :game
 
-  validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
   def ranking
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
+
+
+  #returns all games associated with player
+  def games
+    self.wins + self.losses
+  end
+
+  #returns all confirmed games
+  def confirmed_games
+    self.wins.where(confirmed: true) + self.losses.where(confirmed: true)
+  end
+
+  #return all unconfirmed games
+  def unconfirmed_games
+    self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
+  end
+
 
   #override will allow for loggin in with email
   def self.find_first_by_auth_conditions(warden_conditions)
