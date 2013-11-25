@@ -53,6 +53,16 @@ class Player < ActiveRecord::Base
     games 
   end
 
+  def confirmed_games
+    unconfirmed = self.confirmations.where(confirmed_game: true)
+    games=Array.new
+    unconfirmed.each do |confirmation|
+      game= Game.find(confirmation.game_id)
+      games.push(game)
+    end
+    games
+  end
+
 
   #override will allow for loggin in with email
   def self.find_first_by_auth_conditions(warden_conditions)

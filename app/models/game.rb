@@ -40,6 +40,14 @@ class Game < ActiveRecord::Base
     self.confirmations.first.confirmed_game
   end
 
+  #redundant if we choose to use player.confirm_game(id)
+  def confirm
+    self.confirmations.each do |confirm|
+      confirm.confirmed_game=true
+      confirm.save
+    end
+  end
+
   #gives each loser a confirmation 
   def generate_confirmations
     self.losers.each do |loser|
