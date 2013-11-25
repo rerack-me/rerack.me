@@ -9,8 +9,6 @@ class Game < ActiveRecord::Base
   has_many :game_losers
   has_many :losers, :through => :game_losers, :source => "player"
 
-  #confirmations
-  has_many :confirmations
   
   def players
     return winners.merge losers

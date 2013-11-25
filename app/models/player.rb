@@ -28,7 +28,6 @@ class Player < ActiveRecord::Base
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
-  #
 
   #returns all games associated with player
   def games
