@@ -7,14 +7,11 @@
   %h3 Games #{@player.username} has played in
 
   .games
-    - @player.games.each do |game|
-      - if game.confirmed?
-        = render partial: "games/game", object: game
+    = render partial: "games/game", collection: @player.confirmed_games
 
   %h3 Games #{@player.username} needs to confirm
 
   .unconfirmed_games
-    - @player.unconfirmed_games.each do |game|
-      = render partial: "games/game", object: game
+    = render partial: "games/game", collection: @player.unconfirmed_games
 - else
   .well #{@player.username} hasn't played any games yet!

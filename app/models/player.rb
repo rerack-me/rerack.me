@@ -22,45 +22,27 @@ class Player < ActiveRecord::Base
   has_many :game_losers
   has_many :losses, :through => :game_losers, :source => :game
 
-  # all confirmations a player has 
-  has_many :confirmations
-  has_many :games, :through => :confirmations, :source => :game 
-  validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
   def ranking
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
-  #allows player to confirme game by game_id
-  def confirm_game(id)
-    game=Game.find(id)
-    game.confirmations.each do |confirm|
-      confirm.confirmed_game=true
-      confirm.save
-    end
+  #
+
+  #returns all games associated with player
+  def games
+    self.wins + self.losses
   end
 
-  #returns all unconfirmed games linked to player
-  #would like to find better way to do this
-  def unconfirmed_games
-    unconfirmed = self.confirmations.where(confirmed_game: false)
-    games=Array.new
-    unconfirmed.each do |confirmation|
-      game= Game.find(confirmation.game_id)
-      games.push(game)
-    end
-    games 
-  end
-
+  #returns all confirmed games
   def confirmed_games
-    unconfirmed = self.confirmations.where(confirmed_game: true)
-    games=Array.new
-    unconfirmed.each do |confirmation|
-      game= Game.find(confirmation.game_id)
-      games.push(game)
-    end
-    games
+    self.wins.where(confirmed: true) + self.losses.where(confirmed: true)
+  end
+
+  #return all unconfirmed games
+  def unconfirmed_games
+    self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
   end
 
 

@@ -37,22 +37,13 @@ class Game < ActiveRecord::Base
 
   #returns true if a game has been confirmed by either loser
   def confirmed?
-    self.confirmations.first.confirmed_game
+    self.confirmed
   end
 
-  #redundant if we choose to use player.confirm_game(id)
+  #confirms game
   def confirm
-    self.confirmations.each do |confirm|
-      confirm.confirmed_game=true
-      confirm.save
-    end
-  end
-
-  #gives each loser a confirmation 
-  def generate_confirmations
-    self.losers.each do |loser|
-      self.confirmations.build(player_id: loser.id)
-    end
+    self.confirmed=true
+    self.save
   end
 
   # validation
