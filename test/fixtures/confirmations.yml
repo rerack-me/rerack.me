@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status: MyString
+  player_id: 1
+  game_id: 1
+
+two:
+  status: MyString
+  player_id: 1
+  game_id: 1
