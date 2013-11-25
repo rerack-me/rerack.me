@@ -1,0 +1,8 @@
+%h1 Viewing group #{@group.name}
+
+%h2 Players
+- @group.players.each do |player|
+  .player= link_to(player.username, player_path(player))
+
+%h2 Add Player
+= render 'add_player_form'

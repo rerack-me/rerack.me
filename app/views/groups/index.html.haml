@@ -1,0 +1,4 @@
+%h1 Viewing Groups
+- @groups.each do |group|
+  .group= link_to(group.name, group_path(group))
+  
