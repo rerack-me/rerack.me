@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
   end
 
   def add_player
-    username = params[:group][:username]
+    username = params[:username]
 
     respond_to do |format|
       if @group.add_player_by_username(username)

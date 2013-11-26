@@ -43,10 +43,6 @@ class Player < ActiveRecord::Base
     return group_wins + group_losses
   end
 
-  def group_ranking(group)
-    # TODO: implement
-  end
-
   #returns all games associated with player
   def games
     self.wins + self.losses
