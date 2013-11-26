@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
   # losers
   has_many :game_losers
   has_many :losers, :through => :game_losers, :source => "player"
+
   
   def players
     return winners.merge losers
@@ -30,6 +31,17 @@ class Game < ActiveRecord::Base
   def loser_usernames=(usernames)
     @loser_usernames = usernames
     self.losers = Player.where(:username => usernames)
+  end
+
+  #returns true if a game has been confirmed by either loser
+  def confirmed?
+    self.confirmed
+  end
+
+  #confirms game
+  def confirm
+    self.confirmed=true
+    self.save
   end
 
   # validation
