@@ -26,12 +26,22 @@ class Player < ActiveRecord::Base
   has_many :game_losers
   has_many :losses, :through => :game_losers, :source => :game
 
+  # groups
+  has_many :group_players
+  has_many :groups, through: :group_players, source: :group
+
+  validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
   def ranking
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
+  def games_in_group(group)
+    group_wins = wins.filter {|win| all_players_in_group(win, group)}
+    group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
+    return group_wins + group_losses
+  end
 
   #returns all games associated with player
   def games
@@ -59,4 +69,14 @@ class Player < ActiveRecord::Base
     end
   end
 
+private
+  def all_players_in_group(game, group)
+    group_winners = winners & group.players
+    group_losers = losers & group.players
+    if group_winners.count != 2 or group_losers.count != 2
+      false
+    else
+      true
+    end
+  end
 end
