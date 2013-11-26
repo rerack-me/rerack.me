@@ -7,7 +7,8 @@ class Player < ActiveRecord::Base
   attr_accessor :login
 
   def games
-    return wins + losses
+    all_games = wins + losses
+    return all_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
   def games_count
