@@ -2,7 +2,7 @@
 
 %h2 Players
 - @group.players.each do |player|
-  .player= link_to(player.username, player_path(player))
+  .player= link_to(player.username, player)
 
 %h2 Add Player
 = render 'add_player_form'

@@ -37,7 +37,7 @@ class Player < ActiveRecord::Base
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
 
-  def group_games(group)
+  def games_in_group(group)
     group_wins = wins.filter {|win| all_players_in_group(win, group)}
     group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
     return group_wins + group_losses
