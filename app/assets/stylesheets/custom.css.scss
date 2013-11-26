@@ -1,14 +1,17 @@
+$font-family-sans-serif: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-weight: 700;
+
 $navbar-inverse-color: #ddd;
 $navbar-inverse-link-color: #ddd;
 
 $navbar-inverse-toggle-border-color: #444;
 
-$brand-primary: #a60400;
+$brand-primary: #730300;
 
 @import "bootstrap";
 
 body {
-  background: image-url("white_wall_hash.png");
+  background: white;
 }
 
 .alert-flash {

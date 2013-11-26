@@ -1,16 +1,19 @@
 .game
-  .panel.panel-default
-    .panel-heading
-      = time_ago_in_words game.created_at
-      ago
-    .panel-body
-      .row
-        .col-sm-5.text-right.winners
-          - game.winners.each do |player|
-            = render :partial => "players/player", :object => player
-        .col-sm-2.text-center.separator
-          won against
-        .col-sm-5.text-left.losers
-          - game.losers.each do |player|
-            = render :partial => "players/player", :object => player
+  - highlight = @player
+  .winners
+    - game.winners.each do |player|
+      .player{:class => (highlight == player) ? "highlight" : ""}
+        = link_to player.username, player
+  .separator
+    won against
+  .losers
+    - game.losers.each do |player|
+      .player{:class => (highlight == player) ? "highlight" : ""}
+        = link_to player.username, player 
+  .footer
+    %span.time
+      %span.local-time
+        -# this time is parsed with javascript, look at localizeTime.js.coffee 
+        = game.created_at.to_i
+    = link_to "details", game
 

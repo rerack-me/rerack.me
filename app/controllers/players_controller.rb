@@ -9,11 +9,13 @@ class PlayersController < ApplicationController
   def index
     # calculate_rankings
     @players = Player.all.order('points DESC')
+    
+    @players = @players.reject {|player| player.games_count < 2}
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = Player.find(params[:id])
+      @player = Player.find_by_username(params[:id])
     end
 end

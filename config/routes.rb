@@ -1,7 +1,7 @@
 VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
   devise_for :players
 
-  resources :games, :only => [:new, :create, :index]
+  resources :games, :only => [:new, :create, :index, :show]
   resources :players, :only => [:show, :index]
   resources :groups do
     post 'add_player', on: :member
