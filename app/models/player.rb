@@ -59,4 +59,8 @@ class Player < ActiveRecord::Base
     end
   end
 
+  # for routing
+  def to_param
+    username
+  end
 end
