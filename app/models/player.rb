@@ -52,7 +52,8 @@ class Player < ActiveRecord::Base
 
   #return all unconfirmed games
   def unconfirmed_games
-    self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
+    unconfirmed = self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
+    return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
   end
 
 
