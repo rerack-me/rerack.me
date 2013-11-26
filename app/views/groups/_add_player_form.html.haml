@@ -1,4 +1,4 @@
-= form_for(@group) do |f| 
+= form_tag(add_player_group_path(@group), method: 'post') do |f| 
   - if @group.errors.any? 
     #error_explanation
       %h2 #{pluralize(@group.errors.count, "error")} prohibited this group from being saved:
@@ -12,4 +12,4 @@
       = text_field_tag "group[username]", '', placeholder: 'Add Player', class: 'form-control player-input'
 
   .actions
-    = f.submit :class => "btn btn-primary", :value => "Add Player" 
+    = submit_tag '', :class => "btn btn-primary", :value => "Add Player" 

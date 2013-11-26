@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_filter :set_group, only: [:show, :update, :edit]
+  before_filter :set_group, only: [:show, :update, :edit, :add_player]
 
   def index
     @groups = Group.all
@@ -23,20 +23,28 @@ class GroupsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
+  def add_player
     username = params[:group][:username]
 
     respond_to do |format|
       if @group.add_player_by_username(username)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: 'Player successfully added to group.' }
         format.json { head :no_content }
       else
         format.html { render action: 'show' }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @group.update(group_params)
+      redirect_to group_path(@group), notice: 'Group was successfully updated.'  
+    else
+      render action: 'edit' 
     end
   end
 

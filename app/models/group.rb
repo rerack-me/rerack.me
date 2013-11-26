@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates_uniqueness_of :name, case_sensitive: false
 
   # players
   has_many :group_players
@@ -18,6 +19,9 @@ class Group < ActiveRecord::Base
 
     if player.nil? 
       errors.add(:players, "#{username} not found.")
+      false
+    elsif self.player_usernames.include? username
+      errors.add(:players, "#{username} already in group.")
       false
     else
       self.players << player
