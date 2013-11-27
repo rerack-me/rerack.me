@@ -1,4 +1,14 @@
 %h1 Rankings
+%p Only players that have played 2 or more games are ranked.
+
+- if current_player.games_count < 2
+  .alert.alert-info
+    %span.glyphicon.glyphicon-info-sign
+    You haven't played enough games to be ranked yet. Play some games and record them to get started!
+- else
+  = link_to "Go to your rank", "#" + current_player.username, :class => "btn btn-primary rankings-link"
+  %br
+  %br
 
 %table.table.table-striped.table-rankings
   %tr
@@ -7,7 +17,7 @@
     %th Points
     %th # Games
   - @players.each do |player|
-    %tr
+    %tr{id: player.username, class: player == current_player ? "highlighted" : ""}
       %td= player.ranking
       %td
         %strong= link_to player.username, player

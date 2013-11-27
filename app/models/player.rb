@@ -6,8 +6,13 @@ class Player < ActiveRecord::Base
 
   attr_accessor :login
 
+  def to_param
+    return username
+  end
+
   def games
-    return wins + losses
+    all_games = wins + losses
+    return all_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
   def games_count
@@ -22,12 +27,35 @@ class Player < ActiveRecord::Base
   has_many :game_losers
   has_many :losses, :through => :game_losers, :source => :game
 
+  # groups
+  has_many :group_players
+  has_many :groups, through: :group_players, source: :group
+
   validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
   def ranking
     Player.where("points > ? AND username != ?", points, self.username).count + 1
   end
+
+  def games_in_group(group)
+    group_wins = wins.filter {|win| all_players_in_group(win, group)}
+    group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
+    return group_wins + group_losses
+  end
+
+  #returns all confirmed games
+  def confirmed_games
+    confirmed = self.wins.where(confirmed: true) + self.losses.where(confirmed: true)
+    return confirmed.sort {|a,b| b.created_at <=> a.created_at}
+  end
+
+  #return all unconfirmed games
+  def unconfirmed_games
+    unconfirmed = self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
+    return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
+  end
+
 
   #override will allow for loggin in with email
   def self.find_first_by_auth_conditions(warden_conditions)
@@ -39,4 +67,14 @@ class Player < ActiveRecord::Base
     end
   end
 
+private
+  def all_players_in_group(game, group)
+    group_winners = winners & group.players
+    group_losers = losers & group.players
+    if group_winners.count != 2 or group_losers.count != 2
+      false
+    else
+      true
+    end
+  end
 end

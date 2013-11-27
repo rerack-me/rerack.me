@@ -3,11 +3,15 @@
   %li #{number_with_precision(@player.points, precision: 0)} Points
   %li Ranked ##{@player.ranking}/#{Player.count}
   %li Has played #{pluralize @player.games_count, "game"}
-- if @player.games
-  %h3 Games #{@player.username} has played in
+%h3 Games #{@player.username} has played in
+- if @player.games.any?
 
   .games
-    - @player.games.each do |game|
-      = render partial: "games/game", object: game
+    = render partial: "games/game", collection: @player.confirmed_games
+
+  %h3 Games #{@player.username} needs to confirm
+
+  .unconfirmed_games
+    = render partial: "games/game", collection: @player.unconfirmed_games
 - else
   .well #{@player.username} hasn't played any games yet!

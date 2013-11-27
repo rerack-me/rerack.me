@@ -26,7 +26,7 @@ namespace :db do
       players = Player.order("RANDOM()")[0,4]
       g.winners = players[2,2]
       g.losers = players[0,2]
-
+      g.created_at = Time.now - rand(1..10000).minutes
       g.save!
     end
   end
