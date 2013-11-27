@@ -11,7 +11,8 @@ class Player < ActiveRecord::Base
   end
 
   def games
-    return wins + losses
+    all_games = wins + losses
+    return all_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
   def games_count
@@ -43,19 +44,16 @@ class Player < ActiveRecord::Base
     return group_wins + group_losses
   end
 
-  #returns all games associated with player
-  def games
-    self.wins + self.losses
-  end
-
   #returns all confirmed games
   def confirmed_games
-    self.wins.where(confirmed: true) + self.losses.where(confirmed: true)
+    confirmed = self.wins.where(confirmed: true) + self.losses.where(confirmed: true)
+    return confirmed.sort {|a,b| b.created_at <=> a.created_at}
   end
 
   #return all unconfirmed games
   def unconfirmed_games
-    self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
+    unconfirmed = self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
+    return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
   end
 
 
