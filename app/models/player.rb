@@ -1,3 +1,5 @@
+include ActionView::Helpers::GroupsHelper
+
 class Player < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -39,8 +41,8 @@ class Player < ActiveRecord::Base
   end
 
   def games_in_group(group)
-    group_wins = wins.filter {|win| all_players_in_group(win, group)}
-    group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
+    group_wins = wins.filter {|win| game_in_group?(win, group)}
+    group_losses = losses.filter {|loss| game_in_group?(loss, group)}
     return group_wins + group_losses
   end
 
@@ -56,6 +58,10 @@ class Player < ActiveRecord::Base
     return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
   end
 
+  def group_rating(group)
+    group_player = GroupPlayer.find_by(player_id: self.id)
+    group_player.points
+  end
 
   #override will allow for loggin in with email
   def self.find_first_by_auth_conditions(warden_conditions)
@@ -64,17 +70,6 @@ class Player < ActiveRecord::Base
       where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
     else
       where(conditions).first
-    end
-  end
-
-private
-  def all_players_in_group(game, group)
-    group_winners = winners & group.players
-    group_losers = losers & group.players
-    if group_winners.count != 2 or group_losers.count != 2
-      false
-    else
-      true
     end
   end
 end
