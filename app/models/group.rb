@@ -31,11 +31,11 @@ class Group < ActiveRecord::Base
 
       point_change = point_change(winner_ratings, loser_ratings)
       
-      group_game_winners.each.do |winner|
+      group_game_winners.each do |winner|
         winner.points += point_change
         winner.save
       end
-      group_game_losers.each.do |loser|
+      group_game_losers.each do |loser|
         loser.points -= point_change
         winner.save
       end
