@@ -7,12 +7,16 @@
 a:
   username: alice
   email: alice@mit.edu
+  id: 1
 b:
   username: bob
   email: bob@mit.edu
+  id: 2
 c:
   username: calvin
   email: calvin@mit.edu
+  id: 3
 d:
   username: david
   email: david@mit.edu
+  id: 4
