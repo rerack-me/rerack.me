@@ -6,8 +6,10 @@ class Player < ActiveRecord::Base
 
   attr_accessor :login
 
+  validates_uniqueness_of :to_param
+
   def to_param
-    return username
+    username.parameterize
   end
 
   def games
