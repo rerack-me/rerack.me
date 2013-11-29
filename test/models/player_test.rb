@@ -2,33 +2,24 @@ require 'test_helper'
 
 class PlayerTest < ActiveSupport::TestCase
   test "player validations" do
-    p = Player.new
-    
-    p.username = 'user1'
-    assert !p.save, 'Player was saved without email and passwords.'
+    p = FactoryGirl.build(:player, email: nil)
+    assert !p.save, 'Player was saved without email.'
 
-    p.email = 'test@example.com'
-    assert !p.save, 'Player was saved without passwords.'
+    p = FactoryGirl.build(:player, password: 'no matching')
+    assert !p.save, 'Player was saved without matching passwords.'
 
-    p.password = 'passpass'
-    p.password_confirmation = 'notpasspass'
-    assert !p.save, 'Player was saved with mismatched passwords.'
+    p = FactoryGirl.build(:player, username: nil)
+    assert !p.save, 'Player was saved wihout username.'
 
-    p.password_confirmation = 'passpass'
-    p.username = ''
-    assert !p.save, 'Saved with blank username'
+    p = FactoryGirl.build(:player, username: '')
+    assert !p.save, 'Player was saved with blank username'
 
-    p.username = 'user1'
+    p = FactoryGirl.build(:player)
     assert p.save, 'Player was not able to save even with correct information'
   end
 
-  test "user uniqueness" do
-    p = Player.new
-
-    p.username = "alice"
-    p.email = "test2@example.com"
-    p.password = "passpass"
-    p.password_confirmation = "passpass"
+  test "username uniqueness" do
+    p = FactoryGirl.build(:player, username: 'alice')
 
     assert !p.save, "Saved with duplicate username"
   end
