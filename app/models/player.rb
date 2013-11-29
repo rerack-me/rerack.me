@@ -9,6 +9,8 @@ class Player < ActiveRecord::Base
   after_save :update_parameterized_username
   after_update :update_parameterized_username
 
+  validates_format_of :username, with: /\A[A-Za-z0-9_*]+\Z/
+
   def update_parameterized_username
     self.parameterized_username = self.username.parameterize
   end
