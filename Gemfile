@@ -16,6 +16,9 @@ end
 # manage authentication and authorization
 gem 'devise'
 
+# for testing
+gem 'factory_girl_rails'
+
 # haml for layout
 gem 'haml'
 
