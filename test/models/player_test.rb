@@ -3,7 +3,7 @@ require 'test_helper'
 class PlayerTest < ActiveSupport::TestCase
   test "player validations" do
     p = Player.new
-    
+
     p.username = 'user1'
     assert !p.save, 'Player was saved without email and passwords.'
 
@@ -22,7 +22,7 @@ class PlayerTest < ActiveSupport::TestCase
     assert p.save, 'Player was not able to save even with correct information'
   end
 
-  test "user uniqueness" do
+  test "username uniqueness" do
     p = Player.new
 
     p.username = "alice"
@@ -31,5 +31,41 @@ class PlayerTest < ActiveSupport::TestCase
     p.password_confirmation = "passpass"
 
     assert !p.save, "Saved with duplicate username"
+  end
+
+  test "parameterized username uniqueness" do
+    p = Player.new
+    p.username = "a*b"
+    p.email = "test2@example.com"
+    p.password = "passpass"
+    p.password_confirmation = "passpass"
+    p.save
+
+    assert p.parameterized_username == 'a-b'
+
+    p = Player.new
+    p.username = "a&b"
+    p.email = "test2@example.com"
+    p.password = "passpass"
+    p.password_confirmation = "passpass"
+    assert !p.save, 'Saved with duplicate parameterized username'
+  end
+
+  test "update parameterized username" do 
+    p = Player.new
+    p.username = "a*b"
+    p.email = "test2@example.com"
+    p.password = "passpass"
+    p.password_confirmation = "passpass"
+    p.save
+
+    assert p.parameterized_username == 'a-b'
+
+    p = Player.find_by(username: 'a*b')
+    p.username = 'alice' 
+    p.save
+
+    assert p.parameterized_username != 'a-b', 'Parameterized username not changed'
+    assert p.parameterized_username == 'alice', 'Parameterized username not set to new value'
   end
 end
