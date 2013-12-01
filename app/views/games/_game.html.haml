@@ -1,29 +1,13 @@
 .game
-<<<<<<< HEAD
-  .winners
-    - game.winners.each do |player|
-      .player
-        = render :partial => "players/player", :object => player
-=======
   - highlight = @player
   .winners
     - game.winners.each do |player|
       .player{:class => (highlight == player) ? "highlight" : ""}
         = link_to player.username, player
->>>>>>> 2015b24ef7b6c6fc3496d9b2e957bc4d30495f38
   .separator
     won against
   .losers
     - game.losers.each do |player|
-<<<<<<< HEAD
-      .player
-        = render :partial => "players/player", :object => player
-  .footer
-    %span.time
-      = time_ago_in_words game.created_at
-      ago
-    = link_to "details", "#"
-=======
       .player{:class => (highlight == player) ? "highlight" : ""}
         = link_to player.username, player 
   .footer
@@ -32,5 +16,4 @@
         -# this time is parsed with javascript, look at localizeTime.js.coffee 
         = game.created_at.to_i
     = link_to "details", game
->>>>>>> 2015b24ef7b6c6fc3496d9b2e957bc4d30495f38
 
