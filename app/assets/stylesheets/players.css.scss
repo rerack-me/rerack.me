@@ -11,7 +11,7 @@
 .table-rankings {
   background: white;
 
-  tr.highlighted {
-    background: #ff9;
+  tr.highlighted td {
+    background: #ff9 !important;
   }
 }
