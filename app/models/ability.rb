@@ -9,6 +9,8 @@ class Ability
 
       can :read, Game
       can :create, Game
+
+      can :confirmations, Game
     end
 
 

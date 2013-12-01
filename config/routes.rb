@@ -3,6 +3,7 @@ VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
 
   resources :games, :only => [:new, :create, :index, :show] do
     post 'confirm', on: :member
+    get "confirmations", on: :collection
   end
 
   resources :players, :only => [:show, :index]
