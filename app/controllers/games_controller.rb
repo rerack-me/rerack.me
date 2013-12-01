@@ -27,6 +27,7 @@ class GamesController < ApplicationController
     @games = current_player.unconfirmed_games
   end
 
+  # POST /games/1/confirm
   def confirm
     if @game.losers.include? current_player
       @game.confirm
