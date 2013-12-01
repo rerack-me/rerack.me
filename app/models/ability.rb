@@ -7,7 +7,10 @@ class Ability
         game.losers.include? player
       end
 
-      can :read, Game
+      can :read, Game do |game|
+        game.confirmed? or game.players.include? player
+      end
+
       can :create, Game
 
       can :confirmations, Game
