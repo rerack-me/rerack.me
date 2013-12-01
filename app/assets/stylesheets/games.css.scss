@@ -2,6 +2,56 @@
 @import "bootstrap/mixins";
 @import "mixins";
 
+<<<<<<< HEAD
+.game-form {
+  padding: 20px;
+  @include postit();
+}
+
+// alignment
+.game {
+  padding: 10px 10px 4px 10px;
+  .footer {
+    font-style: italic;
+    margin-top: 14px;
+    font-size: 0.9em;
+    opacity: 0.7;
+  }
+  .winners {
+    text-align: center;
+  }
+  .separator {
+    text-align: center;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 4px 0;
+    font-style: italic;
+  }
+  .losers {
+    text-align: center;
+  }
+
+  @include postit();
+}
+
+// size and padding properties
+
+// xs (mobile)
+.game {
+  margin-bottom: 20px;
+}
+
+@media (min-width: $container-sm) and (max-width: $container-md) {
+  .game {
+    width: ((720px - 20px*2)/3);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .game:nth-child(3n) {
+    margin-right: 0;
+=======
 .game-page-table > tbody > tr > th {
   border: none;
 }
@@ -54,6 +104,7 @@
         color: $state-success-text;
       }
     }
+>>>>>>> 2015b24ef7b6c6fc3496d9b2e957bc4d30495f38
   }
   .separator {
     text-align: center;
@@ -109,6 +160,22 @@
   }
 }
 
+<<<<<<< HEAD
+@media (min-width: $container-md) and (max-width: $container-lg) {
+  .game {
+    width: ((940px - 20px*3)/4);
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .game:nth-child(4n) {
+    margin-right: 0;
+  }
+}
+
+=======
+>>>>>>> 2015b24ef7b6c6fc3496d9b2e957bc4d30495f38
 @media (min-width: $container-lg) {
   .game {
     width: ((1140px - 20px*4)/5);

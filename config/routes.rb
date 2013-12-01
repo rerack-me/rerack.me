@@ -3,6 +3,9 @@ VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
 
   resources :games, :only => [:new, :create, :index, :show]
   resources :players, :only => [:show, :index]
+  resources :groups do
+    post 'add_player', on: :member
+  end
 
   root 'players#index'
   # The priority is based upon order of creation: first created -> highest priority.
