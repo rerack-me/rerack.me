@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20131129174724) do
   create_table "group_players", force: true do |t|
     t.integer  "player_id"
     t.integer  "group_id"
-    t.float    "points",     default: 1000.0
+    t.integer  "points"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
