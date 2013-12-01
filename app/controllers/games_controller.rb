@@ -5,7 +5,9 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.where({confirmed: true}).order('created_at DESC')
+    @games_24_old = Game.where("created_at >= ? AND confirmed == ?", Time.now-24.hours, true).order('created_at DESC')
+    @games_week_old = Game.where("created_at >= ? AND created_at < ? AND confirmed == ?", 1.week.ago, Time.now-24.hours, true).order('created_at DESC')
+    @games_oldest = Game.where("created_at < ? AND confirmed == ?", 1.week.ago, true).order('created_at DESC')
   end
 
   # GET /games/1
