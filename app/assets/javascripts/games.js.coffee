@@ -17,7 +17,7 @@ reloadNotificationCount = ->
 
   $.get "/games/confirmations.json", updateNotificationCount
 
-setInterval reloadNotificationCount, 1000
+setInterval reloadNotificationCount, 5000
 
 # make game confirmation buttons on games AJAXy
 $(document).on "ready page:load", ->

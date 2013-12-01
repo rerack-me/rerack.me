@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
 
   
   def players
-    return winners.merge losers
+    return winners + losers
   end
 
   # getting and setting lists of usernames
