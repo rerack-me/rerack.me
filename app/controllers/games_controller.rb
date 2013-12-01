@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :confirm]
+  authorize_resource
 
   # GET /games
   # GET /games.json
@@ -19,6 +20,17 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+  end
+
+  def confirm
+    if @game.losers.include? current_player
+      @game.confirm
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @game }
+      format.json { render json: @game }
+    end
   end
 
   # POST /games

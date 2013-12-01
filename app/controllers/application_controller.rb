@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_filter :ensure_login 
 
+  def current_ability
+    @current_ability ||= Ability.new(current_player)
+  end
+
 protected
   def ensure_login
     unless current_player or params[:controller].start_with? "devise"
