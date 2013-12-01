@@ -1,11 +1,11 @@
 %h1 Game Feed
 
-%h3 24 hours ago
+%h3 Last 24 Hours
 .games
   - @games_today.each do |game|
     = render partial: "game", object: game
 
-%h3 1 week ago
+%h3 Last Week
 .games
   - @games_this_week.each do |game|
     = render partial: "game", object: game
