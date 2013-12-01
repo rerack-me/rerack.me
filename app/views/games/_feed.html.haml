@@ -1,0 +1,17 @@
+- if @games_today.count > 0 
+  %h3 Last 24 Hours
+  .games
+    - @games_today.each do |game|
+      = render partial: "game", object: game
+
+-if @games_this_week.count > 0
+  %h3 Last Week
+  .games
+    - @games_this_week.each do |game|
+      = render partial: "game", object: game
+
+- if @games_before_this_week.count > 0 
+  %h3 Older
+  .games
+    - @games_before_this_week.each do |game|
+      = render partial: "game", object: game
