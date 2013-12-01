@@ -47,6 +47,10 @@
   @include postit();
 }
 
+.games {
+  @include clearfix();
+}
+
 // alignment
 .game {
   .player {
