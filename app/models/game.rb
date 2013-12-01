@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
 
   
   def players
-    return winners.merge losers
+    return winners + losers
   end
 
   # getting and setting lists of usernames
@@ -86,12 +86,12 @@ class Game < ActiveRecord::Base
     point_change = 32*(1 - expected_winners)
 
     self.winners.each do |winner|
-      winner.points += point_change
+      winner.points += (point_change * ((2*winners_rating-winner.points)/winners_rating))
       winner.save
     end
 
     self.losers.each do |loser|
-      loser.points -= point_change
+      loser.points -= (point_change * (loser.points)/losers_rating)
       loser.save
     end
   end
