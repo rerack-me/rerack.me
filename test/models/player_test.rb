@@ -35,7 +35,7 @@ class PlayerTest < ActiveSupport::TestCase
 
   test "parameterized username uniqueness" do
     p = Player.new
-    p.username = "a*b"
+    p.username = "a.b"
     p.email = "test2@example.com"
     p.password = "passpass"
     p.password_confirmation = "passpass"
@@ -44,7 +44,7 @@ class PlayerTest < ActiveSupport::TestCase
     assert p.parameterized_username == 'a-b'
 
     p = Player.new
-    p.username = "a&b"
+    p.username = "a-b"
     p.email = "test2@example.com"
     p.password = "passpass"
     p.password_confirmation = "passpass"
@@ -52,7 +52,7 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "update parameterized username" do 
-    USERNAMES = ["a*b", "alex**"]
+    USERNAMES = ["a.b", "alex-_"]
     PARAMETERIZED_USERNAMES = USERNAMES.map {|s| s.parameterize}
 
     p = Player.new
