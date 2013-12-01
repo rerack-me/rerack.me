@@ -21,12 +21,26 @@ namespace :db do
       p.save!
     end
 
-    50.times do |n|
+    # this way I can generate games for myself automatically
+    p = Player.new
+    p.username = "sashko"
+    p.email = "sashko@mit.edu"
+    p.password = "asdfasdf"
+    p.password_confirmation = "asdfasdf"
+    p.skip_confirmation!
+    p.save!
+
+    70.times do |n|
       g = Game.new
       players = Player.order("RANDOM()")[0,4]
       g.winners = players[2,2]
       g.losers = players[0,2]
       g.created_at = Time.now - rand(1..10000).minutes
+
+      if rand > 0.25 # make most of the games pre-confirmed
+        g.confirmed = true
+      end
+
       g.save!
     end
   end

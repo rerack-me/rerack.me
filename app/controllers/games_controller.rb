@@ -1,10 +1,11 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :confirm]
+  authorize_resource
 
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all.order('created_at DESC')
+    @games = Game.where({confirmed: true}).order('created_at DESC')
   end
 
   # GET /games/1
@@ -19,6 +20,23 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+  end
+
+  # GET /games/confirmations
+  def confirmations
+    @games = current_player.unconfirmed_games
+  end
+
+  # POST /games/1/confirm
+  def confirm
+    if @game.losers.include? current_player
+      @game.confirm
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @game }
+      format.json { render json: @game }
+    end
   end
 
   # POST /games

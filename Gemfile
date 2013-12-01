@@ -16,6 +16,9 @@ end
 # manage authentication and authorization
 gem 'devise'
 
+# for testing
+gem 'factory_girl_rails'
+
 # haml for layout
 gem 'haml'
 
@@ -59,6 +62,9 @@ end
 
 # use a better server
 gem 'thin'
+
+# cancan for permissions management
+gem 'cancan'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
