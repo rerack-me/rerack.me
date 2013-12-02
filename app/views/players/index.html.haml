@@ -23,4 +23,4 @@
         %strong= link_to player.username, player
       %td= number_with_precision(player.points, precision: 0)
       %td= player.games_count
-= will_paginate @players
+= will_paginate @players, renderer: BootstrapPagination::Rails
