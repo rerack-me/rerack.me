@@ -80,13 +80,26 @@ class Game < ActiveRecord::Base
     point_change = point_change(winner_ratings, loser_ratings)
 
     self.winners.each do |winner|
-      winner.points += (point_change * ((2*winners_rating-winner.points)/winners_rating))
+      winner.points += point_change 
       winner.save
     end
 
     self.losers.each do |loser|
-      loser.points -= (point_change * (loser.points)/losers_rating)
+      loser.points -= point_change 
       loser.save
     end
+  end
+
+  def point_change(winner_ratings, loser_ratings)
+    winners_rating = (winner_ratings[0] + winner_ratings[1])/2
+    losers_rating = (loser_ratings[0] + loser_ratings[1])/2
+
+    q_winners = 10**(winners_rating/400)
+    q_losers = 10**(losers_rating/400)
+
+    expected_winners = q_winners/(q_winners + q_losers)
+    expected_losers = q_losers/(q_winners + q_losers)
+
+    point_change = 32*(1 - expected_winners)
   end
 end

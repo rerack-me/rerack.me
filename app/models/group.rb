@@ -1,5 +1,3 @@
-include ActionView::Helpers::GamesHelper
-
 class Group < ActiveRecord::Base
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false
@@ -8,13 +6,15 @@ class Group < ActiveRecord::Base
   has_many :group_players
   has_many :players, through: :group_players, source: 'player'
 
+  after_save :calculate_player_rankings
+  after_update :calculate_player_rankings
+
   def player_usernames
     self.players.map {|p| p.username}
   end
 
   def games
-    group_games = Game.all.filter {|game| game_in_group?(game, self)}
-    # sort the games
+    group_games = Game.all.select {|game| game_in_group?(game, self)}
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
@@ -29,7 +29,7 @@ class Group < ActiveRecord::Base
       winner_ratings = group_game_winners.map {|g| g.points }
       loser_ratings = group_game_losers.map {|g| g.points }
 
-      point_change = point_change(winner_ratings, loser_ratings)
+      point_change = Game.point_change(winner_ratings, loser_ratings)
       
       group_game_winners.each do |winner|
         winner.points += point_change
@@ -55,4 +55,5 @@ class Group < ActiveRecord::Base
       self.players << player
     end
   end
+
 end
