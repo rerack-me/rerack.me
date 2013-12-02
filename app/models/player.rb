@@ -48,9 +48,10 @@ class Player < ActiveRecord::Base
   end
 
   def games_in_group(group)
-    group_wins = wins.filter {|win| group.game_in_group?(win)}
-    group_losses = losses.filter {|loss| group.game_in_group?(loss)}
-    return group_wins + group_losses
+    group_wins = wins.filter {|win| all_players_in_group(win, group)}
+    group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
+    group_games group_wins + group_losses
+    return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
   #returns all confirmed games
@@ -67,7 +68,7 @@ class Player < ActiveRecord::Base
 
   def group_points(group)
     group.save
-    group_player = GroupPlayer.find_by(player_id: self.id)
+    group_player = GroupPlayer.find_by_player_id_and_group_id(self.id, group.id)
     group_player.points
   end
 
