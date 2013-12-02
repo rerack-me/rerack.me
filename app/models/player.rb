@@ -50,8 +50,8 @@ class Player < ActiveRecord::Base
   end
 
   def games_in_group(group)
-    group_wins = wins.filter {|win| game_in_group?(win, group)}
-    group_losses = losses.filter {|loss| game_in_group?(loss, group)}
+    group_wins = wins.filter {|win| group.game_in_group?(win)}
+    group_losses = losses.filter {|loss| group.game_in_group?(loss)}
     return group_wins + group_losses
   end
 

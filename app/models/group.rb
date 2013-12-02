@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
   end
 
   def games
-    group_games = Game.all.select {|game| game_in_group?(game, self)}
+    group_games = Game.all.select {|game| self.game_in_group?(game)}
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
@@ -56,4 +56,13 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def game_in_group?(game)
+    group_winners = game.winners & self.players
+    group_losers = game.losers & self.players
+    if group_winners.count != 2 or group_losers.count != 2
+      false
+    else
+      true
+    end
+  end
 end
