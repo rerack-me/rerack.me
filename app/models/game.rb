@@ -91,8 +91,8 @@ class Game < ActiveRecord::Base
   end
 
   def self.point_change(winner_ratings, loser_ratings)
-    winners_rating = (winner_ratings[0] + winner_ratings[1])/2
-    losers_rating = (loser_ratings[0] + loser_ratings[1])/2
+    winners_rating = winner_ratings.sum/winner_ratings.count
+    losers_rating = loser_ratings.sum/loser_ratings.count
 
     q_winners = 10**(winners_rating/400)
     q_losers = 10**(losers_rating/400)
