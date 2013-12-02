@@ -63,6 +63,9 @@ end
 # use a better server
 gem 'thin'
 
+# cancan for permissions management
+gem 'cancan'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
