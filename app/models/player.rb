@@ -6,6 +6,8 @@ class Player < ActiveRecord::Base
 
   attr_accessor :login
 
+  self.per_page = 25
+
   after_save :update_parameterized_username
   after_update :update_parameterized_username
 

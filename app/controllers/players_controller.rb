@@ -6,11 +6,12 @@ class PlayersController < ApplicationController
   def show
   end
 
+  require 'will_paginate/array'
   def index
     # calculate_rankings
-    @players = Player.all.order('points DESC')
-    
-    @players = @players.reject {|player| player.games_count < 2}
+    @players = Player.order('points DESC')
+    @players = @players.reject {|p| p.games_count < 2}
+    @players = @players.paginate(page: params[:page], per_page: 25)
   end
 
   private

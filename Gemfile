@@ -19,6 +19,9 @@ gem 'devise'
 # for testing
 gem 'factory_girl_rails'
 
+# pagination
+gem 'will_paginate'
+
 # haml for layout
 gem 'haml'
 
