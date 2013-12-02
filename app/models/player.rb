@@ -1,5 +1,3 @@
-include ActionView::Helpers::GroupsHelper
-
 class Player < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
