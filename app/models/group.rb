@@ -37,7 +37,7 @@ class Group < ActiveRecord::Base
       end
       group_game_losers.each do |loser|
         loser.points -= point_change
-        winner.save
+        loser.save
       end
     end
   end

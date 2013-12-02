@@ -65,7 +65,8 @@ class Player < ActiveRecord::Base
     return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
   end
 
-  def group_rating(group)
+  def group_points(group)
+    group.save
     group_player = GroupPlayer.find_by(player_id: self.id)
     group_player.points
   end

@@ -77,7 +77,7 @@ class Game < ActiveRecord::Base
     winner_ratings = self.winners.map { |winner| winner.points }
     loser_ratings = self.losers.map { |loser| loser.points }
 
-    point_change = point_change(winner_ratings, loser_ratings)
+    point_change = Game.point_change(winner_ratings, loser_ratings)
 
     self.winners.each do |winner|
       winner.points += point_change 
@@ -90,7 +90,7 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def point_change(winner_ratings, loser_ratings)
+  def self.point_change(winner_ratings, loser_ratings)
     winners_rating = (winner_ratings[0] + winner_ratings[1])/2
     losers_rating = (loser_ratings[0] + loser_ratings[1])/2
 

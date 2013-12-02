@@ -15,6 +15,6 @@ FactoryGirl.define do
   end
 
   factory :group do
-    name        'group-1'
+    sequence(:name) { |n| "group-#{n}" }
   end
 end
