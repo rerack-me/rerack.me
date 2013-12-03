@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
-  test "game validation" do
+  test "game validation: all users found and users are unique" do
     g = Game.new
     assert !g.save, "Empty game was saved but shouldn't have been able to."
     g.winners = [players(:a), players(:b)]
