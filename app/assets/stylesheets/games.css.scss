@@ -2,6 +2,25 @@
 @import "bootstrap/mixins";
 @import "mixins";
 
+.game-confirmation-status {
+  padding: 20px 0 10px 0;
+  text-align: right;
+
+  span {
+    padding: $padding-base-vertical 0;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .game-confirmation-status {
+    text-align: left;
+    padding: 0;
+  }
+}
+
 .game-page-table > tbody > tr > th {
   border: none;
 }
@@ -26,6 +45,10 @@
 
   padding: 5px 20px;
   @include postit();
+}
+
+.games {
+  @include clearfix();
 }
 
 // alignment
@@ -71,6 +94,11 @@
         color: $state-danger-text;
       }
     }
+  }
+
+  .confirmation {
+    text-align: center;
+    padding: 15px 0 5px 0;
   }
 
   @include postit();

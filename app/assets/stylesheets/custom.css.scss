@@ -48,8 +48,17 @@ body {
 .navbar {
   .navbar-logo {
     position: relative;
-    height: 30px;
+    height: 25px;
     margin: -5px -5px;
+  }
+
+  .notification-count {
+    display: inline;
+    padding: 1px 6px;
+    background: $brand-primary;
+    color: white;
+    border-radius: 2px;    
+    margin-left: 3px;
   }
 }
 

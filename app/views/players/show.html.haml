@@ -9,9 +9,5 @@
   .games
     = render partial: "games/game", collection: @player.confirmed_games
 
-  %h3 Games #{@player.username} needs to confirm
-
-  .unconfirmed_games
-    = render partial: "games/game", collection: @player.unconfirmed_games
 - else
   .well #{@player.username} hasn't played any games yet!

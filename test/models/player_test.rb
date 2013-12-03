@@ -13,9 +13,6 @@ class PlayerTest < ActiveSupport::TestCase
 
     p = FactoryGirl.build(:player, username: '')
     assert !p.save, 'Player was saved with blank username'
-
-    p = FactoryGirl.build(:player)
-    assert p.save, 'Player was not able to save even with correct information'
   end
 
   test "username uniqueness" do
@@ -35,7 +32,7 @@ class PlayerTest < ActiveSupport::TestCase
     assert !p.save, "Saved with duplicate email"
   end
 
-   test "return username" do
+  test "return username" do
     assert_equal players(:a).to_param, "alice"
     assert_equal players(:b).to_param, "bob"
     assert_equal players(:c).to_param, "calvin"
@@ -62,6 +59,47 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal players(:b).games_count, 1, "player b"
     assert_equal players(:c).games_count, 1, "player c"
     assert_equal players(:d).games_count, 1, "player d"
+  end
+
+  test "parameterized username uniqueness" do
+    p = Player.new
+    p.username = "a.b"
+    p.email = "test2@example.com"
+    p.password = "passpass"
+    p.password_confirmation = "passpass"
+    p.save!
+
+    assert p.parameterized_username == 'a-b'
+
+    p = Player.new
+    p.username = "a-b"
+    p.email = "test2@example.com"
+    p.password = "passpass"
+    p.password_confirmation = "passpass"
+    assert !p.save, 'Saved with duplicate parameterized username'
+  end
+
+  test "update parameterized username" do 
+    USERNAMES = ["a.b", "alex-_"]
+    PARAMETERIZED_USERNAMES = USERNAMES.map {|s| s.parameterize}
+
+    p = Player.new
+    p.username = USERNAMES[0]
+    p.email = "test2@example.com"
+    p.password = "passpass"
+    p.password_confirmation = "passpass"
+    p.save
+
+    assert p.parameterized_username == PARAMETERIZED_USERNAMES[0]
+
+    p = Player.find_by(username: USERNAMES[0])
+    p.username = USERNAMES[1]
+    p.save!
+
+    assert p.parameterized_username != PARAMETERIZED_USERNAMES[0],
+      "Parameterized username not changed"
+    assert p.parameterized_username == PARAMETERIZED_USERNAMES[1],
+      "Parameterized username not set to new value"
   end
 
   test "ranking" do
@@ -118,6 +156,4 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal players(:c).unconfirmed_games.count, 1, "player c"
     assert_equal players(:d).unconfirmed_games.count, 1, "player d"
   end
-
-
 end
