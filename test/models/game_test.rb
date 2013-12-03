@@ -24,21 +24,13 @@ class GameTest < ActiveSupport::TestCase
     assert g.losers.count == 2, 'The losers didnt save!'
   end
 
-  test "players" do
-    g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
-    g.save
-    assert g.players.map {|p| p.username} == [players(:a), players(:b), players(:c), players(:d)], g.players.map {|p| p.username}
-  end
-
   test "winner_usernames" do
     g = Game.new
     g.winners = [players(:a), players(:b)]
     g.losers = [players(:c), players(:d)]
     g.save
 
-    assert g.winner_usernames == ["alice", "bob"], "should return winner usernames to be alice and bob"
+    assert g.winner_usernames == ["alice", "bob"], "Game did not return winner usernames to be alice and bob"
   end
 
   test "loser usernames" do
@@ -47,7 +39,7 @@ class GameTest < ActiveSupport::TestCase
     g.losers = [players(:c), players(:d)]
     g.save
 
-    assert g.loser_usernames == ["calvin", "david"], "should return loser usernames to be calvin and david"
+    assert g.loser_usernames == ["calvin", "david"], "Game did not return loser usernames to be calvin and david"
   end
 
   test "confirmed?" do
@@ -58,7 +50,7 @@ class GameTest < ActiveSupport::TestCase
     g.confirmed = true
     g.save
 
-    assert_equal g.confirmed?, true, "game was not confirmed, should have been"
+    assert_equal g.confirmed?, true, "Game did not return as confirmed; g.confirmed? failed."
   end
 
   test "confirm" do
@@ -69,24 +61,18 @@ class GameTest < ActiveSupport::TestCase
     g.save
     g.confirm
 
-    assert_equal g.confirmed?, true, "game was not confirmed, should have been"
+    assert_equal g.confirmed?, true, "Game did not return as confirmed; g.confirm failed."
   end
-
-  # test "all users found" do
-  # end
-
-  # test "users are unique" do
-  # end
 
   test "transfer points" do
     g = Game.new
     g.winners = [players(:a), players(:b)]
     g.losers = [players(:c), players(:d)]
     g.save
-    assert_equal players(:a).points, 1016, "player a points"
-    assert_equal players(:b).points, 1016, "player b points"
-    assert_equal players(:c).points, 984, "player c points"
-    assert_equal players(:d).points, 984, "player d points"
+    assert_equal players(:a).points, 1016, "Player A's points did not return as 1016 after first win"
+    assert_equal players(:b).points, 1016, "Player B's points did not return as 1016 after first win"
+    assert_equal players(:c).points, 984, "Player C's points did not return as 984 after first loss"
+    assert_equal players(:d).points, 984, "Player D's points did not return as 984 after first loss"
   end
 
 end
