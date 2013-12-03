@@ -13,12 +13,22 @@ namespace :db do
 
     25.times do |n|    
       p = Player.new
-      p.username = Faker::Name.name
+      p.username = Faker::Name.first_name
       p.email = Faker::Internet.email
       p.password = 'passpass'
       p.password_confirmation = 'passpass'
       p.skip_confirmation!
       p.save!
+    end
+
+    # create groups
+    10.times do |n|
+      g = Group.new
+      g.name = Faker::Name.last_name
+      g.save!
+      players = Player.order("RANDOM()")[0,10]
+      g.players << players
+      g.save!
     end
 
     # this way I can generate games for myself automatically
@@ -30,6 +40,7 @@ namespace :db do
     p.skip_confirmation!
     p.save!
 
+    # create games
     70.times do |n|
       g = Game.new
       players = Player.order("RANDOM()")[0,4]
