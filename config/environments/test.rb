@@ -36,6 +36,8 @@ VpontisStubailoDsessomsSanthoshnarayanFinal::Application.configure do
   config.action_mailer.perform_deliveries = false
   config.action_mailer.default :charset => "utf-8"
 
+  config.log_level = :debug
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 end

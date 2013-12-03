@@ -16,6 +16,6 @@ class PlayersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = Player.find_by_username(params[:id])
+      @player = Player.find_by(parameterized_username: params[:id])
     end
 end
