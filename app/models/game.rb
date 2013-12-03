@@ -74,8 +74,25 @@ class Game < ActiveRecord::Base
   end
 
   def transfer_points
-    winners_rating = (self.winners[0].points + self.winners[1].points)/2
-    losers_rating = (self.losers[0].points + self.losers[1].points)/2
+    winner_ratings = self.winners.map { |winner| winner.points }
+    loser_ratings = self.losers.map { |loser| loser.points }
+
+    point_change = Game.point_change(winner_ratings, loser_ratings)
+
+    self.winners.each do |winner|
+      winner.points += point_change 
+      winner.save
+    end
+
+    self.losers.each do |loser|
+      loser.points -= point_change 
+      loser.save
+    end
+  end
+
+  def self.point_change(winner_ratings, loser_ratings)
+    winners_rating = winner_ratings.sum/winner_ratings.count
+    losers_rating = loser_ratings.sum/loser_ratings.count
 
     q_winners = 10**(winners_rating/400)
     q_losers = 10**(losers_rating/400)
@@ -84,15 +101,5 @@ class Game < ActiveRecord::Base
     expected_losers = q_losers/(q_winners + q_losers)
 
     point_change = 32*(1 - expected_winners)
-
-    self.winners.each do |winner|
-      winner.points += (point_change * ((2*winners_rating-winner.points)/winners_rating))
-      winner.save
-    end
-
-    self.losers.each do |loser|
-      loser.points -= (point_change * (loser.points)/losers_rating)
-      loser.save
-    end
   end
 end
