@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.where(confirmed: true).order('created_at DESC')
+    @games = Game.where(confirmed: true).order('created_at DESC').paginate(page: params[:page])
   end
 
   # GET /games/1
