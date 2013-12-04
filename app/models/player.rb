@@ -8,8 +8,8 @@ class Player < ActiveRecord::Base
 
   self.per_page = 25
 
-  after_save :update_parameterized_username
-  after_update :update_parameterized_username
+  before_save :update_parameterized_username
+  before_update :update_parameterized_username
 
   validates_format_of :username, with: /\A[A-Za-z0-9_.\-]+\Z/
 
