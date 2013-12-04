@@ -13,7 +13,6 @@ class PlayersController < ApplicationController
     @players = Player.order('points DESC')
     @players = @players.reject {|p| p.games_count < 2}
 
-
     # set the page
     # page overwrites goto, if specified
     # if we want to goto a user, choose their page
