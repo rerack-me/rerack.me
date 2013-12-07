@@ -33,10 +33,15 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "return username" do
-    assert_equal players(:a).to_param, "alice"
-    assert_equal players(:b).to_param, "bob"
-    assert_equal players(:c).to_param, "calvin"
-    assert_equal players(:d).to_param, "david"
+    players(:a).save!
+    players(:b).save!
+    players(:c).save!
+    players(:d).save!
+
+    assert_equal "alice", players(:a).to_param
+    assert_equal "bob", players(:b).to_param
+    assert_equal "calvin", players(:c).to_param
+    assert_equal "david", players(:d).to_param
   end
 
   test "return games" do
@@ -106,11 +111,18 @@ class PlayerTest < ActiveSupport::TestCase
     g = Game.new
     g.winners = [players(:a), players(:b)]
     g.losers = [players(:c), players(:d)]
-    g.save
-    assert_equal players(:a).ranking, 1, "player a"
-    assert_equal players(:b).ranking, 1, "player b"
-    assert_equal players(:c).ranking, 3, "player c"
-    assert_equal players(:d).ranking, 3, "player d"
+    g.save!
+
+    # must have two games for rankings to work
+    g = Game.new
+    g.winners = [players(:a), players(:b)]
+    g.losers = [players(:c), players(:d)]
+    g.save!
+
+    assert_equal 1, players(:a).ranking, "player a"
+    assert_equal 1, players(:b).ranking, "player b"
+    assert_equal 3, players(:c).ranking, "player c"
+    assert_equal 3, players(:d).ranking, "player d"
   end
 
   test "wins" do
