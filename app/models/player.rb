@@ -68,6 +68,12 @@ class Player < ActiveRecord::Base
     return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
   end
 
+  #games that have not been confirmed, but you cannot confirm yourself
+  def pending_games
+    self.wins.where(confirmed: false).order("created_at DESC")
+  end
+
+  #games you lost and can confirm
   def games_to_confirm
     return self.losses.where(confirmed: false).order("created_at DESC")
   end
