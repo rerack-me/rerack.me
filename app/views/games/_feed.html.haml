@@ -1,0 +1,20 @@
+- games_today = today(@games)
+- games_this_week = this_week(@games)
+- games_before_this_week = before_this_week(@games)
+
+- if not games_today.empty? 
+  %h3 Last 24 Hours
+  .games
+    = render partial: "game", collection: games_today
+
+-if not games_this_week.empty? 
+  %h3 This Week
+  .games
+    = render partial: "game", collection: games_this_week
+
+- if not games_before_this_week.empty? 
+  %h3 Older
+  .games
+    = render partial: "game", collection: games_before_this_week
+
+= will_paginate @games, renderer: BootstrapPagination::Rails

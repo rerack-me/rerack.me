@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125182404) do
+ActiveRecord::Schema.define(version: 20131201205417) do
 
   create_table "game_losers", force: true do |t|
     t.integer  "player_id"
@@ -33,6 +33,20 @@ ActiveRecord::Schema.define(version: 20131125182404) do
     t.boolean  "confirmed",  default: false
   end
 
+  create_table "group_players", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "group_id"
+    t.float    "points",     default: 1000.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "players", force: true do |t|
     t.string   "username",               default: "",     null: false
     t.string   "email",                  default: "",     null: false
@@ -52,6 +66,7 @@ ActiveRecord::Schema.define(version: 20131125182404) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "points",                 default: 1000.0
+    t.string   "parameterized_username"
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true

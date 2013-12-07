@@ -43,14 +43,26 @@
                   Rankings
 
             %ul.nav.navbar-nav.navbar-right
-              %li
-                = link_to current_player do
-                  %span.glyphicon.glyphicon-user
-                  #{current_player.username}
-              %li
-                = link_to destroy_player_session_path, :method => "DELETE" do
-                  %span.glyphicon.glyphicon-log-out
-                  Sign Out
+              - if current_player.unconfirmed_games.count > 0
+                - show_confirmations = true
+              %li{:class => show_confirmations ? "confirmations-button" : "hidden confirmations-button"}
+                = link_to confirmations_games_path do
+                  Confirm Games
+                  .notification-count
+                    = current_player.games_to_confirm.count
+              %li.dropdown
+                = link_to "#", :class => "dropdown-toggle", :"data-toggle" => "dropdown" do
+                  = current_player.username
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    = link_to current_player do
+                      %span.glyphicon.glyphicon-user
+                      Profile
+                  %li
+                    = link_to destroy_player_session_path, :method => "DELETE" do
+                      %span.glyphicon.glyphicon-log-out
+                      Sign Out
   - else # not logged in
     .hero
       .container

@@ -1,0 +1,9 @@
+%h1 Games to Confirm
+
+- if @games.any?
+  .games
+    - @games.each do |game|
+      = render partial: "game", object: game
+- else
+  .well
+    You're all done!
