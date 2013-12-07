@@ -39,6 +39,8 @@ class Group < ActiveRecord::Base
   end
 
   def ranked_players
+    # get rid of unranked players
+    players = self.players.select {|p| p.games_in_group(self).count >= 2}
     self.players.sort {|a,b| b.group_points(self) <=> b.group_points(self) }
   end
 
