@@ -66,6 +66,10 @@ class Player < ActiveRecord::Base
     return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
   end
 
+  def games_to_confirm
+    return self.losses.where(confirmed: false).order("created_at DESC")
+  end
+
   def group_points(group)
     group.save
     group_player = GroupPlayer.find_by_player_id_and_group_id(self.id, group.id)
