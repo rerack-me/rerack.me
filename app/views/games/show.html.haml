@@ -16,38 +16,27 @@
   %table.table.game-page-table
     %tr
       %th
-        Player
+        Winners
       %th
-        -# TODO: make changes separate for each group
-        Points
+        Losers
     %tr
       -# winner 1
       - player = @game.winners[0]
       %td
         %strong= link_to player.username, player
+      -#loser 1
+      - player = @game.losers[0]
       %td
-        %span.text-success points
+        %strong= link_to player.username, player
     %tr
       -# winner 2
       - player = @game.winners[1]
       %td
         %strong= link_to player.username, player
-      %td
-        %span.text-success points
-    %tr
-      -# loser 1
-      - player = @game.losers[0]
-      %td
-        %strong= link_to player.username, player
-      %td
-        %span.text-danger points
-    %tr
-      -# winner 2
+      -#loser 2
       - player = @game.losers[1]
       %td
         %strong= link_to player.username, player
-      %td
-        %span.text-danger points
 
 
 
