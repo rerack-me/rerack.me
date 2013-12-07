@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to @group, notice: 'Player successfully added to group.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'show' }
+        format.html { redirect_to @group, notice: @group.errors.full_messages.first }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
