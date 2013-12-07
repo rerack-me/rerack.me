@@ -40,15 +40,16 @@ class GroupsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
     if @group.update(group_params)
       redirect_to group_path(@group), notice: 'Group was successfully updated.'  
     else
       render action: 'edit' 
     end
+  end
+
+  def show
+    @players = @group.ranked_players
   end
 
   private

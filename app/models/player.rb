@@ -47,9 +47,9 @@ class Player < ActiveRecord::Base
   end
 
   def games_in_group(group)
-    group_wins = wins.filter {|win| all_players_in_group(win, group)}
-    group_losses = losses.filter {|loss| all_players_in_group(loss, group)}
-    group_games group_wins + group_losses
+    group_wins = wins.select {|win| all_players_in_group(win, group)}
+    group_losses = losses.select {|loss| all_players_in_group(loss, group)}
+    group_games = group_wins + group_losses
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
@@ -113,4 +113,14 @@ class Player < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  private
+    def all_players_in_group(game, group)
+      if (game.winners - group.players).count > 0
+        return false
+      elsif (game.losers - group.players).count > 0
+        return false
+      end
+      true
+    end
 end
