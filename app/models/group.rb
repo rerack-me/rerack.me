@@ -38,6 +38,10 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def ranked_players
+    self.players.sort {|a,b| b.group_points(self) <=> b.group_points(self) }
+  end
+
   ###############################################
   # GAMES                                       #
   ###############################################
