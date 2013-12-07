@@ -1,7 +1,7 @@
 # initialize typeahead to put in game participants
 $(document).on "ready page:load", ->
   $(".player-input").typeahead
-    prefetch: "/players.json"
+    prefetch: Routes.players_path({format: "json"})
     valueKey: "username"
     ttl: 0
 
@@ -15,7 +15,8 @@ reloadNotificationCount = ->
     else
       $(".confirmations-button").fadeIn()
 
-  $.get "/games/confirmations.json", updateNotificationCount
+  confirmations_url = Routes.confirmations_games_path({format: "json"})
+  $.get confirmations_url, updateNotificationCount
 
 setInterval reloadNotificationCount, 5000
 

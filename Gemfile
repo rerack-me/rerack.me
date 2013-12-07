@@ -70,6 +70,9 @@ gem 'thin'
 # cancan for permissions management
 gem 'cancan'
 
+# gem to export routes to JS
+gem 'js-routes'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
