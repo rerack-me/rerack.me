@@ -12,7 +12,9 @@
         = link_to player.username, player 
   - if not game.confirmed? and can? :confirm, game
     .confirmation
-      = link_to "Confirm Game", confirm_game_path(game), :class => "btn btn-primary game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "post"
+      .btn-group
+        = link_to "Confirm Game", confirm_game_path(game), :class => "btn btn-success btn-sm game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "post"
+        = link_to "Deny", game_path(game), :class => "btn btn-danger btn-sm game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "delete"
   .footer
     %span.time
       %span.local-time

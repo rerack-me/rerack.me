@@ -28,6 +28,10 @@ $(document).on "ready page:load", ->
       event.preventDefault() # don't actually follow link
       event.stopPropagation() # stop the rails handler from firing
 
-      $.post $el.attr("href"), ->
-        $($el.attr("data-hide")).fadeOut()
-        reloadNotificationCount()
+      $.ajax
+        url: $el.attr("href")
+        type: $el.attr("data-method")
+        dataType: "json"
+        success: ->
+          $($el.attr("data-hide")).fadeOut()
+          reloadNotificationCount()
