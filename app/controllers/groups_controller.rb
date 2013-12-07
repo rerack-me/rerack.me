@@ -1,8 +1,9 @@
 class GroupsController < ApplicationController
   before_filter :set_group, only: [:show, :update, :edit, :add_player]
+  authorize_resource
 
   def index
-    @groups = Group.all
+    @groups = Group.accessible_by(current_ability)
   end
 
   def new
