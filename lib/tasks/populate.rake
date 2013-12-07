@@ -11,7 +11,7 @@ namespace :db do
     p.save!
 
 
-    25.times do |n|    
+    25.times do |n|
       p = Player.new
       p.username = Faker::Name.first_name
       p.email = Faker::Internet.email

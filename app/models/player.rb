@@ -8,6 +8,10 @@ class Player < ActiveRecord::Base
 
   self.per_page = 25
 
+  ###############################################
+  # VALIDATION AND HOOKS                        #
+  ###############################################
+
   before_save :update_parameterized_username
   before_update :update_parameterized_username
 
@@ -21,28 +25,15 @@ class Player < ActiveRecord::Base
     self.parameterized_username
   end
 
-  def games
-    all_games = wins + losses
-    return all_games.sort {|a,b| b.created_at <=> a.created_at}
-  end
+  validates :username, presence: true, uniqueness: true
 
-  def games_count
-    return wins.count + losses.count
-  end
-
-  # all games a user has won
-  has_many :game_winners
-  has_many :wins, :through => :game_winners, :source => :game
-  
-  # all games a user has lost
-  has_many :game_losers
-  has_many :losses, :through => :game_losers, :source => :game
+  ###############################################
+  # GROUPS                                      #
+  ###############################################
 
   # groups
   has_many :group_players
   has_many :groups, through: :group_players, source: :group
-
-  validates :username, presence: true, uniqueness: true
 
   #return ranking of player based on algorithm
   def ranking
@@ -56,13 +47,38 @@ class Player < ActiveRecord::Base
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
-  #returns all confirmed games
+  def group_points(group)
+    group.save
+    group_player = GroupPlayer.find_by_player_id_and_group_id(self.id, group.id)
+    group_player.points
+  end
+
+  ###############################################
+  # GAMES                                       #
+  ###############################################
+
+  # all games a user has won
+  has_many :game_winners
+  has_many :wins, :through => :game_winners, :source => :game
+  
+  # all games a user has lost
+  has_many :game_losers
+  has_many :losses, :through => :game_losers, :source => :game
+
+  def games
+    all_games = wins + losses
+    return all_games.sort {|a,b| b.created_at <=> a.created_at}
+  end
+
+  def games_count
+    return wins.count + losses.count
+  end
+
   def confirmed_games
     confirmed = self.wins.where(confirmed: true) + self.losses.where(confirmed: true)
     return confirmed.sort {|a,b| b.created_at <=> a.created_at}
   end
 
-  #return all unconfirmed games
   def unconfirmed_games
     unconfirmed = self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
     return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
@@ -72,13 +88,11 @@ class Player < ActiveRecord::Base
     return self.losses.where(confirmed: false).order("created_at DESC")
   end
 
-  def group_points(group)
-    group.save
-    group_player = GroupPlayer.find_by_player_id_and_group_id(self.id, group.id)
-    group_player.points
-  end
+  ###############################################
+  # AUTH                                        #
+  ###############################################
 
-  #override will allow for loggin in with email
+  #override will allow for login in with email
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
