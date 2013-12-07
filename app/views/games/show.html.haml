@@ -26,28 +26,28 @@
       %td
         %strong= link_to player.username, player
       %td
-        %span.text-success points
+        %span.text-success +#{@game.points.round(2)}
     %tr
       -# winner 2
       - player = @game.winners[1]
       %td
         %strong= link_to player.username, player
       %td
-        %span.text-success points
+        %span.text-success +#{@game.points.round(2)}
     %tr
       -# loser 1
       - player = @game.losers[0]
       %td
         %strong= link_to player.username, player
       %td
-        %span.text-danger points
+        %span.text-danger -#{@game.points.round(2)}
     %tr
       -# winner 2
       - player = @game.losers[1]
       %td
         %strong= link_to player.username, player
       %td
-        %span.text-danger points
+        %span.text-danger -#{@game.points.round(2)}
 
 
 

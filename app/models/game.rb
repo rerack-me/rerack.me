@@ -103,6 +103,10 @@ class Game < ActiveRecord::Base
 
       point_change = Game.point_change(winner_ratings, loser_ratings)
 
+      #store point_change in game
+      self.points=point_change
+      self.save
+
       self.winners.each do |winner|
         winner.points += point_change 
         winner.save
