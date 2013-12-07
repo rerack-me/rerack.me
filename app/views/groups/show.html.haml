@@ -9,7 +9,7 @@
 .row
   .col-sm-6
     %h3 Players
-    - @group.players.each do |player|
+    - @group.ranked_players.each do |player|
       .player= link_to(player.username, player)
     = render 'add_player_form'
   .col-sm-6
