@@ -12,6 +12,8 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
+    @group.admin = current_player
+    @group.players << current_player
 
     respond_to do |format|
       if @group.save

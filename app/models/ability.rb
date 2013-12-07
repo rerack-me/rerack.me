@@ -19,8 +19,10 @@ class Ability
       can [:create, :confirmations], Game
 
       # groups
-      can [:read, :add_player], Group, :id => player.group_ids
       can :create, Group
+      can [:read, :add_player], Group, :id => player.group_ids
+
+      can [:update, :destroy], Group, :admin_id => player.id
     end
 
     # See the wiki for details:

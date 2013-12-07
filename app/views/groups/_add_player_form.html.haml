@@ -7,9 +7,8 @@
         - @group.errors.full_messages.each do |msg| 
           %li= msg
 
-  .row
-    .form-group
-      = text_field_tag "username", '', placeholder: 'Add Player', class: 'form-control player-input'
+  .form-group
+    = text_field_tag "username", '', placeholder: 'Add Player', class: 'form-control player-input'
 
   .actions
     = submit_tag '', :class => "btn btn-primary", :value => "Add Player" 
