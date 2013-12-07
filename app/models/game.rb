@@ -5,7 +5,9 @@ class Game < ActiveRecord::Base
     self.confirmed
   end
 
-  @transfered = false
+  # checks if points have been transferred, after transfer this is set to true
+  # and points won't be transferred again
+  @transferred = false
 
   #confirms game
   def confirm
@@ -76,7 +78,7 @@ class Game < ActiveRecord::Base
   end
 
   def transfer_points
-    return nil if @transfered
+    return nil if @transferred
     
     winner_ratings = self.winners.map { |winner| winner.points }
     loser_ratings = self.losers.map { |loser| loser.points }
@@ -93,7 +95,7 @@ class Game < ActiveRecord::Base
       loser.save
     end
 
-    @transfered = true
+    @transferred = true
   end
 
   private
