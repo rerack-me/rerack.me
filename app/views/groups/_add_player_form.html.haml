@@ -1,14 +1,14 @@
-= form_tag(add_player_group_path(@group), method: 'post') do |f| 
-  - if @group.errors.any? 
-    #error_explanation
-      %h2 #{pluralize(@group.errors.count, "error")} prohibited this group from being saved:
+.group-add-player-form
+  = form_tag add_player_group_path(@group), method: 'post', class: "form-inline" do |f| 
+    - if @group.errors.any? 
+      #error_explanation
+        %h2 #{pluralize(@group.errors.count, "error")} prohibited this group from being saved:
 
-      %ul
-        - @group.errors.full_messages.each do |msg| 
-          %li= msg
+        %ul
+          - @group.errors.full_messages.each do |msg| 
+            %li= msg
 
-  .form-group
-    = text_field_tag "username", '', placeholder: 'Add Player', class: 'form-control player-input'
+    .form-group
+      = text_field_tag "username", '', placeholder: 'username', class: 'form-control player-input'
 
-  .actions
-    = submit_tag '', :class => "btn btn-primary", :value => "Add Player" 
+    = submit_tag 'Add Player', :class => "btn btn-primary"

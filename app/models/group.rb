@@ -43,7 +43,7 @@ class Group < ActiveRecord::Base
   ###############################################
 
   def games
-    group_games = Game.all.select {|game| self.game_in_group?(game)}
+    group_games = Game.all.select {|game| self.game_in_group?(game) and game.confirmed?}
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
