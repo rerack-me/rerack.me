@@ -1,7 +1,7 @@
 VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
   devise_for :players
 
-  resources :games, :only => [:new, :create, :index, :show] do
+  resources :games, :only => [:new, :create, :index, :show, :destroy] do
     post 'confirm', on: :member
     get "confirmations", on: :collection
   end

@@ -16,3 +16,5 @@
   %h3 Older
   .games
     = render partial: "game", collection: games_before_this_week
+
+= will_paginate @games, renderer: BootstrapPagination::Rails

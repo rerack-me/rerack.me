@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.where(confirmed: true).order('created_at DESC')
+    @games = Game.where(confirmed: true).order('created_at DESC').paginate(page: params[:page])
   end
 
   # GET /games/1
@@ -24,7 +24,7 @@ class GamesController < ApplicationController
 
   # GET /games/confirmations
   def confirmations
-    @games = current_player.unconfirmed_games
+    @games = current_player.games_to_confirm
   end
 
   # POST /games/1/confirm
@@ -74,7 +74,7 @@ class GamesController < ApplicationController
   def destroy
     @game.destroy
     respond_to do |format|
-      format.html { redirect_to games_url }
+      format.html { redirect_to confirmations_games_url }
       format.json { head :no_content }
     end
   end

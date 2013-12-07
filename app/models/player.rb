@@ -6,8 +6,10 @@ class Player < ActiveRecord::Base
 
   attr_accessor :login
 
-  after_save :update_parameterized_username
-  after_update :update_parameterized_username
+  self.per_page = 25
+
+  before_save :update_parameterized_username
+  before_update :update_parameterized_username
 
   validates_format_of :username, with: /\A[A-Za-z0-9_.\-]+\Z/
 
@@ -64,6 +66,10 @@ class Player < ActiveRecord::Base
   def unconfirmed_games
     unconfirmed = self.wins.where(confirmed: false) + self.losses.where(confirmed: false)
     return unconfirmed.sort {|a,b| a.created_at <=> b.created_at}
+  end
+
+  def games_to_confirm
+    return self.losses.where(confirmed: false).order("created_at DESC")
   end
 
   def group_points(group)
