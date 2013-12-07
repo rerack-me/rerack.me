@@ -47,8 +47,16 @@ class Player < ActiveRecord::Base
   #return ranking of player based on algorithm
   def ranking
     players = Player.where("points > ? AND username != ?", points, self.username)
-    players = players.reject {|p| p.games_count < 2}
+    players = players.reject { |p| !p.is_ranked? }
     players.count + 1
+  end
+
+  def is_ranked?
+    if self.games_count < 2
+      false
+    else
+      true
+    end
   end
 
   def games_in_group(group)
