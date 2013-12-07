@@ -29,10 +29,6 @@
 
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li.hidden-xs
-                = link_to new_game_path do
-                  %span.glyphicon.glyphicon-plus
-                  Add Game
               %li
                 = link_to games_path do
                   %span.glyphicon.glyphicon-list
@@ -50,6 +46,10 @@
                   Confirm Games
                   .notification-count
                     = current_player.games_to_confirm.count
+              %li.hidden-xs
+                = link_to new_game_path do
+                  %span.glyphicon.glyphicon-plus
+                  Add Game
               %li.dropdown
                 = link_to "#", :class => "dropdown-toggle", :"data-toggle" => "dropdown" do
                   = current_player.username
