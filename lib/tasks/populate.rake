@@ -18,7 +18,7 @@ namespace :db do
       p.password = 'passpass'
       p.password_confirmation = 'passpass'
       p.skip_confirmation!
-      p.save!
+      p.save
     end
 
     # create groups
@@ -28,7 +28,7 @@ namespace :db do
       g.save!
       players = Player.order("RANDOM()")[0,10]
       g.players << players
-      g.save!
+      g.save
     end
 
     # this way I can generate games for myself automatically
