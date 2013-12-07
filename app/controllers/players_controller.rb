@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
   def index
     # calculate_rankings
     @players = Player.order('points DESC')
-    @players = @players.reject {|p| !p.is_ranked?}
+    @players = @players.select {|p| p.is_ranked?}
 
     # set the page
     # page overwrites goto, if specified
