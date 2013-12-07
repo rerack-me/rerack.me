@@ -11,4 +11,4 @@
   %br
 
 = render partial: 'ranking', locals: { players: @players }
-= will_paginate players, renderer: BootstrapPagination::Rails
+= will_paginate @players, renderer: BootstrapPagination::Rails

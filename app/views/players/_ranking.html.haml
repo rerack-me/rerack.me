@@ -1,0 +1,14 @@
+%table.table.table-striped.table-rankings
+  %tr
+    %th Rank
+    %th Username
+    %th Points
+    %th # Games
+  - players.each do |player|
+    %tr{id: player.username, class: player == current_player ? "highlighted" : ""}
+      %td= player.ranking
+      %td
+        %strong= link_to player.username, player
+      %td= number_with_precision(player.points, precision: 0)
+      %td= player.games_count
+
