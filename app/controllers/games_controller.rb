@@ -24,7 +24,8 @@ class GamesController < ApplicationController
 
   # GET /games/confirmations
   def confirmations
-    @games = current_player.games_to_confirm
+    @games_to_confirm = current_player.games_to_confirm
+    @pending_games = current_player.pending_games
   end
 
   # POST /games/1/confirm

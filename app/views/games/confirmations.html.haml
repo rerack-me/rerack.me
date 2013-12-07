@@ -1,9 +1,17 @@
 %h1 Games to Confirm
 
-- if @games.any?
+- if @games_to_confirm.any?
   .games
-    - @games.each do |game|
+    - @games_to_confirm.each do |game|
       = render partial: "game", object: game
 - else
   .well
     You're all done!
+
+
+%h1 Pending Games
+
+- if @pending_games.any? 
+  .games
+    - @pending_games.each do |game|
+      = render partial: "game", object: game
