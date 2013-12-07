@@ -97,8 +97,9 @@
   }
 
   .confirmation {
-    text-align: center;
+    margin: 0 auto;
     padding: 15px 0 5px 0;
+    text-align: center;
   }
 
   @include postit();

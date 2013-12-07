@@ -11,6 +11,10 @@ class Ability
         game.confirmed? or game.players.include? player
       end
 
+      can :destroy, Game do |game|
+        (not game.confirmed?) and game.players.include? player
+      end
+
       can :create, Game
 
       can :confirmations, Game
