@@ -25,8 +25,8 @@ namespace :db do
     10.times do |n|
       g = Group.new
       g.name = Faker::Name.last_name
-      g.save!
       players = Player.order("RANDOM()")[0,10]
+      g.admin = players.first
       g.players << players
       g.save
     end
@@ -38,7 +38,7 @@ namespace :db do
     p.password = "asdfasdf"
     p.password_confirmation = "asdfasdf"
     p.skip_confirmation!
-    p.save!
+    p.save
 
     # create games
     70.times do |n|
@@ -52,7 +52,7 @@ namespace :db do
         g.confirmed = true
       end
 
-      g.save!
+      g.save
     end
   end
 end

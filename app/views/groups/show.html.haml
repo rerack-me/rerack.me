@@ -1,8 +1,10 @@
-%h1 Viewing group #{@group.name}
+%h1 #{@group.name}
 
-%h2 Players
-- @group.players.each do |player|
-  .player= link_to(player.username, player)
-
-%h2 Add Player
-= render 'add_player_form'
+.row
+  .col-sm-6
+    %h2 Players
+    - @group.players.each do |player|
+      .player= link_to(player.username, player)
+  .col-sm-6
+    %h2 Add Player
+    = render 'add_player_form'

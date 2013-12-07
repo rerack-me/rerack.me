@@ -18,6 +18,8 @@ class Group < ActiveRecord::Base
   has_many :group_players
   has_many :players, through: :group_players, source: 'player'
 
+  belongs_to :admin, class_name: "Player", foreign_key: "admin_id"
+
   def player_usernames
     self.players.map {|p| p.username}
   end

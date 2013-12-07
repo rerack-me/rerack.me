@@ -3,6 +3,7 @@ class Ability
 
   def initialize(player)
     if player
+      # games
       can :confirm, Game do |game|
         game.losers.include? player
       end
@@ -15,9 +16,13 @@ class Ability
         (not game.confirmed?) and game.players.include? player
       end
 
-      can :create, Game
+      can [:create, :confirmations], Game
 
-      can :confirmations, Game
+      # groups
+      can :create, Group
+      can [:read, :add_player], Group, :id => player.group_ids
+
+      can [:update, :destroy], Group, :admin_id => player.id
     end
 
     # See the wiki for details:
