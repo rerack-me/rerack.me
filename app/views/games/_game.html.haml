@@ -1,24 +1,16 @@
 .game{:id => "game-#{game.id}"}
   - highlight ||= @player
-  .winners
-    - game.winners.each do |player|
-      .player{:class => (highlight == player) ? "highlight" : ""}
-        = link_to player.username, player
-  .separator
-    won against
-  .losers
-    - game.losers.each do |player|
-      .player{:class => (highlight == player) ? "highlight" : ""}
-        = link_to player.username, player 
   - if not game.confirmed? and can? :confirm, game
     .confirmation
       .btn-group
         = link_to "Confirm Game", confirm_game_path(game), :class => "btn btn-success btn-sm game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "post"
         = link_to "Deny", game_path(game), :class => "btn btn-danger btn-sm game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "delete"
-  .footer
-    %span.time
-      %span.local-time
-        -# this time is parsed with javascript, look at localizeTime.js.coffee 
-        = game.created_at.to_i
-    = link_to "details", game
+  .results
+    = game.winners.map {|player| link_to player.username, player, class: "player-link"}.join(", ").html_safe
+    beat
+    = game.losers.map {|player| link_to player.username, player, class: "player-link"}.join(", ").html_safe
+  .game-time.local-time
+    = game.created_at.to_i
+  
+    -# = link_to "details", game  # add this back to show a link to the game details page
 

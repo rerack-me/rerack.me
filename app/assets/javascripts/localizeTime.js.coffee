@@ -13,5 +13,5 @@ $(document).on 'ready page:load', ->
     time = moment.utc(parseInt($(element).text(), 10)*1000).local()
 
     # use built in calendar formatting; change it by modifying the dictionary above
-    $(element).text time.calendar()
+    $(element).text time.format("h:mm a, MMM D, YYYY")
 
