@@ -1,20 +1,22 @@
-.visible-xs
+.visible-xs.sign-up-page-mobile
   %ul.nav.nav-tabs
     %li.active
-      %a{:href => "#sign_in", :"data-toggle" => "tab"} Sign In
-    %li
       %a{:href => "#sign_up", :"data-toggle" => "tab"} Sign Up
+    %li
+      %a{:href => "#sign_in", :"data-toggle" => "tab"} Sign In
+    
 
   .tab-content
-    .tab-pane.active#sign_in
+    .tab-pane.active#sign_up
+      %br
+      = render "registration_form"
+    .tab-pane#sign_in
       %br
       = render "sign_in_form"
 
-    .tab-pane#sign_up
-      %br
-      = render "registration_form"
 
-  = render "devise/shared/links"
+    %br
+    = render "devise/shared/links"
 
 .hidden-xs
   %br
