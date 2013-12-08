@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+first_player = Player.create(username: 'first_user', 
+                              password: 'passpass', 
+                              password_confirmation: 'passpass', 
+                              email: 'first_user@email.com')
+Group.create(name: 'Global', admin: first_player)

@@ -13,6 +13,12 @@ class Game < ActiveRecord::Base
   def confirm
     self.confirmed=true
     self.transfer_points
+
+    self.groups_in_common.each do |group|
+      group.transfer_points self
+      group.games << self
+    end
+
     self.save
   end
 
@@ -26,6 +32,13 @@ class Game < ActiveRecord::Base
  
   validates :winners, length: {is: 2, message: "should have 2 players."}
   validates :losers, length: {is: 2, message: "should have 2 players."}
+
+  ###############################################
+  # GROUPS                                      #
+  ###############################################
+
+  has_many :group_games
+  has_many :groups, through: :group_games, source: 'group'
 
   ###############################################
   # PLAYERS                                     #
@@ -63,8 +76,6 @@ class Game < ActiveRecord::Base
     self.losers = Player.where(:username => usernames)
   end
 
-  
-
   def self.point_change(winner_ratings, loser_ratings)
     winners_rating = winner_ratings.sum/winner_ratings.count
     losers_rating = loser_ratings.sum/loser_ratings.count
@@ -96,6 +107,15 @@ class Game < ActiveRecord::Base
     end
 
     @transferred = true
+  end
+
+  def groups_in_common
+    groups = self.winners[0].groups
+    groups = self.winners[1].groups & groups
+    groups = self.losers[0].groups & groups
+    groups = self.losers[1].groups & groups
+    
+    groups
   end
 
   private
