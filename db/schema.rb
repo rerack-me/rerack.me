@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208030201) do
+ActiveRecord::Schema.define(version: 20131208042717) do
 
   create_table "game_losers", force: true do |t|
     t.integer  "player_id"
@@ -43,10 +43,14 @@ ActiveRecord::Schema.define(version: 20131208030201) do
   end
 
   create_table "groups", force: true do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",               default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admin_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "players", force: true do |t|

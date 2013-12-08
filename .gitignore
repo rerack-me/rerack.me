@@ -17,3 +17,6 @@
 
 # Ignore vim swapfiles
 *.swp
+
+# Ignore uploaded images
+public/system

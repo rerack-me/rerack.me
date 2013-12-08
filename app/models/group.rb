@@ -8,6 +8,12 @@ class Group < ActiveRecord::Base
   validates_uniqueness_of :name, case_sensitive: false
 
   ###############################################
+  # IMAGES                                      #
+  ###############################################
+
+  has_attached_file :image, :styles => {:full_width => "1170x200#"}
+
+  ###############################################
   # PLAYERS                                     #
   ###############################################
 

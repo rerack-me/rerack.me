@@ -13,8 +13,16 @@ $brand-danger: #D14C43;
 
 @import "bootstrap";
 
+.page {
+  background: white;
+  @include box-shadow(0 0 3px 0 rgba(0, 0, 0, 0.3));
+  padding-top: 61px;
+  @include border-bottom-radius($border-radius-large);
+  padding-bottom: 20px;
+}
+
 body {
-  background: image-url("white_wall_hash.png");
+  background: image-url("debut_light.png");
 }
 
 .alert-flash {
@@ -40,12 +48,11 @@ body {
   }
 }
 
-.body {
-  padding-top: 60px;
-}
-
 .navbar-inverse {
   background: image-url("tweed.png");
+}
+
+.navbar-default {
 }
 
 .navbar {
@@ -64,6 +71,8 @@ body {
     border-radius: 2px;    
     margin-left: 3px;
   }
+
+  @include box-shadow(0 0px 3px 0 rgba(0,0,0,.1));
 }
 
 .navbar-text {

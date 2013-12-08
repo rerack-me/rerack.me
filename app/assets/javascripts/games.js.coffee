@@ -9,9 +9,9 @@ reloadNotificationCount = ->
   updateNotificationCount = (data) ->
     $(".notification-count").text(data.count)
     if data.count == 0
-      $(".notification-count").fadeOut()
+      $(".game-confirmations").fadeOut()
     else
-      $(".notification-count").fadeIn()
+      $(".game-confirmations").fadeIn()
 
   confirmations_url = Routes.confirmations_games_path({format: "json"})
   $.get confirmations_url, updateNotificationCount
