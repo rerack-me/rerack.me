@@ -40,15 +40,14 @@
                         = group.name
                   %li
                     = link_to games_path do
-                      Global
-              %li
-                = link_to games_path do
-                  %span.glyphicon.glyphicon-list
-                  Game Feed
-              %li
-                = link_to players_path do
-                  %span.glyphicon.glyphicon-fire
-                  Rankings
+                      Global Game Feed
+                  %li
+                    = link_to players_path do
+                      Global Rankings
+                  %li.divider
+                  %li
+                    = link_to new_group_path do
+                      New Group
 
             %ul.nav.navbar-nav.navbar-right
               - if current_player.unconfirmed_games.count > 0

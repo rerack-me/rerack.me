@@ -5,17 +5,20 @@ class Game < ActiveRecord::Base
     self.confirmed
   end
 
+  # checks if points have been transferred, after transfer this is set to true
+  # and points won't be transferred again
+  @transferred = false
+
   #confirms game
   def confirm
     self.confirmed=true
+    self.transfer_points
     self.save
   end
 
   ###############################################
   # VALIDATION AND HOOKS                        #
   ###############################################
-
-  after_create :transfer_points
 
   # validation
   validate :all_users_found
@@ -74,6 +77,27 @@ class Game < ActiveRecord::Base
     return 32*(1 - expected_winners)
   end
 
+  def transfer_points
+    return nil if @transferred
+    
+    winner_ratings = self.winners.map { |winner| winner.points }
+    loser_ratings = self.losers.map { |loser| loser.points }
+
+    point_change = Game.point_change(winner_ratings, loser_ratings)
+
+    self.winners.each do |winner|
+      winner.points += point_change 
+      winner.save
+    end
+
+    self.losers.each do |loser|
+      loser.points -= point_change 
+      loser.save
+    end
+
+    @transferred = true
+  end
+
   private
     def all_users_found
       total_not_found = []
@@ -94,23 +118,6 @@ class Game < ActiveRecord::Base
       temp_players = winners + losers
       unless temp_players.count == temp_players.uniq.count
         errors.add(:players, "can't contain duplicates")
-      end
-    end
-
-    def transfer_points
-      winner_ratings = self.winners.map { |winner| winner.points }
-      loser_ratings = self.losers.map { |loser| loser.points }
-
-      point_change = Game.point_change(winner_ratings, loser_ratings)
-
-      self.winners.each do |winner|
-        winner.points += point_change 
-        winner.save
-      end
-
-      self.losers.each do |loser|
-        loser.points -= point_change 
-        loser.save
       end
     end
 end

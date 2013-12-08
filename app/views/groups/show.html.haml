@@ -9,7 +9,10 @@
 .row
   .col-sm-6
     %h3 Players
-    = render partial: 'players/ranking', locals: { players: @players }
+    - @group.players.each do |player|
+      .player= link_to(player.username, player)
+    - if can? :add_player, @group
+      = render 'add_player_form'
   .col-sm-6
     %h3 Games
     .games

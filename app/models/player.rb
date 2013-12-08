@@ -47,9 +47,7 @@ class Player < ActiveRecord::Base
   end
 
   def games_in_group(group)
-    group_wins = wins.select {|win| all_players_in_group(win, group)}
-    group_losses = losses.select {|loss| all_players_in_group(loss, group)}
-    group_games = group_wins + group_losses
+    group_games = games.select {|game| (game.players - group.players).empty?}
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
