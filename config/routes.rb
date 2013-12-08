@@ -11,6 +11,11 @@ VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
     post 'add_player', on: :member
   end
 
+  match "/help", to: "pages#help", via: 'get'
+
+  match "/about", to: "pages#about", via: 'get'
+
+
   root 'pages#dashboard'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
