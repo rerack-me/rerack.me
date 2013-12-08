@@ -9,7 +9,7 @@
     = csrf_meta_tags
 %body{:class => current_player ? "logged-in" : "logged-out"}
   - if current_player
-    .container.body
+    .container
       %nav.navbar.navbar-default.navbar-fixed-top
         .container
           .navbar-header
@@ -90,7 +90,7 @@
           .col-sm-2
             %h3 4. experience eternal glory
           
-  .container
+  .container.page
     - flash.each do |key, value|
       - case key.to_s
       - when "notice"

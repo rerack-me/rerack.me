@@ -1,15 +1,18 @@
-%h1 #{@group.name}
+- background = @group.image.exists? ? ("url(" + URI.join(request.url, @group.image.url(:full_width)).to_s + ")") : ""
+.group-header-image{:style => "background: #{background}"}
+  
+  .group-admin-links.hidden-xs
+    - if can? :update, @group
+      You're the administrator!
+      %ul.list-inline
+        %li= link_to "Edit Group", edit_group_path(@group)
+        %li= link_to "Delete Group", group_path(@group), :method => "delete", :confirm => "Are you sure you want to delete the group \"#{@group.name}\"? This cannot be undone."
+    - else
+      Administrator:
+      = link_to @group.admin.username, @group.admin, :class => "player-link"
 
-- if can? :update, @group
-  .group-admin-links
-    You're the administrator!
-    %ul.list-inline
-      %li= link_to "Edit Group", edit_group_path(@group)
-      %li= link_to "Delete Group", group_path(@group), :method => "delete", :confirm => "Are you sure you want to delete the group \"#{@group.name}\"? This cannot be undone."
-- else
-  %p
-    Administrator:
-    = link_to @group.admin.username, @group.admin, :class => "player-link"
+  %h1 #{@group.name}
+  
 
 .row
   .col-sm-6

@@ -73,6 +73,9 @@ gem 'cancan'
 # gem to export routes to JS
 gem 'js-routes'
 
+# gem to handle files
+gem "paperclip"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
