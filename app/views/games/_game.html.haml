@@ -11,6 +11,3 @@
     = game.losers.map {|player| link_to player.username, player, class: "player-link"}.join(", ").html_safe
   .game-time.local-time
     = game.created_at.to_i
-  
-    -# = link_to "details", game  # add this back to show a link to the game details page
-

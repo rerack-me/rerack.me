@@ -11,7 +11,7 @@ VpontisStubailoDsessomsSanthoshnarayanFinal::Application.routes.draw do
     post 'add_player', on: :member
   end
 
-  root 'players#index'
+  root 'pages#dashboard'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

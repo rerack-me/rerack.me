@@ -5,15 +5,13 @@ $(document).on "ready page:load", ->
     valueKey: "username"
     ttl: 0
 
-
-
 reloadNotificationCount = ->
   updateNotificationCount = (data) ->
     $(".notification-count").text(data.count)
     if data.count == 0
-      $(".confirmations-button").fadeOut()
+      $(".notification-count").fadeOut()
     else
-      $(".confirmations-button").fadeIn()
+      $(".notification-count").fadeIn()
 
   confirmations_url = Routes.confirmations_games_path({format: "json"})
   $.get confirmations_url, updateNotificationCount
@@ -34,5 +32,5 @@ $(document).on "ready page:load", ->
         type: $el.attr("data-method")
         dataType: "json"
         success: ->
-          $($el.attr("data-hide")).fadeOut()
+          $($el.attr("data-hide")).slideUp()
           reloadNotificationCount()
