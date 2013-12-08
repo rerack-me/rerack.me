@@ -16,7 +16,7 @@ class Game < ActiveRecord::Base
 
     self.groups_in_common.each do |group|
       group.transfer_points self
-      group.games << game
+      group.games << self
     end
 
     self.save
