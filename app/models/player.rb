@@ -78,8 +78,10 @@ class Player < ActiveRecord::Base
 
   def add_to_global
     global = Group.global
-    global.players << self
-    global.save
+    if global
+      global.players << self
+      global.save
+    end
   end
 
   ###############################################
