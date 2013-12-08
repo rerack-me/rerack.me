@@ -49,6 +49,10 @@ class Player < ActiveRecord::Base
     self.group_player(group).games_count >= 2
   end
 
+  def is_ranked?
+    self.games_count >= 2
+  end
+
   def group_player(group)
     GroupPlayer.find_by(group_id: group.id, player_id: self.id)
   end
