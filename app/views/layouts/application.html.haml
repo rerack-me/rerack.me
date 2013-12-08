@@ -20,8 +20,12 @@
               %span.icon-bar
             = link_to root_path, :class => "navbar-brand" do
               = image_tag "logo.svg", :class => "navbar-logo"
-              %span.navbar-brand-text.sr-only
+              %span.navbar-brand-text
                 rerack.me
+              - if current_player.games_to_confirm.count == 0
+                - hide_notifications = true
+              .notification-count{:class => hide_notifications ? "hidden" : ""}
+                = current_player.games_to_confirm.count
             .visible-xs.pull-right
               = link_to new_game_path, :class => "collapsed-navbar-new-game btn-navbar btn" do
                 %span.glyphicon.glyphicon-plus
@@ -50,13 +54,7 @@
                       New Group
 
             %ul.nav.navbar-nav.navbar-right
-              - if current_player.unconfirmed_games.count > 0
-                - show_confirmations = true
-              %li{:class => show_confirmations ? "confirmations-button" : "hidden confirmations-button"}
-                = link_to confirmations_games_path do
-                  Confirm Games
-                  .notification-count
-                    = current_player.games_to_confirm.count
+              
               %li.hidden-xs
                 = link_to new_game_path do
                   %span.glyphicon.glyphicon-plus
