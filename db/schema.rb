@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208042717) do
+ActiveRecord::Schema.define(version: 20131208092926) do
 
   create_table "game_losers", force: true do |t|
     t.integer  "player_id"
@@ -33,12 +33,20 @@ ActiveRecord::Schema.define(version: 20131208042717) do
     t.boolean  "confirmed",  default: false
   end
 
+  create_table "group_games", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "group_players", force: true do |t|
     t.integer  "player_id"
     t.integer  "group_id"
-    t.float    "points",     default: 1000.0
+    t.float    "points",      default: 1000.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "games_count", default: 0
   end
 
   create_table "groups", force: true do |t|
@@ -53,13 +61,13 @@ ActiveRecord::Schema.define(version: 20131208042717) do
   end
 
   create_table "players", force: true do |t|
-    t.string   "username",               default: "",     null: false
-    t.string   "email",                  default: "",     null: false
-    t.string   "encrypted_password",     default: "",     null: false
+    t.string   "username",               default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,      null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -70,12 +78,10 @@ ActiveRecord::Schema.define(version: 20131208042717) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "points",                 default: 1000.0
     t.string   "parameterized_username"
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true
-  add_index "players", ["points"], name: "index_players_on_points"
   add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true
 
 end

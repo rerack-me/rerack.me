@@ -13,6 +13,7 @@ class PlayersController < ApplicationController
     # calculate_rankings
     @players = Player.order('points DESC')
     @players = @players.select {|p| p.is_ranked?}
+    @group = Group.global
 
     # set the page
     # page overwrites goto, if specified

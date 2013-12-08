@@ -21,6 +21,7 @@ class Ability
       # groups
       can :create, Group
       can [:read, :add_player], Group, :id => player.group_ids
+      cannot :add_player, Group, :name => "Global"
 
       can [:update, :destroy], Group, :admin_id => player.id
     end

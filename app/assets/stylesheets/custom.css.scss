@@ -1,19 +1,7 @@
-$font-family-sans-serif: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$headings-font-weight: 700;
-
-$navbar-inverse-color: #ddd;
-$navbar-inverse-link-color: #ddd;
-
-$navbar-inverse-toggle-border-color: #444;
-$navbar-height: 60px;
-
-$brand-primary: #730300;
-$brand-success: #6BB330;
-$brand-danger: #D14C43;
-
+@import "bootstrap_modifications";
 @import "bootstrap";
 
-.page {
+.logged-in .page {
   background: white;
   @include box-shadow(0 0 3px 0 rgba(0, 0, 0, 0.3));
   padding-top: 61px;
@@ -45,6 +33,28 @@ body {
     width: 100%;
     margin-right: -10px;
     margin-left: -10px;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .hero {
+    img {
+      width: 40%;
+    }
+    h1 {
+      font-size: 2em;
+      margin-top: 10px;
+    }
+
+    p {
+      clear: both;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-size: 1.3em;
+      margin-top: 5px;
+    }
   }
 }
 

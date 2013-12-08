@@ -1,0 +1,46 @@
+@import "includes";
+
+// on small screens, show tabbed sign in
+@media (max-width: $screen-xs-max) {
+  .sign-up-page {
+    margin: 0 -15px;
+
+    ul {
+      li:first-child {
+        margin-left: 15px;
+      }
+    }
+
+    .tab-content {
+      padding: 0 15px;
+      padding-top: 10px;
+      background: white;
+      padding-bottom: 20px;
+      border-bottom: #ccc 1px solid;
+    }
+  
+    // get rid of panel formatting
+    .panel-heading {
+      display: none;
+    }
+
+    .panel {
+      padding: 0;
+      border: none;
+      margin: 0;
+    }
+
+    .panel-body {
+      padding: 0;
+      border: none;
+      margin: 0;
+    }
+  }
+}
+
+// on larger screens, deactivate tabs
+@media (min-width: $screen-sm-min) {
+  .sign-up-page .tab-content > .tab-pane {
+    display: block;
+  }
+}

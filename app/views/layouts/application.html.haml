@@ -41,12 +41,6 @@
                     %li
                       = link_to group do
                         = group.name
-                  %li
-                    = link_to games_path do
-                      Global Game Feed
-                  %li
-                    = link_to players_path do
-                      Global Rankings
                   %li.divider
                   %li
                     = link_to new_group_path do
@@ -60,10 +54,10 @@
               %li
                 - if current_player.games_to_confirm.count == 0
                   - hide_game_confirmations = true
-                  = link_to confirmations_games_path, :class => hide_game_confirmations ? "hidden game-confirmations" : "game-confirmations" do
-                    Confirm
-                    .notification-count
-                      = current_player.games_to_confirm.count
+                = link_to confirmations_games_path, :class => hide_game_confirmations ? "hidden game-confirmations" : "game-confirmations" do
+                  Confirm
+                  .notification-count
+                    = current_player.games_to_confirm.count
               %li
                 = link_to current_player do
                   %span.glyphicon.glyphicon-user
@@ -81,13 +75,11 @@
             %h1
               rerack.me
             %p The best pong player ranking system.
-          .col-sm-2
+          .col-sm-7.col-sm-offset-1
+            %br
             %h3 1. sign up and see your friends' results
-          .col-sm-2
             %h3 2. record your own games for posterity
-          .col-sm-2
             %h3 3. get ranked
-          .col-sm-2
             %h3 4. experience eternal glory
           
   .container.page

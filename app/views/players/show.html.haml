@@ -1,4 +1,15 @@
 %h1= @player.username
+.player-summary
+  %ul
+    %li 
+      %span.glyphicon.glyphicon-tasks
+      #{pluralize @player.games_count, "Game"} Played
+    %li
+      %span.glyphicon.glyphicon-globe
+      Global Rank ##{@player.rank}/#{Player.count}
+    %li
+      %span.glyphicon.glyphicon-star
+      Elo #{number_with_precision(@player.points, precision: 0)}
 .row
   .col-sm-6
     - if @shared_groups.any?
@@ -6,19 +17,13 @@
         %h3 Groups you're in
       - else
         %h3 Groups you're both in
-      %ul.shared-groups
+      %ul.shared-groups.list-unstyled
         - @shared_groups.each do |group|
           %li
             = render partial: "groups/group", object: group
-    %h3 Stats
-    %ul.player-stats
-      %li #{number_with_precision(@player.points, precision: 0)} Points
-      %li Ranked ##{@player.ranking}/#{Player.count}
-      %li Has played #{pluralize @player.games_count, "game"}
   .col-sm-6
     %h3 Games #{@player.username} has played in
     - if @player.games.any?
-
       .games
         = render partial: "games/game", collection: @player.confirmed_games
 

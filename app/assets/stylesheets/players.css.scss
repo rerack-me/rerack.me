@@ -1,3 +1,5 @@
+@import "includes";
+
 .player-link {
   font-weight: bold;
 }
@@ -7,5 +9,30 @@
 
   tr.highlighted td {
     background: #ff9 !important;
+  }
+}
+
+.player-summary {
+  .glyphicon {
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+  }
+
+  ul {
+    list-style: none;
+    text-indent: 0;
+    padding-left: 0;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .player-summary ul {
+    @include clearfix();
+
+    li {
+      float: left;
+      padding-right: 15px;
+    }
   }
 }
