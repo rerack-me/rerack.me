@@ -13,6 +13,14 @@ $brand-danger: #D14C43;
 
 @import "bootstrap";
 
+.page {
+  background: white;
+  @include box-shadow(0 0 3px 0 rgba(0, 0, 0, 0.3));
+  padding-top: 61px;
+  @include border-bottom-radius($border-radius-large);
+  padding-bottom: 20px;
+}
+
 body {
   background: image-url("debut_light.png");
 }
@@ -40,16 +48,11 @@ body {
   }
 }
 
-.body {
-  padding-top: 60px;
-}
-
 .navbar-inverse {
   background: image-url("tweed.png");
 }
 
 .navbar-default {
-  background: white;
 }
 
 .navbar {
@@ -70,7 +73,6 @@ body {
   }
 
   @include box-shadow(0 1px 4px 0 rgba(0,0,0,.1));
-  border-bottom: none;
 }
 
 .navbar-text {

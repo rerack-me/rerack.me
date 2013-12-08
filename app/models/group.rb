@@ -11,6 +11,12 @@ class Group < ActiveRecord::Base
   after_update :calculate_player_rankings
 
   ###############################################
+  # IMAGES                                      #
+  ###############################################
+
+  has_attached_file :image, :styles => {:full_width => "1140x200#"}
+
+  ###############################################
   # PLAYERS                                     #
   ###############################################
 
