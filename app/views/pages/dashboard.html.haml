@@ -3,14 +3,14 @@
 .row
   .col-sm-6
     %h3 Recent Games
-
+    .games
+      = render partial: "games/game", collection: @recent_games
   .col-sm-6
     %h3 Games to Confirm
     %p Please confirm or deny whether these games happened.
     - if @games_to_confirm.any?
       .games
-        - @games_to_confirm.each do |game|
-          = render partial: "games/game", object: game
+        = render partial: "games/game", collection: @games_to_confirm
     - else
       .well
         You're all done!
@@ -19,5 +19,7 @@
 
     - if @pending_games.any? 
       .games
-        - @pending_games.each do |game|
-          = render partial: "games/game", object: game
+        = render partial: "games/game", collection: @pending_games
+    - else
+      .well
+        No pending games!
