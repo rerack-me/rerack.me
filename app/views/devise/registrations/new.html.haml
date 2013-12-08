@@ -1,27 +1,11 @@
-.visible-xs.sign-up-page-mobile
-  %ul.nav.nav-tabs
+.sign-up-page
+  %ul.nav.nav-tabs.visible-xs
     %li.active
       %a{:href => "#sign_up", :"data-toggle" => "tab"} Sign Up
     %li
       %a{:href => "#sign_in", :"data-toggle" => "tab"} Sign In
-    
-
-  .tab-content
-    .tab-pane.active#sign_up
-      %br
-      = render "registration_form"
-    .tab-pane#sign_in
-      %br
-      = render "sign_in_form"
-
-
-    %br
-    = render "devise/shared/links"
-
-.hidden-xs
-  %br
-  .row
-    .col-sm-6
+  .row.tab-content
+    .col-sm-6.tab-pane#sign_in
       .panel.panel-default
         .panel-heading
           Sign In
@@ -30,10 +14,13 @@
           %br
           = render "devise/shared/links"
 
-    .col-sm-6
+    .col-sm-6.tab-pane.active#sign_up
       .panel.panel-default
         .panel-heading
           Sign Up
         .panel-body
           = render "registration_form"
+      .visible-xs
+        %br
+        = render "devise/shared/links"
 
