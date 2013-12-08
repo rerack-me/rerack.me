@@ -142,14 +142,4 @@ class Player < ActiveRecord::Base
       where(conditions).first
     end
   end
-
-  private
-    def all_players_in_group(game, group)
-      if (game.winners - group.players).count > 0
-        return false
-      elsif (game.losers - group.players).count > 0
-        return false
-      end
-      true
-    end
 end
