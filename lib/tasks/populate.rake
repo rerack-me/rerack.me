@@ -2,15 +2,6 @@ namespace :db do
   desc "Create some sample data"
   task populate: :environment do
 
-    p = Player.new
-    p.username = 'admin'
-    p.email = 'admin@gmail.com'
-    p.password = 'passpass'
-    p.password_confirmation = 'passpass'
-    p.skip_confirmation!
-    p.save!
-
-
     25.times do |n|
       p = Player.new
       p.username = Faker::Name.first_name
