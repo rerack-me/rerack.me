@@ -5,6 +5,7 @@ $navbar-inverse-color: #ddd;
 $navbar-inverse-link-color: #ddd;
 
 $navbar-inverse-toggle-border-color: #444;
+$navbar-height: 60px;
 
 $brand-primary: #730300;
 $brand-success: #6BB330;
@@ -13,7 +14,7 @@ $brand-danger: #D14C43;
 @import "bootstrap";
 
 body {
-  background: white;
+  background: image-url("white_wall_hash.png");
 }
 
 .alert-flash {
@@ -40,7 +41,7 @@ body {
 }
 
 .body {
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 .navbar-inverse {
@@ -51,7 +52,7 @@ body {
   .navbar-logo {
     position: relative;
     height: 25px;
-    margin: -5px -5px;
+    margin: 12px 3px 0 0;
   }
 
   .notification-count {
@@ -67,6 +68,28 @@ body {
 
 .navbar-text {
   float: none;
+}
+
+.navbar-brand {
+  padding: 5px;
+  @include clearfix();
+
+  img {
+    float: left;
+  }
+}
+
+.navbar-brand-text {
+  margin-top: 5px;
+  margin-right: 15px;
+
+  float: left;
+  .title {
+
+  }
+  .subtitle {
+    font-size: $font-size-base * 0.9;
+  }
 }
 
 @media (min-width: $grid-float-breakpoint) {
@@ -86,6 +109,10 @@ body {
     padding-top: 25px;
     padding-bottom: 10px;
   }
+}
+
+.btn-navbar {
+  margin-top: 5px;
 }
 
 .navbar-inverse {

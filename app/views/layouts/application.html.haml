@@ -10,7 +10,7 @@
 %body{:class => current_player ? "logged-in" : "logged-out"}
   - if current_player
     .container.body
-      %nav.navbar.navbar-default.navbar-fixed-top
+      %nav.navbar.navbar-inverse.navbar-fixed-top
         .container
           .navbar-header
             %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}
@@ -20,17 +20,14 @@
               %span.icon-bar
             = link_to root_path, :class => "navbar-brand" do
               = image_tag "logo.svg", :class => "navbar-logo"
-              %span.navbar-brand-text
-                rerack.me
-              - if current_player.games_to_confirm.count == 0
-                - hide_notifications = true
-              .notification-count{:class => hide_notifications ? "hidden" : ""}
-                = current_player.games_to_confirm.count
+              .navbar-brand-text
+                .title rerack.me
+                .subtitle Dashboard
+              
             .visible-xs.pull-right
               = link_to new_game_path, :class => "collapsed-navbar-new-game btn-navbar btn" do
                 %span.glyphicon.glyphicon-plus
                 Add Game
-
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
               %li.dropdown
@@ -54,24 +51,25 @@
                       New Group
 
             %ul.nav.navbar-nav.navbar-right
-              
               %li.hidden-xs
                 = link_to new_game_path do
                   %span.glyphicon.glyphicon-plus
                   Add Game
-              %li.dropdown
-                = link_to "#", :class => "dropdown-toggle", :"data-toggle" => "dropdown" do
+              %li
+                = link_to confirmations_games_path do
+                  Confirm
+                  - if current_player.games_to_confirm.count == 0
+                    - hide_notifications = true
+                  .notification-count{:class => hide_notifications ? "hidden" : ""}
+                    = current_player.games_to_confirm.count
+              %li
+                = link_to current_player do
+                  %span.glyphicon.glyphicon-user
                   = current_player.username
-                  %b.caret
-                %ul.dropdown-menu
-                  %li
-                    = link_to current_player do
-                      %span.glyphicon.glyphicon-user
-                      Profile
-                  %li
-                    = link_to destroy_player_session_path, :method => "DELETE" do
-                      %span.glyphicon.glyphicon-log-out
-                      Sign Out
+              %li
+                = link_to destroy_player_session_path, :method => "DELETE" do
+                  %span.glyphicon.glyphicon-log-out
+                  Sign Out
   - else # not logged in
     .hero
       .container

@@ -1,16 +1,21 @@
-.group-admin-links
-  - if can? :update, @group
-    Administrator Links
-    %ul.list-unstyled
+%h1 #{@group.name}
+
+- if can? :update, @group
+  .group-admin-links
+    You're the administrator!
+    %ul.list-inline
       %li= link_to "Edit Group", edit_group_path(@group)
       %li= link_to "Delete Group", group_path(@group), :method => "delete", :confirm => "Are you sure you want to delete the group \"#{@group.name}\"? This cannot be undone."
-%h1 #{@group.name}
+- else
+  %p
+    Administrator:
+    = link_to @group.admin.username, @group.admin, :class => "player-link"
 
 .row
   .col-sm-6
     %h3 Players
     - @group.players.each do |player|
-      .player= link_to(player.username, player)
+      .player= link_to player.username, player, :class => "player-link"
     - if can? :add_player, @group
       = render 'add_player_form'
   .col-sm-6
