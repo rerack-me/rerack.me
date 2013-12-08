@@ -1,17 +1,23 @@
-%h1 Games to Confirm
+%h1 Dashboard
 
-- if @games_to_confirm.any?
-  .games
-    - @games_to_confirm.each do |game|
-      = render partial: "game", object: game
-- else
-  .well
-    You're all done!
+.row
+  .col-sm-6
+    %h3 Games to Confirm
+    %p Please confirm or deny whether these games happened.
 
+    - if @games_to_confirm.any?
+      .games
+        - @games_to_confirm.each do |game|
+          = render partial: "game", object: game
+    - else
+      .well
+        You're all done!
 
-%h1 Pending Games
+  .col-sm-6
+    %h3 Pending Games
+    %p These are games that the losers have not yet confirmed.
 
-- if @pending_games.any? 
-  .games
-    - @pending_games.each do |game|
-      = render partial: "game", object: game
+    - if @pending_games.any? 
+      .games
+        - @pending_games.each do |game|
+          = render partial: "game", object: game
