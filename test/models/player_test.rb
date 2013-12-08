@@ -62,7 +62,7 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal 0.0, players(:a).activity_bonus, "Player A received activity bonus before confirmation"
     g.confirm
     assert g.confirmed?, "game was not confirmed"
-    assert_equal 3.2 players(:a).activity_bonus, players(:a).games.select{|game| game.created_at > 1.month.ago}.select{|game| game.confirmed? == true}.count
+    assert_equal 3.2, players(:a).activity_bonus, players(:a).games.select{|game| game.created_at > 1.month.ago}.select{|game| game.confirmed? == true}.count
 end
 
 
