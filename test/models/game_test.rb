@@ -1,6 +1,17 @@
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
+  def setup
+    g = Group.new name: 'Global'
+    g.admin = players(:a)
+    g.save!
+
+    @a = FactoryGirl.create(:player)
+    @b = FactoryGirl.create(:player)
+    @c = FactoryGirl.create(:player)
+    @d = FactoryGirl.create(:player)
+  end
+
   test "game validation: all users found and users are unique" do
     g = Game.new
     assert !g.save, "Empty game was saved but shouldn't have been able to."
@@ -17,9 +28,7 @@ class GameTest < ActiveSupport::TestCase
     g.loser_usernames = ["calvin", "david"]
     assert g.save, "Game with users set from usernames didn't save."
 
-    g_id = g.id
-
-    g = Game.find(g_id)
+    g = Game.find(g.id)
     assert g.winners.count == 2, 'The winners didnt save!'
     assert g.losers.count == 2, 'The losers didnt save!'
   end
@@ -43,36 +52,50 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "confirmed?" do
-
     g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
-    g.confirmed = true
+    g.winners = [@a, @b]
+    g.losers = [@c, @d]
+    g.confirm
     g.save
 
     assert_equal g.confirmed?, true, "Game did not return as confirmed; g.confirmed? failed."
   end
 
   test "confirm" do
-
     g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
+
+    g.winners << [@a, @b]
+    g.losers << [@c, @d]
     g.save
     g.confirm
 
     assert_equal g.confirmed?, true, "Game did not return as confirmed; g.confirm failed."
   end
 
-  test "transfer points" do
+  test "do not transfer points without confirm" do
     g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
+    g.winners = [@a, @b]
+    g.losers = [@c, @d]
     g.save
-    assert_equal players(:a).points, 1016, "Player A's points did not return as 1016 after first win"
-    assert_equal players(:b).points, 1016, "Player B's points did not return as 1016 after first win"
-    assert_equal players(:c).points, 984, "Player C's points did not return as 984 after first loss"
-    assert_equal players(:d).points, 984, "Player D's points did not return as 984 after first loss"
+
+    assert_equal 1000, @a.points
+    assert_equal 1000, @b.points
+    assert_equal 1000, @c.points 
+    assert_equal 1000, @d.points
+  end
+
+  test "transfer points after confirm" do
+    g = Game.new
+    g.winners = [@a, @b]
+    g.losers = [@c, @d]
+    g.save
+
+    g.confirm
+
+    assert_equal @a.points, 1016, "Player A's points did not return as 1016 after first win"
+    assert_equal @b.points, 1016, "Player B's points did not return as 1016 after first win"
+    assert_equal @c.points, 984, "Player C's points did not return as 984 after first loss"
+    assert_equal @d.points, 984, "Player D's points did not return as 984 after first loss"
   end
 
 end

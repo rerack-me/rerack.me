@@ -1,6 +1,15 @@
 require 'test_helper'
 
 class PlayerTest < ActiveSupport::TestCase
+  def setup
+    g = Group.create name: 'Global'
+
+    @a = FactoryGirl.create(:player)
+    @b = FactoryGirl.create(:player)
+    @c = FactoryGirl.create(:player)
+    @d = FactoryGirl.create(:player)
+  end
+
   test "player validations" do
     p = FactoryGirl.build(:player, email: nil)
     assert !p.save, 'Player was saved without email.'
@@ -108,21 +117,29 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "ranking" do
-    g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
-    g.save!
+    g1 = Game.new
+    g1.winners = [@a, @b]
+    g1.losers = [@c, @d]
+    g1.save!
+    
+    g2 = Game.new
+    g2.winners << [@a, @b] 
+    g2.losers << [@c, @d]
+    g2.save!
 
-    # must have two games for rankings to work
-    g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
-    g.save!
+    assert_equal 1, @a.rank
+    assert_equal 1, @b.rank
+    assert_equal 1, @c.rank
+    assert_equal 1, @d.rank
 
-    assert_equal 1, players(:a).ranking, "player a"
-    assert_equal 1, players(:b).ranking, "player b"
-    assert_equal 3, players(:c).ranking, "player c"
-    assert_equal 3, players(:d).ranking, "player d"
+    g1.confirm
+    g2.confirm
+
+    # ranking updated after confirm
+    assert_equal 1, @a.rank
+    assert_equal 1, @b.rank
+    assert_equal 3, @c.rank
+    assert_equal 3, @d.rank
   end
 
   test "wins" do
@@ -130,10 +147,10 @@ class PlayerTest < ActiveSupport::TestCase
     g.winners = [players(:a), players(:b)]
     g.losers = [players(:c), players(:d)]
     g.save
-    assert_equal players(:a).wins.count, 1, "player a"
-    assert_equal players(:b).wins.count, 1, "player b"
-    assert_equal players(:c).wins.count, 0, "player c"
-    assert_equal players(:d).wins.count, 0, "player d"
+    assert_equal players(:a).wins.count, 1
+    assert_equal players(:b).wins.count, 1
+    assert_equal players(:c).wins.count, 0
+    assert_equal players(:d).wins.count, 0
   end
 
   test "losses" do
@@ -141,10 +158,10 @@ class PlayerTest < ActiveSupport::TestCase
     g.winners = [players(:a), players(:b)]
     g.losers = [players(:c), players(:d)]
     g.save
-    assert_equal players(:a).losses.count, 0, "player a"
-    assert_equal players(:b).losses.count, 0, "player b"
-    assert_equal players(:c).losses.count, 1, "player c"
-    assert_equal players(:d).losses.count, 1, "player d"
+    assert_equal players(:a).losses.count, 0
+    assert_equal players(:b).losses.count, 0
+    assert_equal players(:c).losses.count, 1
+    assert_equal players(:d).losses.count, 1
   end
 
   test "confirmed games" do
