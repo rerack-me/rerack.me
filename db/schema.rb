@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131207054205) do
+ActiveRecord::Schema.define(version: 20131208030201) do
 
   create_table "game_losers", force: true do |t|
     t.integer  "player_id"
@@ -36,9 +36,10 @@ ActiveRecord::Schema.define(version: 20131207054205) do
   create_table "group_players", force: true do |t|
     t.integer  "player_id"
     t.integer  "group_id"
-    t.float    "points",     default: 1000.0
+    t.float    "points",      default: 1000.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "games_count", default: 0
   end
 
   create_table "groups", force: true do |t|

@@ -13,6 +13,14 @@ class Game < ActiveRecord::Base
   def confirm
     self.confirmed=true
     self.transfer_points
+
+    shared_groups = self.winners[0].groups & self.winners[1].groups
+    shared_groups = self.losers[0].groups & self.losers[1].groups & shared_groups
+
+    shared_groups.each do |group|
+      group.transfer_points(self)
+    end
+
     self.save
   end
 
