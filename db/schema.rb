@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20131208183539) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "games_count"
     t.string   "parameterized_username"
     t.float    "activity_bonus"
   end
