@@ -53,6 +53,19 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal "david", players(:d).to_param
   end
 
+  test "activity bonus" do
+    g = Game.new
+    g.winners = [players(:a), players(:b)]
+    g.losers = [players(:c), players(:d)]
+    g.created_at = 5.day.ago 
+    g.save
+    assert_equal players(:a).activity_bonus, 0.0, "Player A received activity bonus before confirmation"
+    g.confirm
+    assert g.confirmed? == true, "game was not confirmed"
+    assert_equal players(:a).activity_bonus, 3.2, players(:a).games.select{|game| game.created_at > 1.month.ago}.select{|game| game.confirmed? == true}.count
+end
+
+
   test "return games" do
     g = Game.new
     g.winners = [players(:a), players(:b)]
