@@ -1,11 +1,18 @@
 %h1 Dashboard
 
-.row
-  .col-sm-6
-    %h3 Recent Games
+%ul.nav.nav-tabs.visible-xs
+  %li.active
+    %a{:href => "#recent_games", :"data-toggle" => "tab"} Recent Games
+  %li
+    %a{:href => "#confirmations", :"data-toggle" => "tab"} Confirmations
+
+.row.tab-content
+  .col-sm-6.tab-pane.active#recent_games
+    %h3.hidden-xs Recent Games
+    %br.visible-xs
     .games
       = render partial: "games/game", collection: @recent_games
-  .col-sm-6
+  .col-sm-6.tab-pane#confirmations
     %h3 Games to Confirm
     %p Please confirm or deny whether these games happened.
     - if @games_to_confirm.any?
