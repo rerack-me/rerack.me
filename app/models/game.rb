@@ -17,7 +17,8 @@ class Game < ActiveRecord::Base
     shared_groups = self.groups_in_common
 
     shared_groups.each do |group|
-      group.transfer_points(self)
+      group.transfer_points self
+      group.games << game
     end
 
     self.save
@@ -33,6 +34,13 @@ class Game < ActiveRecord::Base
  
   validates :winners, length: {is: 2, message: "should have 2 players."}
   validates :losers, length: {is: 2, message: "should have 2 players."}
+
+  ###############################################
+  # GROUPS                                      #
+  ###############################################
+
+  has_many :group_games
+  has_many :groups, through: :group_games, source: 'group'
 
   ###############################################
   # PLAYERS                                     #

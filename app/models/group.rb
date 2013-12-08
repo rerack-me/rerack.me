@@ -7,6 +7,10 @@ class Group < ActiveRecord::Base
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false
 
+  def self.global
+    Group.find_by(name: 'Global')
+  end
+
   ###############################################
   # IMAGES                                      #
   ###############################################
@@ -49,20 +53,8 @@ class Group < ActiveRecord::Base
   # GAMES                                       #
   ###############################################
 
-  def games
-    group_games = Game.all.select {|game| self.game_in_group?(game) and game.confirmed?}
-    return group_games.sort {|a,b| b.created_at <=> a.created_at}
-  end
-
-  def game_in_group?(game)
-    group_winners = game.winners & self.players
-    group_losers = game.losers & self.players
-    if group_winners.count != 2 or group_losers.count != 2
-      false
-    else
-      true
-    end
-  end
+  has_many :group_games
+  has_many :games, through: :group_games, source: 'game'
 
   # transfers points for group players in a game
   def transfer_points(game)
@@ -84,9 +76,5 @@ class Group < ActiveRecord::Base
       loser.games_count += 1
       loser.save
     end
-  end
-
-  def self.global
-    Group.find_by(name: 'Global')
   end
 end
