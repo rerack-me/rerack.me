@@ -75,6 +75,19 @@ class Game < ActiveRecord::Base
     self.losers = Player.where(:username => usernames)
   end
 
+## ELO Point System
+
+## States that a difference of 400 points represents a difference in
+##   skill level of magnitude 2
+## Based on that, team ratings are averaged and percent chances
+##   of winning are determined
+## Max point change per game is 32 points
+## Points are split evenly because we don't take cup statistics
+## More points are not given to a lower ranked teammate
+##   because this would deincentivize players from playing with
+##   low ranked teammamtes
+
+
   def self.point_change(winner_ratings, loser_ratings)
     winners_rating = winner_ratings.sum/winner_ratings.count
     losers_rating = loser_ratings.sum/loser_ratings.count
