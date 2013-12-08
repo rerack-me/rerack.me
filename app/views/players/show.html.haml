@@ -2,7 +2,10 @@
 .row
   .col-sm-6
     - if @shared_groups.any?
-      %h3 Groups you're both in
+      - if @player == current_player
+        %h3 Groups you're in
+      - else
+        %h3 Groups you're both in
       %ul.shared-groups
         - @shared_groups.each do |group|
           %li= link_to group.name, group
