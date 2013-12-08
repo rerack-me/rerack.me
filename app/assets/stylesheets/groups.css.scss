@@ -10,6 +10,7 @@
   }
 }
 
+// don't use tabs on large screens
 @media (min-width: $screen-sm-min) {
   .group-tabs .tab-content > .tab-pane {
     display: block;
