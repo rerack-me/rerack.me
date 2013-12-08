@@ -8,7 +8,8 @@
         %h3 Groups you're both in
       %ul.shared-groups
         - @shared_groups.each do |group|
-          %li= link_to group.name, group
+          %li
+            = render partial: "groups/group", object: group
     %h3 Stats
     %ul.player-stats
       %li #{number_with_precision(@player.points, precision: 0)} Points
