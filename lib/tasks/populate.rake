@@ -21,6 +21,15 @@ namespace :db do
       p.save
     end
 
+    # this way I can generate games for myself automatically
+    p = Player.new
+    p.username = "sashko"
+    p.email = "sashko@mit.edu"
+    p.password = "asdfasdf"
+    p.password_confirmation = "asdfasdf"
+    p.skip_confirmation!
+    p.save
+
     # create groups
     10.times do |n|
       g = Group.new
@@ -30,15 +39,6 @@ namespace :db do
       g.players << players
       g.save
     end
-
-    # this way I can generate games for myself automatically
-    p = Player.new
-    p.username = "sashko"
-    p.email = "sashko@mit.edu"
-    p.password = "asdfasdf"
-    p.password_confirmation = "asdfasdf"
-    p.skip_confirmation!
-    p.save
 
     # create games
     70.times do |n|
