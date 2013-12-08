@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
   # IMAGES                                      #
   ###############################################
 
-  has_attached_file :image, :styles => {:full_width => "1140x200#"}
+  has_attached_file :image, :styles => {:full_width => "1170x200#"}
 
   ###############################################
   # PLAYERS                                     #

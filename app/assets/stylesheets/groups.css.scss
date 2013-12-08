@@ -26,17 +26,22 @@
 
   h1 {
     margin: 0;
-    padding: 20px 0;  
+    padding: 10px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 20px;
+    margin-left: -15px;
+    margin-top: 20px;
+    float: left;
+    background: rgba(0,0,0,0.6);
   }
 
   .group-admin-links {
     float: right;
-    background: #555;
+    background: rgba(0,0,0,0.6);
     padding: 10px;
     margin-right: -15px;
     margin-top: 20px;
-    @include border-left-radius($border-radius-base);
-    border: 1px solid #222;
 
     ul {
       margin-bottom: 0;

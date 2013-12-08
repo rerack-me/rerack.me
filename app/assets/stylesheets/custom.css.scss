@@ -72,7 +72,7 @@ body {
     margin-left: 3px;
   }
 
-  @include box-shadow(0 1px 4px 0 rgba(0,0,0,.1));
+  @include box-shadow(0 0px 3px 0 rgba(0,0,0,.1));
 }
 
 .navbar-text {

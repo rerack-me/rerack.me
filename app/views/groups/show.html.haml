@@ -1,7 +1,7 @@
 - background = @group.image.exists? ? ("url(" + URI.join(request.url, @group.image.url(:full_width)).to_s + ")") : ""
 .group-header-image{:style => "background: #{background}"}
   
-  .group-admin-links
+  .group-admin-links.hidden-xs
     - if can? :update, @group
       You're the administrator!
       %ul.list-inline
