@@ -64,12 +64,26 @@ class Player < ActiveRecord::Base
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
+## activity bonus gives each player 3.2 points for every game played
+## during the last month up to 10 games. This is an incentive for players
+## to player more
+
+  def activity_bonus
+    games_recent = self.games.select {|game| game.created_at > 1.month.ago}
+    confirmed_games_recent = games_recent.select {|game| game.confirmed == true}
+    if confirmed_games_recent.count >= 10
+      return 32
+    else
+      return (confirmed_games_recent.count) * 3.2
+    end
+  end
+
   def points_in(group)
-    self.group_player(group).points
+    self.group_player(group).points + self.activity_bonus
   end
 
   def points
-    self.global_group_player.points
+    self.global_group_player.points + self.activity_bonus
   end
 
   def rank

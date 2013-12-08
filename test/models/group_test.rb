@@ -45,7 +45,7 @@ class GroupTest < ActiveSupport::TestCase
     game.confirm
     game.save!
 
-    assert @a.points_in(g) == 1000.0, 'Player group rating updated'
+    assert @a.points_in(g) == 1003.2, 'Player group rating updated'
   end
 
   test "rankings should be updated if players in group" do
