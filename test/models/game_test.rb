@@ -78,10 +78,10 @@ class GameTest < ActiveSupport::TestCase
     g.losers = [@c, @d]
     g.save
 
-    assert_equal @a.points, 1000.0, "Player A's points transfered before confirmation"
-    assert_equal @b.points, 1000.0, "Player B's points transfered before confirmation"
-    assert_equal @c.points, 1000.0, "Player C's points transfered before confirmation"
-    assert_equal @d.points, 1000.0, "Player D's points transfered before confirmation"
+    assert_equal 1000.0, @a.points, "Player A's points transfered before confirmation"
+    assert_equal 1000.0, @b.points, "Player B's points transfered before confirmation"
+    assert_equal 1000.0, @c.points, "Player C's points transfered before confirmation"
+    assert_equal 1000.0, @d.points, "Player D's points transfered before confirmation"
   end
 
   test "transfer points after confirm" do
@@ -92,10 +92,10 @@ class GameTest < ActiveSupport::TestCase
 
     g.confirm
 
-    assert_equal @a.points, 1019.2, "Player A's points did not return as 1016 after first win"
-    assert_equal @b.points, 1019.2, "Player B's points did not return as 1016 after first win"
-    assert_equal @c.points, 987.2, "Player C's points did not return as 984 after first loss"
-    assert_equal @d.points, 987.2, "Player D's points did not return as 984 after first loss"
+    assert_equal 1019.2 @a.points, "Player A's points did not return as 1019.2 after first win"
+    assert_equal 1019.2 @b.points, "Player B's points did not return as 1019.2 after first win"
+    assert_equal 987.2 @c.points, "Player C's points did not return as 987.2 after first loss"
+    assert_equal 987.2 @d.points, "Player D's points did not return as 987.2 after first loss"
   end
 
 end

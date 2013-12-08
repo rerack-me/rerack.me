@@ -11,6 +11,5 @@ module GamesHelper
     games.select {|g| g.created_at < 1.week.ago}
   end
 
-  def this_month(games)
-  	games.select {|g| g.created_at > 1.month.ago}
+ 
   end
