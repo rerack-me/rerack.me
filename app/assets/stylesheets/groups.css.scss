@@ -1,8 +1,34 @@
-@import "custom";
+@import "includes";
 
-.mini-group {
-  .mini-header-image {
-    
+.group-mini {
+  max-width: 400px;
+  margin-bottom: 10px;
+
+  .group-mini-header {
+    background: image-url("default_bg.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 70px;
+    position: relative;
+
+    a {
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 5px 10px;
+      background: rgba(0,0,0,0.6);
+      text-shadow: 0 0 3px rgba(0,0,0,0.5);
+    }
+  }
+
+  .group-mini-content {
+    border: 1px solid $navbar-default-border;
+    padding: 10px;
   }
 }
 
