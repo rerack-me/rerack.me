@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.accessible_by(current_ability)
+    @player = current_player
   end
 
   def new
