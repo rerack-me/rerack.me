@@ -36,7 +36,7 @@ class Group < ActiveRecord::Base
   end
 
   def ranked_players
-    return group_players.sort {|a,b| b.points <=> a.points }
+    return players.sort {|a,b| b.points_in(self) <=> a.points_in(self) }
   end
 
   ###############################################
@@ -78,5 +78,9 @@ class Group < ActiveRecord::Base
       loser.games_count += 1
       loser.save
     end
+  end
+
+  def self.global
+    Group.find_by(name: 'Global')
   end
 end

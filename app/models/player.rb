@@ -14,6 +14,7 @@ class Player < ActiveRecord::Base
 
   before_save :update_parameterized_username
   before_update :update_parameterized_username
+  after_create :add_to_global
 
   validates_format_of :username, with: /\A[A-Za-z0-9_.\-]+\Z/
 
@@ -36,25 +37,47 @@ class Player < ActiveRecord::Base
   has_many :groups, through: :group_players, source: :group
 
   #return ranking of player based on algorithm
-  def ranking
-    players = Player.where("points > ? AND username != ?", points, self.username)
-    players = players.select { |p| p.is_ranked? }
+  def rank_in(group)
+    group_players = group.group_players.where("points > ?", self.points_in(group))
+    players = group_players.map { |gp| gp.player }
+    # do we want to only look at players ranked in a group?
+    # players = players.select { |p| p.is_ranked_in? group }
     players.count + 1
   end
 
-  def is_ranked?
-    self.games_count >= 2
+  def is_ranked_in?(group)
+    self.group_player(group).games_count >= 2
   end
 
-  def games_in_group(group)
+  def group_player(group)
+    GroupPlayer.find_by(group_id: group.id, player_id: self.id)
+  end
+
+  def global_group_player
+    GroupPlayer.find_by(group_id: Group.global.id, player_id: self.id)
+  end
+
+  def games_in(group)
     group_games = games.select {|game| (game.players - group.players).empty?}
     return group_games.sort {|a,b| b.created_at <=> a.created_at}
   end
 
-  def group_points(group)
-    group.save
-    group_player = GroupPlayer.find_by_player_id_and_group_id(self.id, group.id)
-    group_player.points
+  def points_in(group)
+    self.group_player(group).points
+  end
+
+  def points
+    self.global_group_player.points
+  end
+
+  def rank
+    self.rank_in(Group.global)
+  end
+
+  def add_to_global
+    global = Group.global
+    global.players << self
+    global.save
   end
 
   ###############################################
@@ -76,6 +99,10 @@ class Player < ActiveRecord::Base
 
   def games_count
     return wins.count + losses.count
+  end
+
+  def games_count_in(group)
+    self.group_player(group).games_count
   end
 
   def confirmed_games

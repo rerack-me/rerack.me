@@ -6,9 +6,8 @@
     %th # Games
   - players.each do |player|
     %tr{id: player.username, class: player == current_player ? "highlighted" : ""}
-      %td= player.ranking
+      %td= player.rank_in @group
       %td
         %strong= link_to player.username, player_path(player)
-      %td= number_with_precision(player.points, precision: 0)
-      %td= player.games_count
-
+      %td= number_with_precision(player.points_in(@group), precision: 0)
+      %td= player.games_count_in @group

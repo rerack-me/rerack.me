@@ -1,7 +1,7 @@
 %h1= @player.username
 %ul.player-stats
   %li #{number_with_precision(@player.points, precision: 0)} Points
-  %li Ranked ##{@player.ranking}/#{Player.count}
+  %li Ranked ##{@player.rank}/#{Player.count}
   %li Has played #{pluralize @player.games_count, "game"}
 %h3 Games #{@player.username} has played in
 - if @player.games.any?

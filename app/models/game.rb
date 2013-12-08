@@ -14,8 +14,7 @@ class Game < ActiveRecord::Base
     self.confirmed=true
     self.transfer_points
 
-    shared_groups = self.winners[0].groups & self.winners[1].groups
-    shared_groups = self.losers[0].groups & self.losers[1].groups & shared_groups
+    shared_groups = self.groups_in_common
 
     shared_groups.each do |group|
       group.transfer_points(self)
@@ -71,8 +70,6 @@ class Game < ActiveRecord::Base
     self.losers = Player.where(:username => usernames)
   end
 
-  
-
   def self.point_change(winner_ratings, loser_ratings)
     winners_rating = winner_ratings.sum/winner_ratings.count
     losers_rating = loser_ratings.sum/loser_ratings.count
@@ -104,6 +101,15 @@ class Game < ActiveRecord::Base
     end
 
     @transferred = true
+  end
+
+  def groups_in_common
+    groups = self.winners[0].groups
+    groups = self.winners[1].groups & groups
+    groups = self.losers[0].groups & groups
+    groups = self.losers[1].groups & groups
+    
+    groups
   end
 
   private

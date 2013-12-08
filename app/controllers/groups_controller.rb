@@ -49,7 +49,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_players = @group.ranked_players
+    @players = @group.ranked_players
   end
 
   private
