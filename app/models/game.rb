@@ -12,7 +12,6 @@ class Game < ActiveRecord::Base
   #confirms game
   def confirm
     self.confirmed=true
-    self.transfer_points
 
     self.groups_in_common.each do |group|
       group.transfer_points self
@@ -86,27 +85,6 @@ class Game < ActiveRecord::Base
     expected_winners = q_winners/(q_winners + q_losers)
 
     return 32*(1 - expected_winners)
-  end
-
-  def transfer_points
-    return nil if @transferred
-    
-    winner_ratings = self.winners.map { |winner| winner.points }
-    loser_ratings = self.losers.map { |loser| loser.points }
-
-    point_change = Game.point_change(winner_ratings, loser_ratings)
-
-    self.winners.each do |winner|
-      winner.points += point_change 
-      winner.save
-    end
-
-    self.losers.each do |loser|
-      loser.points -= point_change 
-      loser.save
-    end
-
-    @transferred = true
   end
 
   def groups_in_common
