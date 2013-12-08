@@ -40,7 +40,7 @@ namespace :db do
       g.created_at = Time.now - rand(1..10000).minutes
 
       if rand > 0.25 # make most of the games pre-confirmed
-        g.confirmed = true
+        g.confirm
       end
 
       g.save
