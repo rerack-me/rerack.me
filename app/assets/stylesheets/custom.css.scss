@@ -14,7 +14,7 @@ $brand-danger: #D14C43;
 @import "bootstrap";
 
 body {
-  background: image-url("white_wall_hash.png");
+  background: image-url("debut_light.png");
 }
 
 .alert-flash {
@@ -68,6 +68,9 @@ body {
     border-radius: 2px;    
     margin-left: 3px;
   }
+
+  @include box-shadow(0 1px 4px 0 rgba(0,0,0,.3));
+  border-bottom: none;
 }
 
 .navbar-text {
