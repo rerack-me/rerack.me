@@ -13,12 +13,11 @@
     %h3 Stats
     %ul.player-stats
       %li #{number_with_precision(@player.points, precision: 0)} Points
-      %li Ranked ##{@player.ranking}/#{Player.count}
+      %li Ranked ##{@player.rank}/#{Player.count}
       %li Has played #{pluralize @player.games_count, "game"}
   .col-sm-6
     %h3 Games #{@player.username} has played in
     - if @player.games.any?
-
       .games
         = render partial: "games/game", collection: @player.confirmed_games
 

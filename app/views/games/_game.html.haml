@@ -6,8 +6,8 @@
         = link_to "Confirm Game", confirm_game_path(game), :class => "btn btn-success btn-sm game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "post"
         = link_to "Deny", game_path(game), :class => "btn btn-danger btn-sm game-confirmation-button", :"data-hide" => "#game-#{game.id}", :method => "delete"
   .results
-    = game.winners.map {|player| link_to player.username, player, class: "player-link"}.join(", ").html_safe
+    = game.winners.map {|player| link_to player.username, player, class: "player-link"}.join(" & ").html_safe
     beat
-    = game.losers.map {|player| link_to player.username, player, class: "player-link"}.join(", ").html_safe
+    = game.losers.map {|player| link_to player.username, player, class: "player-link"}.join(" & ").html_safe
   .game-time.local-time
     = game.created_at.to_i
