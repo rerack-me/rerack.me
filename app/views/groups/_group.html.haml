@@ -1,1 +1,6 @@
-= link_to group.name, group
+.group-mini
+  - background = group.image.exists? ? ("url(" + URI.join(request.url, group.image.url(:thumb)).to_s + ")") : ""
+  .group-mini-header{:style => "background: #{background}"}
+    = link_to group.name, group
+  .group-mini-content
+    #{@player.username} is ranked #{@player.rank_in(group)} with #{number_with_precision(@player.points_in(group), precision: 0)} points.
