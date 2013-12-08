@@ -10,7 +10,7 @@
 %body{:class => current_player ? "logged-in" : "logged-out"}
   - if current_player
     .container.body
-      %nav.navbar.navbar-inverse.navbar-fixed-top
+      %nav.navbar.navbar-default.navbar-fixed-top
         .container
           .navbar-header
             %button.navbar-toggle{:type => "button", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse"}
@@ -22,7 +22,9 @@
               = image_tag "logo.svg", :class => "navbar-logo"
               .navbar-brand-text
                 .title rerack.me
-                .subtitle Dashboard
+                .subtitle
+                  %span.glyphicon.glyphicon-home{:style => "margin-right: 2px; font-size: 0.9em; top: 0"}
+                  Dashboard
               
             .visible-xs.pull-right
               = link_to new_game_path, :class => "collapsed-navbar-new-game btn-navbar btn" do
