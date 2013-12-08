@@ -1,5 +1,7 @@
 %h1 Groups You're In
-- @groups.each do |group|
-  .group= link_to(group.name, group)
+%ul.shared-groups.list-unstyled
+  - @groups.each do |group|
+    %li
+    = render partial: "groups/group", object: group
   
 = link_to "New Group", new_group_path, :class => "btn btn-success"
