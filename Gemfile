@@ -76,6 +76,9 @@ gem 'js-routes'
 # gem to handle files
 gem "paperclip"
 
+# for aws image saving
+gem "aws-sdk"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
