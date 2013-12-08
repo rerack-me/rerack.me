@@ -14,9 +14,7 @@ class Game < ActiveRecord::Base
     self.confirmed=true
     self.transfer_points
 
-    shared_groups = self.groups_in_common
-
-    shared_groups.each do |group|
+    self.groups_in_common.each do |group|
       group.transfer_points self
       group.games << game
     end
