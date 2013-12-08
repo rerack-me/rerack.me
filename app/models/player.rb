@@ -40,8 +40,6 @@ class Player < ActiveRecord::Base
   def rank_in(group)
     group_players = group.group_players.where("points > ?", self.points_in(group))
     players = group_players.map { |gp| gp.player }
-    # do we want to only look at players ranked in a group?
-    # players = players.select { |p| p.is_ranked_in? group }
     players.count + 1
   end
 
