@@ -13,7 +13,7 @@
 
   %h1 #{@group.name}
   
-
+%br.visible-xs
 %ul.nav.nav-tabs.visible-xs.group-tabs
   %li.active
     %a{:href => "#players", :"data-toggle" => "tab"} Player Rankings
@@ -21,12 +21,14 @@
     %a{:href => "#games", :"data-toggle" => "tab"} Game Feed
 .row.tab-content
   .col-sm-6.tab-pane.active#players
-    %h3 Players
+    %h3.hidden-xs Players
+    %br.visible-xs
     = render partial: 'players/ranking', locals: { players: @players }
     - if can? :add_player, @group
       = render 'add_player_form'
   .col-sm-6.tab-pane#games
-    %h3 Games
+    %h3.hidden-xs Games
+    %br.visible-xs
     .games
       - @group.games.each do |game|
         = render "games/game", game: game
