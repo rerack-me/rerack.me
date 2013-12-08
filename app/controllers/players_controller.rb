@@ -4,6 +4,7 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
+    @shared_groups = @player.groups.where(current_ability.model_adapter(Group, :show).conditions)
   end
 
   # GET /players
