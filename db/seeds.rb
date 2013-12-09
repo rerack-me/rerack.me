@@ -19,9 +19,11 @@ global.admin = first_player
 unless global.players.include? first_player
   global.players << first_player
 end
+global.save
 
 mit = Group.where(name: "MIT").first_or_initialize
 mit.admin = first_player
 unless mit.players.include? first_player
   mit.players << first_player
 end
+mit.save

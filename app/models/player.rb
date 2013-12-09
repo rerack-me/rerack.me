@@ -15,6 +15,7 @@ class Player < ActiveRecord::Base
   before_save :update_parameterized_username
   before_update :update_parameterized_username
   after_create :add_to_global
+  after_create :add_to_mit
 
   validates_format_of :username, with: /\A[A-Za-z0-9_.\-]+\Z/
 
@@ -83,6 +84,16 @@ class Player < ActiveRecord::Base
     if global
       global.players << self
       global.save
+    end
+  end
+
+  def add_to_mit
+    if self.email.end_with? "@mit.edu", ".mit.edu"
+      mit = Group.find_by_name("MIT")
+      if mit
+        mit.players << self
+        mit.save
+      end
     end
   end
 
