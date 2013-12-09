@@ -61,6 +61,7 @@ class Game < ActiveRecord::Base
     return winners.map {|p| p.username}
   end
 
+  # winner usernames and loser usernames need to both be valid on time of save
   def winner_usernames=(usernames)
     @winner_usernames = usernames
     self.winners = Player.where(:username => usernames)
