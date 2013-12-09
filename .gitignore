@@ -20,3 +20,6 @@
 
 # Ignore uploaded images
 public/system
+
+# ignore test coverage results
+coverage

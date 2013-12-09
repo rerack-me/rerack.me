@@ -15,6 +15,7 @@ class GameTest < ActiveSupport::TestCase
     
     g.losers = [@c, @d]
     assert g.save, "Game with 2 winners and 2 losers didn't save."
+    assert_equal g.players, g.winners + g.losers
   end
 
   test "adding users from usernames" do
@@ -74,5 +75,4 @@ class GameTest < ActiveSupport::TestCase
     assert_equal @c.points, 984, "Player C's points did not return as 984 after first loss"
     assert_equal @d.points, 984, "Player D's points did not return as 984 after first loss"
   end
-
 end
