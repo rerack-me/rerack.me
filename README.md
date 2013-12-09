@@ -23,10 +23,8 @@ overview
 ###How to run locally
 1. Clone repository  
 2. bundle install  
-3. rake db:create
+3. rake db:migrate
 4. rake db:seed
-3. rake db:migrate  
-
 
 contact us
 ----------
