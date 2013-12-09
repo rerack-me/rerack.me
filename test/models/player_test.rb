@@ -70,6 +70,7 @@ class PlayerTest < ActiveSupport::TestCase
 
     p = Player.find_by(username: USERNAMES[0])
     p.username = USERNAMES[1]
+    p.update_parameterized_username
     p.save!
 
     assert p.parameterized_username != PARAMETERIZED_USERNAMES[0],
