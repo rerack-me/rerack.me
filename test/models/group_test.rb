@@ -2,32 +2,28 @@ require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
   def setup
-    g = Group.new name: 'Global'
-    g.save
-
-    @a = FactoryGirl.create(:player)
-    @b = FactoryGirl.create(:player)
-    @c = FactoryGirl.create(:player)
-    @d = FactoryGirl.create(:player)
+    setup_players_and_global
   end
 
-  test "add_player_by_username" do
-    gr=Group.new
-    gr.add_player_by_username("alice")
-    assert  gr.players[0].username == "alice", "gr.add_player_by_username failed. did not add alice to the group"
-    assert !gr.add_player_by_username("alice"), "gr.add_player_by_username failed. Player was added twice to the group"
-    assert !gr.add_player_by_username("eunice"), "gr.add_player_by_username failed. Invalid player was added to the group"
+  test "add player to group by username" do
+    gr = FactoryGirl.create(:group)
+
+    gr.add_player_by_username(@a.username)
+    assert  gr.players.include? @a
+
+    assert !gr.add_player_by_username(@a.username), 'added duplicate username'
+    assert !gr.add_player_by_username('not a username'), 'added non-existant user'
   end
 
-  test "player_usernames" do
-    gr = Group.new
-    gr.add_player_by_username("alice")
-    gr.add_player_by_username("bob")
-    assert gr.player_usernames == ["alice", "bob"], "gr.player_usernames failed. did not return proper usernames alice and bob"
-    gr.add_player_by_username("calvin")
-    assert gr.player_usernames == ["alice", "bob", "calvin"], "gr.player_usernames failed. did not return proper usernames alice and bob and calvin"
-    gr.add_player_by_username("eunice")
-    assert gr.player_usernames == ["alice", "bob", "calvin"], "gr.player_usernames failed. did not return proper usernames alice and bob and calvin after adding fake player eunice"
+  test "player usernames for group" do
+    gr = FactoryGirl.create(:group)
+
+    gr.add_player_by_username(@a.username)
+    gr.add_player_by_username(@b.username)
+    assert_equal [@a.username, @b.username], gr.player_usernames
+
+    gr.add_player_by_username("not a username")
+    assert_equal [@a.username, @b.username], gr.player_usernames
   end
 
   test "rankings not updated if players not in group" do
