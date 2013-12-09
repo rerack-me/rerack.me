@@ -5,21 +5,21 @@ $(document).on "ready page:load", ->
     valueKey: "username"
     ttl: 0
 
-reloadNotificationCount = ->
-  updateNotificationCount = (data) ->
-    $(".notification-count").text(data.count)
-    if data.count == 0
-      $(".game-confirmations").fadeOut()
-    else
-      $(".game-confirmations").fadeIn()
+  reloadNotificationCount = ->
+    updateNotificationCount = (data) ->
+      $(".notification-count").text(data.count)
+      if data.count == 0
+        $(".game-confirmations").fadeOut()
+      else
+        $(".game-confirmations").fadeIn()
 
-  confirmations_url = Routes.confirmations_games_path({format: "json"})
-  $.get confirmations_url, updateNotificationCount
+    confirmations_url = Routes.confirmations_games_path({format: "json"})
+    $.get confirmations_url, updateNotificationCount
 
-setInterval reloadNotificationCount, 5000
+  if $(".notification-count").length > 0
+    setInterval reloadNotificationCount, 5000
 
-# make game confirmation buttons on games AJAXy
-$(document).on "ready page:load", ->
+  # make game confirmation buttons on games AJAXy
   $(".game-confirmation-button").each (index, el) ->
     $el = $(el)
 
