@@ -20,13 +20,15 @@ class Player < ActiveRecord::Base
 
   def update_parameterized_username
     self.parameterized_username = self.username.parameterize
+    self.parameterized_username
   end
 
   def to_param
     self.parameterized_username
   end
 
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true, case_sensitive: false
+  validates :parameterized_username, uniqueness: true, case_sensitive: false
 
   ###############################################
   # GROUPS                                      #
