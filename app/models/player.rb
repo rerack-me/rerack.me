@@ -41,7 +41,7 @@ class Player < ActiveRecord::Base
 
   #return ranking of player based on algorithm
   def rank_in(group)
-    group_players = group.group_players.where("points > ?", self.points_in(group))
+    group_players = group.group_players.where("points > ? and player_id != ?", self.points_in(group), self.id)
     players = group_players.map { |gp| gp.player }
     players.count + 1
   end
