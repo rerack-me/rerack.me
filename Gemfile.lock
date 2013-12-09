@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
-  revision: efab96f854dc8b08d46297b9af313fbe815124ac
+  revision: 2d18c2ad0eeafe5b4909fe68637ff5be3fe3bace
   specs:
-    bootstrap-sass (3.0.2.1)
+    bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
 
 GEM
@@ -34,10 +34,17 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.1)
     atomic (1.1.14)
+    aws-sdk (1.29.1)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     cancan (1.6.10)
-    cocaine (0.4.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -46,7 +53,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     daemons (1.1.9)
-    devise (3.2.1)
+    devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -63,11 +70,11 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
-    haml (4.0.1)
+    haml (4.0.4)
       tilt
     hike (1.2.3)
-    i18n (0.6.5)
-    jbuilder (1.5.2)
+    i18n (0.6.9)
+    jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
     jquery-rails (3.0.4)
@@ -79,15 +86,17 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.25)
+    mime-types (1.25.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
-    paperclip (3.4.0)
+    paperclip (3.5.2)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
+      cocaine (~> 0.5.3)
       mime-types
     pg (0.17.0)
     polyglot (0.3.3)
@@ -149,19 +158,20 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.3.1)
+    turbolinks (2.0.0)
       coffee-rails
     twitter-typeahead-rails (0.9.3)
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
     tzinfo (0.3.38)
-    uglifier (2.3.1)
+    uglifier (2.3.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
-    will_paginate (3.0.4)
+    will_paginate (3.0.5)
     will_paginate-bootstrap (1.0.0)
       will_paginate (>= 3.0.3)
 
@@ -169,6 +179,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   bootstrap-sass!
   cancan
   coffee-rails (~> 4.0.0)
