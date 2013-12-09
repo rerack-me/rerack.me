@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_filter :set_group, only: [:show, :update, :edit, :add_player]
+  before_filter :set_group, only: [:show, :update, :edit, :add_player, :destroy]
   authorize_resource
 
   def index
@@ -51,6 +51,16 @@ class GroupsController < ApplicationController
 
   def show
     @players = @group.ranked_players
+  end
+
+  # DELETE /groups/1
+  # DELETE /groups/1.json
+  def destroy
+    @group.destroy
+    respond_to do |format|
+      format.html { redirect_to :root }
+      format.json { head :no_content }
+    end
   end
 
   private
