@@ -58,6 +58,7 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal 'a-b', p.parameterized_username
 
     p = FactoryGirl.build(:player, username: 'a-b')
+    p.update_parameterized_username
     assert !p.save, 'Saved with duplicate parameterized username'
   end
 
@@ -70,7 +71,6 @@ class PlayerTest < ActiveSupport::TestCase
 
     p = Player.find_by(username: USERNAMES[0])
     p.username = USERNAMES[1]
-    p.update_parameterized_username
     p.save!
 
     assert p.parameterized_username != PARAMETERIZED_USERNAMES[0],
