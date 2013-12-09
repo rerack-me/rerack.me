@@ -16,14 +16,14 @@ rerack.me allows pong players to create an account and track their pong history.
 
 On Heroku: 
 
-1.) Go to rerack.me
-2.) Sign-in/up for the website
+1.) Go to rerack.me  
+2.) Sign-in/up for the website  
 3.) Let your Pong legacy live on forever
 
-Running Locally: (under the assumption you have rails installed and working)
-1.) Clone repository
-2.) bundle install
-3.) rake db:migrate
+Running Locally: (under the assumption you have rails installed and working)  
+1.) Clone repository  
+2.) bundle install  
+3.) rake db:migrate  
 4.) "put how to seed the database cause i dont know how to"
 
 
