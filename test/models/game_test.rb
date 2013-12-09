@@ -2,26 +2,21 @@ require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
   def setup
-    g = Group.new name: 'Global'
-    g.admin = players(:a)
-    g.save!
-
-    @a = FactoryGirl.create(:player)
-    @b = FactoryGirl.create(:player)
-    @c = FactoryGirl.create(:player)
-    @d = FactoryGirl.create(:player)
+    setup_players_and_global
   end
 
   test "game validation: all users found and users are unique" do
     g = Game.new
     assert !g.save, "Empty game was saved but shouldn't have been able to."
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:a), players(:b)]
+    
+    g.winners = [@a, @b]
+    g.losers = [@b, @d]
     assert !g.save, "Game was saved with duplicate users."
-    g.losers = [players(:c), players(:d)]
+    
+    g.losers = [@c, @d]
     assert g.save, "Game with 2 winners and 2 losers didn't save."
   end
-  
+
   test "adding users from usernames" do
     g = Game.new
     g.winner_usernames = ["alice", "bob"]
@@ -29,39 +24,21 @@ class GameTest < ActiveSupport::TestCase
     assert g.save, "Game with users set from usernames didn't save."
 
     g = Game.find(g.id)
-    assert g.winners.count == 2, 'The winners didnt save!'
-    assert g.losers.count == 2, 'The losers didnt save!'
+    assert_equal 2, g.winners.count
+    assert_equal 2, g.losers.count
   end
 
-  test "winner_usernames" do
-    g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
-    g.save
-
-    assert g.winner_usernames == ["alice", "bob"], "Game did not return winner usernames to be alice and bob"
-  end
-
-  test "loser usernames" do
-    g = Game.new
-    g.winners = [players(:a), players(:b)]
-    g.losers = [players(:c), players(:d)]
-    g.save
-
-    assert g.loser_usernames == ["calvin", "david"], "Game did not return loser usernames to be calvin and david"
-  end
-
-  test "confirmed?" do
+  test "winner and loser usernames" do
     g = Game.new
     g.winners = [@a, @b]
     g.losers = [@c, @d]
-    g.confirm
     g.save
 
-    assert_equal g.confirmed?, true, "Game did not return as confirmed; g.confirmed? failed."
+    assert_equal ["alice", "bob"], g.winner_usernames
+    assert_equal ["calvin", "david"], g.loser_usernames
   end
 
-  test "confirm" do
+  test "confirm game" do
     g = Game.new
 
     g.winners << [@a, @b]
@@ -69,7 +46,7 @@ class GameTest < ActiveSupport::TestCase
     g.save
     g.confirm
 
-    assert_equal g.confirmed?, true, "Game did not return as confirmed; g.confirm failed."
+    assert g.confirmed?
   end
 
   test "do not transfer points without confirm" do
