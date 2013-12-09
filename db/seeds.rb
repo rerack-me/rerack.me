@@ -6,12 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-first_player = Player.new(username: 'admin', 
-                              password: 'passpass', 
-                              password_confirmation: 'passpass', 
-                              email: 'admin@rerack.com')
+first_player = Player.where(username: 'admin').first_or_initialize
+first_player.password = 'passpass'
+first_player.password_confirmation = 'passpass'
+first_player.email = 'admin@rerack.me'
 first_player.skip_confirmation!
+first_player.skip_reconfirmation!
 first_player.save!
-global = Group.create(name: 'Global', admin: first_player)
 
-global.players << first_player
+global = Group.where(name: 'Global').first_or_initialize
+global.admin = first_player
+unless global.players.include? first_player
+  global.players << first_player
+end
+
+mit = Group.where(name: "MIT").first_or_initialize
+mit.admin = first_player
+unless mit.players.include? first_player
+  mit.players << first_player
+end
