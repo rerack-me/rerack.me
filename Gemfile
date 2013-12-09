@@ -18,6 +18,7 @@ gem 'devise'
 
 # for testing
 gem 'factory_girl_rails'
+gem 'simplecov', :require => false, :group => :test
 
 # pagination
 gem 'will_paginate'
