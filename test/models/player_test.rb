@@ -53,7 +53,8 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "parameterized username uniqueness" do
-    p = FactoryGirl.create(:player, username: 'a.b')
+    p = FactoryGirl.build(:player, username: 'a.b')
+    assert p.save
     assert_equal 'a-b', p.parameterized_username
 
     p = FactoryGirl.build(:player, username: 'a-b')
@@ -93,8 +94,9 @@ class PlayerTest < ActiveSupport::TestCase
     # ranking updated after confirm
     assert_equal 1, @a.rank
     assert_equal 1, @b.rank
-    assert_equal 3, @c.rank
-    assert_equal 3, @d.rank
+    assert_equal 3, @e.rank
+    assert_equal 4, @c.rank
+    assert_equal 4, @d.rank
   end
 
   test "count wins and losses" do
